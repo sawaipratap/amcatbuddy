@@ -61,7 +61,7 @@ export async function Header() {
                         </>
                     ) : (
                         <Link href="/login" className="btn btn-primary btn-sm">
-                            Start Free
+                            Login
                         </Link>
                     )}
                 </div>
