@@ -85,8 +85,6 @@ async function main() {
                 email: "admin@amcatbuddy.dev",
                 username: "amcatbuddy_admin",
                 name: "AMCATBuddy Admin",
-                rating: 2500,
-                maxRating: 2500,
                 isAdmin: true,
             },
         });

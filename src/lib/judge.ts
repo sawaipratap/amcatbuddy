@@ -183,11 +183,17 @@ export async function submitToJudge(
             },
         });
 
-        // If accepted, update user stats
+        // If accepted, update user stats and rating
         if (finalVerdict === "ACCEPTED") {
             const submission = await prisma.submission.findUnique({
                 where: { id: submissionId },
-                select: { userId: true, problemId: true },
+                select: {
+                    userId: true,
+                    problemId: true,
+                    problem: {
+                        select: { difficulty: true }
+                    }
+                },
             });
 
             if (submission) {
@@ -202,10 +208,32 @@ export async function submitToJudge(
                 });
 
                 if (!previousAC) {
+                    // Update problems solved count
                     await prisma.user.update({
                         where: { id: submission.userId },
                         data: { problemsSolved: { increment: 1 } },
                     });
+
+                    // Update rating using LeetCode-style algorithm
+                    try {
+                        const { updateRatingForSubmission } = await import("./rating-service");
+                        const ratingUpdate = await updateRatingForSubmission(
+                            submission.userId,
+                            submission.problemId,
+                            submission.problem.difficulty
+                        );
+
+                        if (ratingUpdate) {
+                            console.log(
+                                `Rating updated for user ${submission.userId}: ` +
+                                `${ratingUpdate.oldRating} → ${ratingUpdate.newRating} ` +
+                                `(${ratingUpdate.delta > 0 ? '+' : ''}${ratingUpdate.delta})`
+                            );
+                        }
+                    } catch (error) {
+                        console.error("Error updating rating:", error);
+                        // Don't fail the submission if rating update fails
+                    }
                 }
             }
         }

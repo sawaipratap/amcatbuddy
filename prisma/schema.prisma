@@ -52,8 +52,8 @@ model User {
   name          String?
   image         String?
   emailVerified DateTime?
-  rating        Int       @default(1500)
-  maxRating     Int       @default(1500)
+  rating        Int       @default(0)
+  maxRating     Int       @default(0)
   problemsSolved Int      @default(0)
   isAdmin       Boolean   @default(false)
   createdAt     DateTime  @default(now())

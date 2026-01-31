@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
+import { getRatingColor, getRatingTitle } from "@/lib/rating-service";
 import styles from "./leaderboard.module.css";
 
 export const revalidate = 300; // Revalidate every 5 minutes
@@ -18,25 +19,7 @@ interface LeaderboardUser {
     problemsSolved: number;
 }
 
-function getRatingColor(rating: number): string {
-    if (rating >= 2400) return "var(--color-rating-grandmaster)";
-    if (rating >= 2100) return "var(--color-rating-master)";
-    if (rating >= 1900) return "var(--color-rating-candidate-master)";
-    if (rating >= 1600) return "var(--color-rating-expert)";
-    if (rating >= 1400) return "var(--color-rating-specialist)";
-    if (rating >= 1200) return "var(--color-rating-pupil)";
-    return "var(--color-rating-newbie)";
-}
 
-function getRatingTitle(rating: number): string {
-    if (rating >= 2400) return "Grandmaster";
-    if (rating >= 2100) return "Master";
-    if (rating >= 1900) return "Candidate Master";
-    if (rating >= 1600) return "Expert";
-    if (rating >= 1400) return "Specialist";
-    if (rating >= 1200) return "Pupil";
-    return "Newbie";
-}
 
 export default async function LeaderboardPage({
     searchParams,
