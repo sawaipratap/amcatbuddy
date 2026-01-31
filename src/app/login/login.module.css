@@ -110,33 +110,33 @@
     flex-shrink: 0;
 }
 
-/* Google Button */
-.oauthButton:first-child {
+/* Google Button - White background */
+.oauthButton:nth-child(1) {
     background: rgba(255, 255, 255, 0.9);
 }
 
-.oauthButton:first-child:hover {
+.oauthButton:nth-child(1):hover {
     background: rgba(255, 255, 255, 1);
 }
 
-/* GitHub Button */
-.oauthButton:last-child {
+/* GitHub Button - Dark background */
+.oauthButton:nth-child(3) {
     background: rgba(15, 23, 42, 0.9);
     color: #ffffff;
     border-color: rgba(255, 255, 255, 0.1);
 }
 
-.oauthButton:last-child:hover {
+.oauthButton:nth-child(3):hover {
     background: rgba(15, 23, 42, 1);
 }
 
 @media (prefers-color-scheme: dark) {
-    .oauthButton:first-child {
+    .oauthButton:nth-child(1) {
         background: rgba(255, 255, 255, 0.1);
         color: #ffffff;
     }
 
-    .oauthButton:first-child:hover {
+    .oauthButton:nth-child(1):hover {
         background: rgba(255, 255, 255, 0.15);
     }
 }
