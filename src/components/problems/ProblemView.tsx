@@ -83,7 +83,7 @@ export function ProblemView({
     const [code, setCode] = useState(getDefaultCode("CPP"));
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isRunning, setIsRunning] = useState(false);
-    const [result, setResult] = useState<{ verdict: string; message?: string; details?: Array<{ testCase: number; status: string; input?: string; expectedOutput?: string; actualOutput?: string }> } | null>(null);
+    const [result, setResult] = useState<{ verdict: string; message?: string; passed?: number; total?: number; details?: Array<{ testCase: number; status: string; input?: string; expectedOutput?: string; actualOutput?: string }> } | null>(null);
 
     const config = difficultyConfig[problem.difficulty as keyof typeof difficultyConfig];
 
@@ -207,6 +207,8 @@ fn main() {
                 setResult({
                     verdict: data.verdict,
                     message: data.message,
+                    passed: data.passed,
+                    total: data.total,
                 });
                 setIsSubmitting(false);
                 return;
@@ -234,11 +236,16 @@ fn main() {
                 const data = await response.json();
 
                 if (data.verdict !== "PENDING" && data.verdict !== "RUNNING") {
+                    const testInfo = data.testsPassed !== undefined && data.totalTests !== undefined
+                        ? ` (${data.testsPassed}/${data.totalTests} test cases passed)`
+                        : "";
                     setResult({
                         verdict: data.verdict,
+                        passed: data.testsPassed,
+                        total: data.totalTests,
                         message: data.verdict === "ACCEPTED"
-                            ? `Accepted! Time: ${data.executionTime}ms, Memory: ${Math.round(data.memoryUsed / 1024)}MB`
-                            : data.errorMessage || getVerdictMessage(data.verdict),
+                            ? `All ${data.totalTests} test cases passed! Time: ${data.executionTime}ms, Memory: ${Math.round(data.memoryUsed / 1024)}MB`
+                            : `${data.testsPassed}/${data.totalTests} test cases passed. ${data.errorMessage || getVerdictMessage(data.verdict)}`,
                     });
                     setIsSubmitting(false);
                 } else if (attempts < maxAttempts) {
@@ -470,6 +477,11 @@ fn main() {
                             <span className={`badge ${getVerdictClass(result.verdict as Verdict)}`}>
                                 {result.verdict.replace("_", " ")}
                             </span>
+                            {result.passed !== undefined && result.total !== undefined && (
+                                <span className={styles.testCaseCount}>
+                                    {result.passed}/{result.total} test cases
+                                </span>
+                            )}
                         </div>
                         {result.message && (
                             <p className={styles.resultMessage}>{result.message}</p>

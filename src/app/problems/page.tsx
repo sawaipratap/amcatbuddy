@@ -2,15 +2,32 @@ import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { Difficulty } from "@prisma/client";
 import styles from "./problems.module.css";
+import { getCached, CACHE_TTL } from "@/lib/cache";
 
-// Revalidate every 60 seconds
-export const revalidate = 60;
+// Revalidate every 5 minutes (problems don't change frequently)
+export const revalidate = 300;
 
 interface SearchParams {
     difficulty?: string;
     tag?: string;
     search?: string;
     page?: string;
+}
+
+// Cache tags - they rarely change
+type CachedTag = { name: string; slug: string; color: string };
+
+async function getTags(): Promise<CachedTag[]> {
+    return getCached<CachedTag[]>(
+        'tags:all',
+        async () => {
+            return prisma.tag.findMany({
+                select: { name: true, slug: true, color: true },
+                orderBy: { name: "asc" },
+            });
+        },
+        CACHE_TTL.TAGS
+    );
 }
 
 async function getProblems(searchParams: SearchParams) {
@@ -61,10 +78,7 @@ async function getProblems(searchParams: SearchParams) {
             take: pageSize,
         }),
         prisma.problem.count({ where }),
-        prisma.tag.findMany({
-            select: { name: true, slug: true, color: true },
-            orderBy: { name: "asc" },
-        }),
+        getTags(), // Now cached!
     ]);
 
     return {
