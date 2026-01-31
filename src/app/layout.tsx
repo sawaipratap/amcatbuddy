@@ -10,6 +10,15 @@ export const metadata: Metadata = {
   },
   description: "Practice real AMCAT Automata coding patterns, take mock tests, and prepare to ace your AMCAT assessment. Join thousands preparing for their dream jobs.",
   keywords: ["AMCAT preparation", "AMCAT Automata", "AMCAT coding practice", "AMCAT mock test", "job placement", "coding assessment"],
+  icons: {
+    icon: "/logo.png",
+    apple: "/logo.png",
+  },
+  openGraph: {
+    title: "AMCATBuddy - Ace AMCAT Automata",
+    description: "Practice real AMCAT Automata coding patterns and prepare for your dream job.",
+    images: ["/logo.png"],
+  },
 };
 
 export default function RootLayout({

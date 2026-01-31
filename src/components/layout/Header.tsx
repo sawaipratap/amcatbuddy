@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { auth, signOut } from "@/lib/auth";
 import styles from "./Header.module.css";
 
@@ -10,12 +11,13 @@ export async function Header() {
             <div className={styles.container}>
                 {/* Logo */}
                 <Link href="/" className={styles.logo}>
-                    <div className={styles.logoIcon}>
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                            <circle cx="12" cy="12" r="10" />
-                            <path d="M12 8v4l3 3" />
-                        </svg>
-                    </div>
+                    <Image
+                        src="/logo.png"
+                        alt="AMCATBuddy"
+                        width={36}
+                        height={36}
+                        className={styles.logoImage}
+                    />
                     <span className={styles.logoText}>AMCAT<span className={styles.logoBuddy}>Buddy</span></span>
                 </Link>
 

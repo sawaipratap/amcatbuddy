@@ -3,6 +3,7 @@
 import { signIn } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
+import Image from "next/image";
 import styles from "./login.module.css";
 
 function LoginContent() {
@@ -19,12 +20,13 @@ function LoginContent() {
             <div className={styles.card}>
                 {/* Header */}
                 <div className={styles.header}>
-                    <div className={styles.logoIcon}>
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                            <circle cx="12" cy="12" r="10" />
-                            <path d="M12 8v4l3 3" />
-                        </svg>
-                    </div>
+                    <Image
+                        src="/logo.png"
+                        alt="AMCATBuddy"
+                        width={64}
+                        height={64}
+                        className={styles.logoImage}
+                    />
                     <h1 className={styles.title}>Welcome to AMCATBuddy</h1>
                     <p className={styles.subtitle}>
                         Sign in to practice AMCAT Automata and track your progress toward your dream job.

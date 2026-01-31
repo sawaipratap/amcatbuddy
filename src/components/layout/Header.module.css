@@ -45,6 +45,11 @@
     box-shadow: 0 4px 16px var(--color-primary-glow);
 }
 
+.logoImage {
+    border-radius: var(--radius-md);
+    box-shadow: 0 2px 8px var(--color-primary-glow);
+}
+
 .logoText {
     font-weight: var(--font-weight-extrabold);
     color: var(--color-text-primary);

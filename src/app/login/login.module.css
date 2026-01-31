@@ -36,6 +36,12 @@
     box-shadow: 0 8px 24px var(--color-primary-glow);
 }
 
+.logoImage {
+    margin: 0 auto var(--space-5);
+    border-radius: var(--radius-xl);
+    box-shadow: 0 8px 24px var(--color-primary-glow);
+}
+
 .title {
     font-size: var(--font-size-2xl);
     font-weight: var(--font-weight-bold);

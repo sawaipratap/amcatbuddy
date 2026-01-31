@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="public/logo.svg" alt="AMCATBuddy Logo" width="120" height="120" />
+  <img src="public/logo.png" alt="AMCATBuddy Logo" width="120" height="120" />
 </p>
 
 <h1 align="center">AMCATBuddy</h1>
