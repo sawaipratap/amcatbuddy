@@ -38,7 +38,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                     },
                 })
                 if (dbUser) {
-                    session.user.username = dbUser.username
+                    session.user.username = dbUser.username ?? undefined
                     session.user.rating = dbUser.rating
                     session.user.isAdmin = dbUser.isAdmin
                     session.user.problemsSolved = dbUser.problemsSolved

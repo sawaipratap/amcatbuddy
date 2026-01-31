@@ -10,7 +10,7 @@ interface SearchParams {
 
 interface LeaderboardUser {
     id: string;
-    username: string;
+    username: string | null;
     name: string | null;
     image: string | null;
     rating: number;
@@ -130,17 +130,17 @@ export default async function LeaderboardPage({
                                         </span>
                                     </td>
                                     <td className={styles.colUser}>
-                                        <Link href={`/profile/${user.username}`} className={styles.userLink}>
+                                        <Link href={`/profile/${user.username || user.id}`} className={styles.userLink}>
                                             {user.image ? (
                                                 <img src={user.image} alt="" className="avatar avatar-sm" />
                                             ) : (
                                                 <div className={`avatar avatar-sm ${styles.avatarPlaceholder}`}>
-                                                    {user.name?.[0] || user.username[0]}
+                                                    {user.name?.[0] || user.username?.[0] || '?'}
                                                 </div>
                                             )}
                                             <div className={styles.userInfo}>
                                                 <span className={styles.userName} style={{ color: ratingColor }}>
-                                                    {user.username}
+                                                    {user.username || user.name || 'User'}
                                                 </span>
                                                 <span className={styles.userTitle}>{title}</span>
                                             </div>

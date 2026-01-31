@@ -127,17 +127,17 @@ export default async function ProfilePage({ params }: PageProps) {
             <div className={styles.header}>
                 <div className={styles.avatarSection}>
                     {user.image ? (
-                        <img src={user.image} alt={user.username} className={styles.avatar} />
+                        <img src={user.image} alt={user.username || user.name || 'User'} className={styles.avatar} />
                     ) : (
                         <div className={styles.avatarPlaceholder}>
-                            {user.name?.[0] || user.username[0]}
+                            {user.name?.[0] || user.username?.[0] || '?'}
                         </div>
                     )}
                 </div>
 
                 <div className={styles.userInfo}>
                     <h1 className={styles.username} style={{ color: ratingColor }}>
-                        {user.username}
+                        {user.username || user.name || 'User'}
                     </h1>
                     {user.name && <p className={styles.name}>{user.name}</p>}
                     <p className={styles.title} style={{ color: ratingColor }}>

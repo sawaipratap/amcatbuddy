@@ -30,7 +30,7 @@ type CachedProblem = {
     hint: string | null;
     editorial: string | null;
     tags: { tag: { name: string; slug: string; color: string } }[];
-    author: { username: string; name: string | null; image: string | null };
+    author: { username: string | null; name: string | null; image: string | null };
     testCases: { input: string; expectedOutput: string; order: number }[];
     _count: { submissions: number };
 };
