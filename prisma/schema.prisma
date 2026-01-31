@@ -1,0 +1,350 @@
+// CodeArena - Competitive Programming Platform
+// Database Schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================
+// ENUMS
+// ============================================
+
+enum Difficulty {
+  EASY
+  MEDIUM
+  HARD
+  EXPERT
+}
+
+enum Verdict {
+  PENDING
+  RUNNING
+  ACCEPTED
+  WRONG_ANSWER
+  TIME_LIMIT
+  MEMORY_LIMIT
+  RUNTIME_ERROR
+  COMPILE_ERROR
+}
+
+enum Language {
+  CPP
+  PYTHON
+  JAVA
+  JAVASCRIPT
+  GO
+  RUST
+}
+
+// ============================================
+// USER & AUTH MODELS
+// ============================================
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  username      String    @unique
+  name          String?
+  image         String?
+  emailVerified DateTime?
+  rating        Int       @default(1500)
+  maxRating     Int       @default(1500)
+  problemsSolved Int      @default(0)
+  isAdmin       Boolean   @default(false)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  // Auth relations
+  accounts Account[]
+  sessions Session[]
+
+  // Application relations
+  submissions          Submission[]
+  contestParticipations ContestParticipation[]
+  ratings              Rating[]
+  discussions          Discussion[]
+  comments             Comment[]
+  problemsCreated      Problem[]              @relation("ProblemAuthor")
+  
+  // Social relations
+  following UserFollow[] @relation("Following")
+  followers UserFollow[] @relation("Followers")
+
+  @@index([rating])
+  @@index([problemsSolved])
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@index([userId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+// ============================================
+// PROBLEM MODELS
+// ============================================
+
+model Problem {
+  id           String     @id @default(cuid())
+  title        String
+  slug         String     @unique
+  statement    String     @db.Text
+  inputFormat  String     @db.Text
+  outputFormat String     @db.Text
+  constraints  String     @db.Text
+  difficulty   Difficulty
+  timeLimit    Int        @default(1000) // in milliseconds
+  memoryLimit  Int        @default(256)  // in MB
+  isPublic     Boolean    @default(false)
+  sampleInput  String     @db.Text
+  sampleOutput String     @db.Text
+  hint         String?    @db.Text
+  editorial    String?    @db.Text
+  authorId     String
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+
+  // Relations
+  author           User             @relation("ProblemAuthor", fields: [authorId], references: [id])
+  testCases        TestCase[]
+  submissions      Submission[]
+  tags             ProblemTag[]
+  contestProblems  ContestProblem[]
+  discussions      Discussion[]
+
+  @@index([difficulty])
+  @@index([isPublic])
+  @@index([authorId])
+}
+
+model TestCase {
+  id             String  @id @default(cuid())
+  problemId      String
+  input          String  @db.Text
+  expectedOutput String  @db.Text
+  isSample       Boolean @default(false)
+  order          Int     @default(0)
+
+  problem Problem @relation(fields: [problemId], references: [id], onDelete: Cascade)
+
+  @@index([problemId])
+}
+
+model Tag {
+  id       String       @id @default(cuid())
+  name     String       @unique
+  slug     String       @unique
+  color    String       @default("#6366f1")
+  problems ProblemTag[]
+}
+
+model ProblemTag {
+  problemId String
+  tagId     String
+
+  problem Problem @relation(fields: [problemId], references: [id], onDelete: Cascade)
+  tag     Tag     @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@id([problemId, tagId])
+}
+
+// ============================================
+// SUBMISSION MODELS
+// ============================================
+
+model Submission {
+  id            String   @id @default(cuid())
+  userId        String
+  problemId     String
+  contestId     String?
+  code          String   @db.Text
+  language      Language
+  verdict       Verdict  @default(PENDING)
+  executionTime Int?     // in milliseconds
+  memoryUsed    Int?     // in KB
+  testsPassed   Int      @default(0)
+  totalTests    Int      @default(0)
+  judgeToken    String?  // Judge0 submission token
+  errorMessage  String?  @db.Text
+  submittedAt   DateTime @default(now())
+
+  // Relations
+  user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  problem Problem  @relation(fields: [problemId], references: [id], onDelete: Cascade)
+  contest Contest? @relation(fields: [contestId], references: [id])
+
+  @@index([userId])
+  @@index([problemId])
+  @@index([contestId])
+  @@index([verdict])
+  @@index([submittedAt])
+}
+
+// ============================================
+// CONTEST MODELS
+// ============================================
+
+model Contest {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  description String   @db.Text
+  rules       String?  @db.Text
+  startTime   DateTime
+  endTime     DateTime
+  isRated     Boolean  @default(true)
+  isPublic    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  problems       ContestProblem[]
+  participations ContestParticipation[]
+  submissions    Submission[]
+  ratings        Rating[]
+
+  @@index([startTime])
+  @@index([isPublic])
+}
+
+model ContestProblem {
+  id        String @id @default(cuid())
+  contestId String
+  problemId String
+  points    Int    @default(100)
+  order     Int    @default(0)
+  label     String // A, B, C, D, etc.
+
+  contest Contest @relation(fields: [contestId], references: [id], onDelete: Cascade)
+  problem Problem @relation(fields: [problemId], references: [id], onDelete: Cascade)
+
+  @@unique([contestId, problemId])
+  @@unique([contestId, label])
+}
+
+model ContestParticipation {
+  id           String   @id @default(cuid())
+  userId       String
+  contestId    String
+  score        Int      @default(0)
+  penalty      Int      @default(0) // penalty time in minutes
+  rank         Int?
+  registeredAt DateTime @default(now())
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  contest Contest @relation(fields: [contestId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, contestId])
+  @@index([contestId, score])
+}
+
+model Rating {
+  id           String   @id @default(cuid())
+  userId       String
+  contestId    String
+  oldRating    Int
+  newRating    Int
+  delta        Int
+  rank         Int
+  calculatedAt DateTime @default(now())
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  contest Contest @relation(fields: [contestId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, contestId])
+  @@index([userId])
+}
+
+// ============================================
+// COMMUNITY MODELS
+// ============================================
+
+model Discussion {
+  id        String   @id @default(cuid())
+  problemId String
+  userId    String
+  title     String
+  content   String   @db.Text
+  upvotes   Int      @default(0)
+  isPinned  Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  problem  Problem   @relation(fields: [problemId], references: [id], onDelete: Cascade)
+  user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  comments Comment[]
+
+  @@index([problemId])
+  @@index([userId])
+}
+
+model Comment {
+  id           String   @id @default(cuid())
+  discussionId String
+  userId       String
+  parentId     String?
+  content      String   @db.Text
+  upvotes      Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  discussion Discussion @relation(fields: [discussionId], references: [id], onDelete: Cascade)
+  user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  parent     Comment?   @relation("CommentReplies", fields: [parentId], references: [id])
+  replies    Comment[]  @relation("CommentReplies")
+
+  @@index([discussionId])
+  @@index([userId])
+  @@index([parentId])
+}
+
+model UserFollow {
+  id          String   @id @default(cuid())
+  followerId  String
+  followingId String
+  createdAt   DateTime @default(now())
+
+  follower  User @relation("Following", fields: [followerId], references: [id], onDelete: Cascade)
+  following User @relation("Followers", fields: [followingId], references: [id], onDelete: Cascade)
+
+  @@unique([followerId, followingId])
+  @@index([followerId])
+  @@index([followingId])
+}

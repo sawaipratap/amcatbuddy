@@ -1,0 +1,204 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-8);
+    padding: var(--space-8);
+    background: linear-gradient(135deg, var(--color-primary-light), var(--color-bg-secondary));
+    border-radius: var(--radius-xl);
+    margin-bottom: var(--space-8);
+}
+
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+    }
+}
+
+.headerContent {
+    flex: 1;
+}
+
+.titleRow {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-bottom: var(--space-4);
+}
+
+.title {
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-bold);
+}
+
+.ratedBadge {
+    padding: var(--space-1) var(--space-3);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-warning);
+    background-color: var(--color-warning-light);
+    border-radius: var(--radius-full);
+}
+
+.description {
+    font-size: var(--font-size-base);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-6);
+    line-height: var(--line-height-relaxed);
+}
+
+.meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-6);
+}
+
+.metaItem {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+}
+
+.timerSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-4);
+    min-width: 200px;
+}
+
+.registeredBadge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-4);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-success);
+    background-color: var(--color-success-light);
+    border-radius: var(--radius-full);
+}
+
+/* Sections */
+.problemsSection,
+.rulesSection,
+.leaderboardSection {
+    margin-bottom: var(--space-8);
+}
+
+.sectionHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--space-4);
+}
+
+.sectionTitle {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-4);
+}
+
+/* Problems List */
+.problemsList {
+    background-color: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+}
+
+.problemsHeader {
+    display: grid;
+    grid-template-columns: 3rem 1fr 7rem 5rem 5rem;
+    gap: var(--space-4);
+    padding: var(--space-3) var(--space-4);
+    background-color: var(--color-bg-secondary);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-secondary);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.problemRow {
+    display: grid;
+    grid-template-columns: 3rem 1fr 7rem 5rem 5rem;
+    gap: var(--space-4);
+    padding: var(--space-4);
+    align-items: center;
+    border-bottom: 1px solid var(--color-border);
+    transition: background-color var(--transition-fast);
+}
+
+.problemRow:last-child {
+    border-bottom: none;
+}
+
+.problemRow:hover {
+    background-color: var(--color-bg-secondary);
+}
+
+.colLabel {
+    font-family: var(--font-mono);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+}
+
+.colTitle {
+    font-weight: var(--font-weight-medium);
+}
+
+.colPoints {
+    font-family: var(--font-mono);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-secondary);
+}
+
+.colSolves {
+    font-family: var(--font-mono);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-tertiary);
+}
+
+/* Rules */
+.rulesContent {
+    padding: var(--space-6);
+    background-color: var(--color-bg-secondary);
+    border-radius: var(--radius-lg);
+}
+
+.rulesContent p {
+    margin-bottom: var(--space-2);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+}
+
+.rulesContent p:last-child {
+    margin-bottom: 0;
+}
+
+/* Leaderboard */
+.leaderboardPlaceholder {
+    text-align: center;
+    padding: var(--space-8);
+    color: var(--color-text-tertiary);
+    background-color: var(--color-bg-secondary);
+    border-radius: var(--radius-lg);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .problemsHeader {
+        display: none;
+    }
+
+    .problemRow {
+        grid-template-columns: 2rem 1fr auto;
+    }
+
+    .colPoints,
+    .colSolves {
+        display: none;
+    }
+}

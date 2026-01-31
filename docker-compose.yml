@@ -1,0 +1,90 @@
+# CodeArena - Local Development Stack
+# Run: docker-compose up -d
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:16-alpine
+    container_name: codearena-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: codearena
+      POSTGRES_PASSWORD: codearena_dev_password
+      POSTGRES_DB: codearena
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U codearena"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # Redis for caching and job queues
+  redis:
+    image: redis:7-alpine
+    container_name: codearena-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # Judge0 API Server
+  judge0-server:
+    image: judge0/judge0:1.13.1
+    container_name: codearena-judge0
+    restart: unless-stopped
+    ports:
+      - "2358:2358"
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=judge0
+      - POSTGRES_USER=codearena
+      - POSTGRES_PASSWORD=codearena_dev_password
+      - RAILS_MAX_THREADS=4
+      - SECRET_KEY_BASE=your-secret-key-base-here-change-in-production
+      - AUTHN_HEADER=X-Auth-Token
+      - AUTHN_TOKEN=your-auth-token-for-judge0
+      - AUTHZ_HEADER=X-Auth-User
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    privileged: true
+
+  # Judge0 Workers (code execution)
+  judge0-workers:
+    image: judge0/judge0:1.13.1
+    container_name: codearena-judge0-workers
+    restart: unless-stopped
+    command: ["./scripts/workers"]
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=judge0
+      - POSTGRES_USER=codearena
+      - POSTGRES_PASSWORD=codearena_dev_password
+      - RAILS_MAX_THREADS=4
+      - SECRET_KEY_BASE=your-secret-key-base-here-change-in-production
+    depends_on:
+      - judge0-server
+    privileged: true
+
+volumes:
+  postgres_data:
+  redis_data:
