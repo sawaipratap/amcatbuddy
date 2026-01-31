@@ -1,4 +1,4 @@
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
 import { ProblemView } from "@/components/problems/ProblemView";
@@ -105,6 +105,11 @@ export default async function ProblemPage({ params }: PageProps) {
 
     if (!problem) {
         notFound();
+    }
+
+    // Check authentication - redirect if not logged in
+    if (!session?.user) {
+        redirect(`/login?callbackUrl=/problems/${slug}`);
     }
 
     // Only fetch user submissions if logged in (single optimized query)

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
-import { auth, signOut } from "@/lib/auth";
+import { auth } from "@/lib/auth";
+import { UserMenu } from "./UserMenu";
 import styles from "./Header.module.css";
 
 export async function Header() {
@@ -38,26 +39,7 @@ export async function Header() {
                 <div className={styles.actions}>
                     {session?.user ? (
                         <>
-                            <Link href={`/profile/${session.user.username || session.user.id}`} className={styles.profileLink}>
-                                {session.user.image ? (
-                                    <img src={session.user.image} alt="" className={styles.avatar} />
-                                ) : (
-                                    <div className={styles.avatarPlaceholder}>
-                                        {session.user.name?.[0] || "U"}
-                                    </div>
-                                )}
-                                <span className={styles.userName}>{session.user.name || "Profile"}</span>
-                            </Link>
-                            <form
-                                action={async () => {
-                                    "use server";
-                                    await signOut({ redirectTo: "/" });
-                                }}
-                            >
-                                <button type="submit" className={`btn btn-ghost btn-sm ${styles.signOutBtn}`}>
-                                    Sign Out
-                                </button>
-                            </form>
+                            <UserMenu user={session.user} />
                         </>
                     ) : (
                         <Link href="/login" className="btn btn-primary btn-sm">

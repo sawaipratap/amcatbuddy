@@ -1,5 +1,7 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
+import { auth } from "@/lib/auth";
 import { Difficulty } from "@prisma/client";
 import styles from "./problems.module.css";
 import { getCached, CACHE_TTL } from "@/lib/cache";
@@ -103,6 +105,12 @@ export default async function ProblemsPage({
 }: {
     searchParams: Promise<SearchParams>;
 }) {
+    // Check authentication
+    const session = await auth();
+    if (!session?.user) {
+        redirect("/login?callbackUrl=/problems");
+    }
+
     const params = await searchParams;
     const { problems, total, tags, page, totalPages } = await getProblems(params);
 
