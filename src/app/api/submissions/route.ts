@@ -46,6 +46,8 @@ export async function POST(request: NextRequest) {
 
         // For logged-in users: create persistent submission
         if (session?.user?.id) {
+            console.log(`[Submission API] Creating submission for user ${session.user.id}, problem ${problemId}`);
+
             const submission = await prisma.submission.create({
                 data: {
                     userId: session.user.id,
@@ -57,6 +59,9 @@ export async function POST(request: NextRequest) {
                     totalTests: problem.testCases.length,
                 },
             });
+
+            console.log(`[Submission API] Created submission ${submission.id}, submitting to Judge0...`);
+            console.log(`[Submission API] Judge0 URL: ${process.env.JUDGE0_API_URL || "http://localhost:2358"}`);
 
             // Submit to Judge0 asynchronously
             submitToJudge(submission.id, code, language, problem.testCases, {

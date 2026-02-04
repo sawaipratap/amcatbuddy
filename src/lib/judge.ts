@@ -80,12 +80,17 @@ export async function submitToJudge(
     testCases: TestCase[],
     limits: ProblemLimits
 ): Promise<void> {
+    console.log(`[Judge] Starting submission ${submissionId} with ${testCases.length} test cases`);
+    console.log(`[Judge] Judge0 URL: ${JUDGE0_API_URL}`);
+
     try {
         // Update submission to RUNNING
         await prisma.submission.update({
             where: { id: submissionId },
             data: { verdict: "RUNNING" },
         });
+
+        console.log(`[Judge] Submitting ${testCases.length} test cases to Judge0...`);
 
         // Submit each test case to Judge0
         const submissions = await Promise.all(
@@ -103,13 +108,17 @@ export async function submitToJudge(
                 });
 
                 if (!response.ok) {
+                    console.error(`[Judge] Judge0 submission failed: ${response.status} ${response.statusText}`);
                     throw new Error(`Judge0 submission failed: ${response.statusText}`);
                 }
 
                 const data = await response.json();
+                console.log(`[Judge] Test case submitted, token: ${data.token}`);
                 return { testCaseId: tc.id, token: data.token };
             })
         );
+
+        console.log(`[Judge] All test cases submitted, starting to poll for results...`);
 
         // Poll for results
         let allDone = false;
@@ -124,13 +133,17 @@ export async function submitToJudge(
         while (!allDone && attempts < maxAttempts) {
             attempts++;
             await new Promise((resolve) => setTimeout(resolve, 1000));
+            console.log(`[Judge] Polling attempt ${attempts}/${maxAttempts}`);
 
             const tokens = submissions.map((s) => s.token).join(",");
             const response = await callJudge0(
                 `/submissions/batch?tokens=${tokens}&base64_encoded=true&fields=token,status,time,memory,stderr,compile_output`
             );
 
-            if (!response.ok) continue;
+            if (!response.ok) {
+                console.error(`[Judge] Polling failed: ${response.status}`);
+                continue;
+            }
 
             const data = await response.json();
             const results = data.submissions;
@@ -167,8 +180,11 @@ export async function submitToJudge(
         }
 
         if (!allDone) {
+            console.error(`[Judge] Judging timed out after ${maxAttempts} attempts`);
             finalVerdict = "TIME_LIMIT";
             errorMessage = "Judging timed out";
+        } else {
+            console.log(`[Judge] Judging complete. Verdict: ${finalVerdict}, Tests passed: ${testsPassed}/${testCases.length}`);
         }
 
         // Update submission with results
@@ -238,7 +254,7 @@ export async function submitToJudge(
             }
         }
     } catch (error) {
-        console.error("Judge error:", error);
+        console.error(`[Judge] Critical error for submission ${submissionId}:`, error);
         await prisma.submission.update({
             where: { id: submissionId },
             data: {

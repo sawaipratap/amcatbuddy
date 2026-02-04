@@ -231,9 +231,25 @@ fn main() {
 
         const poll = async () => {
             attempts++;
+            console.log(`[Polling] Attempt ${attempts}/${maxAttempts} for submission ${submissionId}`);
+
             try {
                 const response = await fetch(`/api/submissions/${submissionId}/status`);
+                console.log(`[Polling] Response status: ${response.status}`);
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    console.error(`[Polling] Error response:`, errorData);
+                    setResult({
+                        verdict: "ERROR",
+                        message: `Status check failed: ${errorData.error || response.statusText}`
+                    });
+                    setIsSubmitting(false);
+                    return;
+                }
+
                 const data = await response.json();
+                console.log(`[Polling] Data received:`, data);
 
                 if (data.verdict !== "PENDING" && data.verdict !== "RUNNING") {
                     const testInfo = data.testsPassed !== undefined && data.totalTests !== undefined
@@ -249,13 +265,19 @@ fn main() {
                     });
                     setIsSubmitting(false);
                 } else if (attempts < maxAttempts) {
+                    console.log(`[Polling] Still pending/running, scheduling next poll...`);
                     setTimeout(poll, 1000);
                 } else {
-                    setResult({ verdict: "TIMEOUT", message: "Judging timed out" });
+                    console.error(`[Polling] Timeout after ${maxAttempts} attempts`);
+                    setResult({ verdict: "TIMEOUT", message: "Judging timed out after 30 seconds" });
                     setIsSubmitting(false);
                 }
-            } catch {
-                setResult({ verdict: "ERROR", message: "Failed to get submission status" });
+            } catch (error) {
+                console.error(`[Polling] Exception caught:`, error);
+                setResult({
+                    verdict: "ERROR",
+                    message: `Failed to get submission status: ${error instanceof Error ? error.message : "Network error"}`
+                });
                 setIsSubmitting(false);
             }
         };
