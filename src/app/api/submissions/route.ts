@@ -4,6 +4,10 @@ import { prisma } from "@/lib/prisma";
 import { z } from "zod";
 import { submitToJudge } from "@/lib/judge";
 
+// Enable Edge Runtime for ultra-fast response times and no cold starts
+export const runtime = 'edge';
+export const preferredRegion = 'auto'; // Deploy to region closest to users
+
 const submissionSchema = z.object({
     problemId: z.string(),
     code: z.string().min(1, "Code is required"),
