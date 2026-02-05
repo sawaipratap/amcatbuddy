@@ -1,9 +1,15 @@
-import { Redis } from '@upstash/redis'
+import { Redis } from 'ioredis'
 
-// Initialize Upstash Redis client
-const redis = new Redis({
-    url: process.env.UPSTASH_REDIS_REST_URL!,
-    token: process.env.UPSTASH_REDIS_REST_TOKEN!,
+// Initialize local Redis client
+const redis = new Redis(process.env.REDIS_URL || 'redis://localhost:6379', {
+    maxRetriesPerRequest: 3,
+    enableReadyCheck: false,
+    lazyConnect: true,
+})
+
+// Handle Redis connection errors gracefully
+redis.on('error', (error) => {
+    console.error('Redis connection error:', error.message)
 })
 
 // Cache TTL in seconds
@@ -30,9 +36,9 @@ export async function getCached<T>(
 ): Promise<T> {
     try {
         // Try to get from cache
-        const cached = await redis.get<T>(key)
+        const cached = await redis.get(key)
         if (cached !== null) {
-            return cached
+            return JSON.parse(cached) as T
         }
     } catch (error) {
         // If Redis fails, just fetch from source
@@ -44,7 +50,7 @@ export async function getCached<T>(
 
     // Store in cache (don't await - fire and forget)
     try {
-        redis.set(key, data, { ex: ttl }).catch(console.error)
+        redis.setex(key, ttl, JSON.stringify(data)).catch(console.error)
     } catch (error) {
         console.error('Redis cache set error:', error)
     }
