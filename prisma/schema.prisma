@@ -203,6 +203,10 @@ model Submission {
   totalTests    Int      @default(0)
   judgeToken    String?  // Judge0 submission token
   errorMessage  String?  @db.Text
+  // Failed test case details for debugging
+  failedTestInput    String?  @db.Text
+  failedTestExpected String?  @db.Text
+  failedTestActual   String?  @db.Text
   submittedAt   DateTime @default(now())
 
   // Relations

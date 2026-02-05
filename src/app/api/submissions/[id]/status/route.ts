@@ -19,6 +19,9 @@ export async function GET(
                 testsPassed: true,
                 totalTests: true,
                 errorMessage: true,
+                failedTestInput: true,
+                failedTestExpected: true,
+                failedTestActual: true,
             },
         });
 

@@ -83,7 +83,24 @@ export function ProblemView({
     const [code, setCode] = useState(getDefaultCode("CPP"));
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isRunning, setIsRunning] = useState(false);
-    const [result, setResult] = useState<{ verdict: string; message?: string; passed?: number; total?: number; details?: Array<{ testCase: number; status: string; input?: string; expectedOutput?: string; actualOutput?: string }> } | null>(null);
+    const [result, setResult] = useState<{
+        verdict: string;
+        message?: string;
+        passed?: number;
+        total?: number;
+        details?: Array<{
+            testCase: number;
+            status: string;
+            input?: string;
+            expectedOutput?: string;
+            actualOutput?: string;
+            error?: string | null;
+        }>;
+        // Failed test case details from submission
+        failedTestInput?: string | null;
+        failedTestExpected?: string | null;
+        failedTestActual?: string | null;
+    } | null>(null);
 
     const config = difficultyConfig[problem.difficulty as keyof typeof difficultyConfig];
 
@@ -262,6 +279,9 @@ fn main() {
                         message: data.verdict === "ACCEPTED"
                             ? `All ${data.totalTests} test cases passed! Time: ${data.executionTime}ms, Memory: ${Math.round(data.memoryUsed / 1024)}MB`
                             : `${data.testsPassed}/${data.totalTests} test cases passed. ${data.errorMessage || getVerdictMessage(data.verdict)}`,
+                        failedTestInput: data.failedTestInput,
+                        failedTestExpected: data.failedTestExpected,
+                        failedTestActual: data.failedTestActual,
                     });
                     setIsSubmitting(false);
                 } else if (attempts < maxAttempts) {
@@ -507,6 +527,75 @@ fn main() {
                         </div>
                         {result.message && (
                             <p className={styles.resultMessage}>{result.message}</p>
+                        )}
+
+                        {/* Show detailed test case results from Run */}
+                        {result.details && result.details.length > 0 && (
+                            <div className={styles.testDetails}>
+                                {result.details.map((detail, idx) => (
+                                    <div key={idx} className={`${styles.testDetailItem} ${styles[`testStatus${detail.status}`]}`}>
+                                        <div className={styles.testDetailHeader}>
+                                            <span className={styles.testDetailLabel}>Test Case {detail.testCase}</span>
+                                            <span className={`badge ${getVerdictClass(detail.status)}`}>
+                                                {detail.status.replace("_", " ")}
+                                            </span>
+                                        </div>
+                                        {detail.status !== "ACCEPTED" && (
+                                            <div className={styles.testDetailContent}>
+                                                {detail.input && (
+                                                    <div className={styles.testDetailBox}>
+                                                        <div className={styles.testDetailBoxLabel}>Input</div>
+                                                        <pre className={styles.testDetailBoxContent}>{detail.input}</pre>
+                                                    </div>
+                                                )}
+                                                {detail.expectedOutput && (
+                                                    <div className={styles.testDetailBox}>
+                                                        <div className={styles.testDetailBoxLabel}>Expected Output</div>
+                                                        <pre className={styles.testDetailBoxContent}>{detail.expectedOutput}</pre>
+                                                    </div>
+                                                )}
+                                                {detail.actualOutput !== undefined && (
+                                                    <div className={styles.testDetailBox}>
+                                                        <div className={styles.testDetailBoxLabel}>Your Output</div>
+                                                        <pre className={styles.testDetailBoxContent}>{detail.actualOutput || "(no output)"}</pre>
+                                                    </div>
+                                                )}
+                                                {detail.error && (
+                                                    <div className={styles.testDetailBox}>
+                                                        <div className={styles.testDetailBoxLabel}>Error</div>
+                                                        <pre className={styles.testDetailBoxContent}>{detail.error}</pre>
+                                                    </div>
+                                                )}
+                                            </div>
+                                        )}
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+
+                        {/* Show failed test case details from Submit */}
+                        {result.failedTestInput && (
+                            <div className={styles.testDetails}>
+                                <div className={`${styles.testDetailItem} ${styles.testStatusFailed}`}>
+                                    <div className={styles.testDetailHeader}>
+                                        <span className={styles.testDetailLabel}>First Failed Test Case</span>
+                                    </div>
+                                    <div className={styles.testDetailContent}>
+                                        <div className={styles.testDetailBox}>
+                                            <div className={styles.testDetailBoxLabel}>Input</div>
+                                            <pre className={styles.testDetailBoxContent}>{result.failedTestInput}</pre>
+                                        </div>
+                                        <div className={styles.testDetailBox}>
+                                            <div className={styles.testDetailBoxLabel}>Expected Output</div>
+                                            <pre className={styles.testDetailBoxContent}>{result.failedTestExpected}</pre>
+                                        </div>
+                                        <div className={styles.testDetailBox}>
+                                            <div className={styles.testDetailBoxLabel}>Your Output</div>
+                                            <pre className={styles.testDetailBoxContent}>{result.failedTestActual || "(no output)"}</pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         )}
                     </div>
                 )}

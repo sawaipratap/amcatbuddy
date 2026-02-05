@@ -94,7 +94,7 @@ export async function submitToJudge(
 
         // Submit each test case to Judge0
         const submissions = await Promise.all(
-            testCases.map(async (tc) => {
+            testCases.map(async (tc, index) => {
                 const response = await callJudge0("/submissions?base64_encoded=true&wait=false", {
                     method: "POST",
                     body: JSON.stringify({
@@ -114,7 +114,7 @@ export async function submitToJudge(
 
                 const data = await response.json();
                 console.log(`[Judge] Test case submitted, token: ${data.token}`);
-                return { testCaseId: tc.id, token: data.token };
+                return { testCaseId: tc.id, token: data.token, input: tc.input, expectedOutput: tc.expectedOutput, index };
             })
         );
 
@@ -129,6 +129,10 @@ export async function submitToJudge(
         let maxTime = 0;
         let maxMemory = 0;
         let errorMessage: string | null = null;
+        // Track first failed test case details
+        let failedTestInput: string | null = null;
+        let failedTestExpected: string | null = null;
+        let failedTestActual: string | null = null;
 
         while (!allDone && attempts < maxAttempts) {
             attempts++;
@@ -137,7 +141,7 @@ export async function submitToJudge(
 
             const tokens = submissions.map((s) => s.token).join(",");
             const response = await callJudge0(
-                `/submissions/batch?tokens=${tokens}&base64_encoded=true&fields=token,status,time,memory,stderr,compile_output`
+                `/submissions/batch?tokens=${tokens}&base64_encoded=true&fields=token,status,time,memory,stderr,compile_output,stdout`
             );
 
             if (!response.ok) {
@@ -154,14 +158,22 @@ export async function submitToJudge(
 
             if (allDone) {
                 testsPassed = 0;
-                for (const result of results) {
+                for (let i = 0; i < results.length; i++) {
+                    const result = results[i];
+                    const submission = submissions[i];
                     const statusId = result.status.id as number;
                     const verdict = statusToVerdict[statusId] || "RUNTIME_ERROR";
 
                     if (verdict === "ACCEPTED") {
                         testsPassed++;
                     } else if (finalVerdict === "ACCEPTED") {
+                        // First failed test case - capture details
                         finalVerdict = verdict;
+                        failedTestInput = submission.input;
+                        failedTestExpected = submission.expectedOutput.trim();
+                        failedTestActual = result.stdout
+                            ? Buffer.from(result.stdout, "base64").toString("utf-8").trim()
+                            : "(no output)";
                         if (result.stderr) {
                             errorMessage = Buffer.from(result.stderr, "base64").toString("utf-8");
                         } else if (result.compile_output) {
@@ -196,6 +208,9 @@ export async function submitToJudge(
                 executionTime: Math.round(maxTime),
                 memoryUsed: maxMemory,
                 errorMessage,
+                failedTestInput,
+                failedTestExpected,
+                failedTestActual,
             },
         });
 
