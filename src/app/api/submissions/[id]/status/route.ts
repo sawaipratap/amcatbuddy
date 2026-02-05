@@ -1,10 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
-// Enable Edge Runtime for instant status checks
-export const runtime = 'edge';
-export const preferredRegion = 'auto';
-
 export async function GET(
     request: NextRequest,
     { params }: { params: Promise<{ id: string }> }
