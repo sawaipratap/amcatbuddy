@@ -1407,6 +1407,841 @@ NO`,
                         { input: "1\nabba", output: "YES", isSample: false },
                 ],
         },
+
+        // Problem 36: Reverse a Number
+        {
+                title: "Reverse a Number",
+                slug: "reverse-a-number",
+                difficulty: Difficulty.EASY,
+                statement: `Buddy wants to reverse a number. Given a positive integer N, reverse its digits.`,
+                inputFormat: `The first line contains T, the number of test cases.
+Each test case contains a single positive integer N.`,
+                outputFormat: `For each test case, output the reversed number without leading zeros.`,
+                constraints: `1 ≤ T ≤ 1000
+1 ≤ N ≤ 1000000000`,
+                sampleInput: `4
+12345
+100
+999
+1`,
+                sampleOutput: `54321
+1
+999
+1`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "Extract digits using modulo and division, build the reversed number.",
+                tags: ["math", "implementation"],
+                testCases: [
+                        { input: "4\n12345\n100\n999\n1", output: "54321\n1\n999\n1", isSample: true },
+                        { input: "1\n1000000000", output: "1", isSample: false },
+                        { input: "1\n123456789", output: "987654321", isSample: false },
+                        { input: "1\n10", output: "1", isSample: false },
+                        { input: "1\n1001", output: "1001", isSample: false },
+                        { input: "1\n505", output: "505", isSample: false },
+                        { input: "1\n12321", output: "12321", isSample: false },
+                        { input: "1\n90", output: "9", isSample: false },
+                        { input: "1\n98765", output: "56789", isSample: false },
+                        { input: "1\n11111", output: "11111", isSample: false },
+                ],
+        },
+
+        // Problem 37: Prime Number Check
+        {
+                title: "Prime Number Check",
+                slug: "prime-number-check",
+                difficulty: Difficulty.EASY,
+                statement: `Buddy is learning about prime numbers. Given an integer N, determine if it is a prime number.
+
+A prime number is greater than 1 and has exactly two divisors: 1 and itself.`,
+                inputFormat: `The first line contains T, the number of test cases.
+Each test case contains a single integer N.`,
+                outputFormat: `For each test case, output YES if N is prime, NO otherwise.`,
+                constraints: `1 ≤ T ≤ 1000
+1 ≤ N ≤ 1000000`,
+                sampleInput: `5
+2
+7
+1
+4
+17`,
+                sampleOutput: `YES
+YES
+NO
+NO
+YES`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "Check divisibility from 2 to sqrt(N). If any divides N, it's not prime.",
+                tags: ["math", "number-theory"],
+                testCases: [
+                        { input: "5\n2\n7\n1\n4\n17", output: "YES\nYES\nNO\nNO\nYES", isSample: true },
+                        { input: "1\n3", output: "YES", isSample: false },
+                        { input: "1\n9", output: "NO", isSample: false },
+                        { input: "1\n97", output: "YES", isSample: false },
+                        { input: "1\n100", output: "NO", isSample: false },
+                        { input: "1\n1000000", output: "NO", isSample: false },
+                        { input: "1\n999983", output: "YES", isSample: false },
+                        { input: "1\n25", output: "NO", isSample: false },
+                        { input: "1\n29", output: "YES", isSample: false },
+                        { input: "1\n49", output: "NO", isSample: false },
+                ],
+        },
+
+        // Problem 38: Fibonacci Number
+        {
+                title: "Fibonacci Number",
+                slug: "fibonacci-number",
+                difficulty: Difficulty.EASY,
+                statement: `Buddy wants to find the Nth Fibonacci number.
+
+The Fibonacci sequence is: 0, 1, 1, 2, 3, 5, 8, 13, 21, ...
+F(0) = 0, F(1) = 1, F(N) = F(N-1) + F(N-2) for N > 1`,
+                inputFormat: `The first line contains T, the number of test cases.
+Each test case contains a single integer N.`,
+                outputFormat: `For each test case, output the Nth Fibonacci number.`,
+                constraints: `1 ≤ T ≤ 100
+0 ≤ N ≤ 30`,
+                sampleInput: `5
+0
+1
+5
+10
+15`,
+                sampleOutput: `0
+1
+5
+55
+610`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "Use iterative approach with two variables for F(N-1) and F(N-2).",
+                tags: ["math", "dp"],
+                testCases: [
+                        { input: "5\n0\n1\n5\n10\n15", output: "0\n1\n5\n55\n610", isSample: true },
+                        { input: "1\n2", output: "1", isSample: false },
+                        { input: "1\n3", output: "2", isSample: false },
+                        { input: "1\n20", output: "6765", isSample: false },
+                        { input: "1\n25", output: "75025", isSample: false },
+                        { input: "1\n30", output: "832040", isSample: false },
+                        { input: "1\n6", output: "8", isSample: false },
+                        { input: "1\n7", output: "13", isSample: false },
+                        { input: "1\n8", output: "21", isSample: false },
+                        { input: "1\n12", output: "144", isSample: false },
+                ],
+        },
+
+        // Problem 39: GCD of Two Numbers
+        {
+                title: "GCD of Two Numbers",
+                slug: "gcd-of-two-numbers",
+                difficulty: Difficulty.EASY,
+                statement: `Buddy needs to find the Greatest Common Divisor (GCD) of two numbers A and B.
+
+The GCD is the largest positive integer that divides both A and B.`,
+                inputFormat: `The first line contains T, the number of test cases.
+Each test case contains two space-separated integers A and B.`,
+                outputFormat: `For each test case, output the GCD of A and B.`,
+                constraints: `1 ≤ T ≤ 1000
+1 ≤ A, B ≤ 1000000`,
+                sampleInput: `4
+12 18
+7 3
+100 25
+17 17`,
+                sampleOutput: `6
+1
+25
+17`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "Use Euclidean algorithm: GCD(a, b) = GCD(b, a % b) until b = 0.",
+                tags: ["math", "number-theory"],
+                testCases: [
+                        { input: "4\n12 18\n7 3\n100 25\n17 17", output: "6\n1\n25\n17", isSample: true },
+                        { input: "1\n1 1", output: "1", isSample: false },
+                        { input: "1\n1000000 500000", output: "500000", isSample: false },
+                        { input: "1\n48 18", output: "6", isSample: false },
+                        { input: "1\n13 7", output: "1", isSample: false },
+                        { input: "1\n100 100", output: "100", isSample: false },
+                        { input: "1\n36 24", output: "12", isSample: false },
+                        { input: "1\n81 27", output: "27", isSample: false },
+                        { input: "1\n56 42", output: "14", isSample: false },
+                        { input: "1\n121 11", output: "11", isSample: false },
+                ],
+        },
+
+        // Problem 40: LCM of Two Numbers
+        {
+                title: "LCM of Two Numbers",
+                slug: "lcm-of-two-numbers",
+                difficulty: Difficulty.EASY,
+                statement: `Buddy needs to find the Least Common Multiple (LCM) of two numbers A and B.
+
+The LCM is the smallest positive integer that is divisible by both A and B.`,
+                inputFormat: `The first line contains T, the number of test cases.
+Each test case contains two space-separated integers A and B.`,
+                outputFormat: `For each test case, output the LCM of A and B.`,
+                constraints: `1 ≤ T ≤ 1000
+1 ≤ A, B ≤ 10000`,
+                sampleInput: `4
+4 6
+7 3
+5 5
+12 18`,
+                sampleOutput: `12
+21
+5
+36`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "LCM(a, b) = (a * b) / GCD(a, b). Use Euclidean algorithm for GCD.",
+                tags: ["math", "number-theory"],
+                testCases: [
+                        { input: "4\n4 6\n7 3\n5 5\n12 18", output: "12\n21\n5\n36", isSample: true },
+                        { input: "1\n1 1", output: "1", isSample: false },
+                        { input: "1\n10 15", output: "30", isSample: false },
+                        { input: "1\n3 7", output: "21", isSample: false },
+                        { input: "1\n100 25", output: "100", isSample: false },
+                        { input: "1\n8 12", output: "24", isSample: false },
+                        { input: "1\n9 6", output: "18", isSample: false },
+                        { input: "1\n14 21", output: "42", isSample: false },
+                        { input: "1\n11 13", output: "143", isSample: false },
+                        { input: "1\n20 30", output: "60", isSample: false },
+                ],
+        },
+
+        // Problem 41: Power of Two
+        {
+                title: "Power of Two",
+                slug: "power-of-two",
+                difficulty: Difficulty.EASY,
+                statement: `Buddy wants to check if a given number N is a power of 2.
+
+A number is a power of 2 if it can be expressed as 2^k for some non-negative integer k.`,
+                inputFormat: `The first line contains T, the number of test cases.
+Each test case contains a single positive integer N.`,
+                outputFormat: `For each test case, output YES if N is a power of 2, NO otherwise.`,
+                constraints: `1 ≤ T ≤ 1000
+1 ≤ N ≤ 1000000000`,
+                sampleInput: `5
+1
+2
+3
+16
+15`,
+                sampleOutput: `YES
+YES
+NO
+YES
+NO`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "N is a power of 2 if N > 0 and (N & (N-1)) == 0.",
+                tags: ["math", "bit-manipulation"],
+                testCases: [
+                        { input: "5\n1\n2\n3\n16\n15", output: "YES\nYES\nNO\nYES\nNO", isSample: true },
+                        { input: "1\n4", output: "YES", isSample: false },
+                        { input: "1\n8", output: "YES", isSample: false },
+                        { input: "1\n1024", output: "YES", isSample: false },
+                        { input: "1\n1000", output: "NO", isSample: false },
+                        { input: "1\n536870912", output: "YES", isSample: false },
+                        { input: "1\n1000000000", output: "NO", isSample: false },
+                        { input: "1\n64", output: "YES", isSample: false },
+                        { input: "1\n63", output: "NO", isSample: false },
+                        { input: "1\n256", output: "YES", isSample: false },
+                ],
+        },
+
+        // Problem 42: Perfect Square
+        {
+                title: "Perfect Square",
+                slug: "perfect-square",
+                difficulty: Difficulty.EASY,
+                statement: `Buddy wants to check if a given number N is a perfect square.
+
+A perfect square is an integer that is the square of another integer.`,
+                inputFormat: `The first line contains T, the number of test cases.
+Each test case contains a single positive integer N.`,
+                outputFormat: `For each test case, output YES if N is a perfect square, NO otherwise.`,
+                constraints: `1 ≤ T ≤ 1000
+1 ≤ N ≤ 1000000000`,
+                sampleInput: `5
+1
+4
+5
+16
+17`,
+                sampleOutput: `YES
+YES
+NO
+YES
+NO`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "Take square root of N, round it, and check if its square equals N.",
+                tags: ["math", "implementation"],
+                testCases: [
+                        { input: "5\n1\n4\n5\n16\n17", output: "YES\nYES\nNO\nYES\nNO", isSample: true },
+                        { input: "1\n9", output: "YES", isSample: false },
+                        { input: "1\n100", output: "YES", isSample: false },
+                        { input: "1\n101", output: "NO", isSample: false },
+                        { input: "1\n1000000000", output: "NO", isSample: false },
+                        { input: "1\n1000000", output: "YES", isSample: false },
+                        { input: "1\n81", output: "YES", isSample: false },
+                        { input: "1\n82", output: "NO", isSample: false },
+                        { input: "1\n144", output: "YES", isSample: false },
+                        { input: "1\n225", output: "YES", isSample: false },
+                ],
+        },
+
+        // Problem 43: Armstrong Number
+        {
+                title: "Armstrong Number",
+                slug: "armstrong-number",
+                difficulty: Difficulty.EASY,
+                statement: `Buddy is learning about Armstrong numbers.
+
+An Armstrong number of n digits is a number where the sum of each digit raised to the power of n equals the number itself.
+
+For example: 153 = 1³ + 5³ + 3³ = 1 + 125 + 27 = 153`,
+                inputFormat: `The first line contains T, the number of test cases.
+Each test case contains a single positive integer N.`,
+                outputFormat: `For each test case, output YES if N is an Armstrong number, NO otherwise.`,
+                constraints: `1 ≤ T ≤ 1000
+1 ≤ N ≤ 1000000`,
+                sampleInput: `5
+153
+370
+9
+10
+1634`,
+                sampleOutput: `YES
+YES
+YES
+NO
+YES`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "Count digits, then sum each digit raised to the power of digit count.",
+                tags: ["math", "implementation"],
+                testCases: [
+                        { input: "5\n153\n370\n9\n10\n1634", output: "YES\nYES\nYES\nNO\nYES", isSample: true },
+                        { input: "1\n1", output: "YES", isSample: false },
+                        { input: "1\n2", output: "YES", isSample: false },
+                        { input: "1\n371", output: "YES", isSample: false },
+                        { input: "1\n407", output: "YES", isSample: false },
+                        { input: "1\n100", output: "NO", isSample: false },
+                        { input: "1\n8208", output: "YES", isSample: false },
+                        { input: "1\n9474", output: "YES", isSample: false },
+                        { input: "1\n500", output: "NO", isSample: false },
+                        { input: "1\n5", output: "YES", isSample: false },
+                ],
+        },
+
+        // Problem 44: Buddy's Age
+        {
+                title: "Buddy's Age",
+                slug: "buddys-age",
+                difficulty: Difficulty.EASY,
+                statement: `Buddy was born in year Y. Given the current year C, find Buddy's age.
+
+If Buddy hasn't been born yet (C < Y), output 0.`,
+                inputFormat: `The first line contains T, the number of test cases.
+Each test case contains two integers Y (birth year) and C (current year).`,
+                outputFormat: `For each test case, output Buddy's age.`,
+                constraints: `1 ≤ T ≤ 1000
+1900 ≤ Y, C ≤ 2100`,
+                sampleInput: `4
+2000 2024
+1990 2024
+2025 2024
+2024 2024`,
+                sampleOutput: `24
+34
+0
+0`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "If C >= Y, age = C - Y. Otherwise, age = 0.",
+                tags: ["math", "implementation"],
+                testCases: [
+                        { input: "4\n2000 2024\n1990 2024\n2025 2024\n2024 2024", output: "24\n34\n0\n0", isSample: true },
+                        { input: "1\n1900 2024", output: "124", isSample: false },
+                        { input: "1\n2100 2100", output: "0", isSample: false },
+                        { input: "1\n1950 2000", output: "50", isSample: false },
+                        { input: "1\n2000 2001", output: "1", isSample: false },
+                        { input: "1\n1999 2099", output: "100", isSample: false },
+                        { input: "1\n2050 2024", output: "0", isSample: false },
+                        { input: "1\n1980 2020", output: "40", isSample: false },
+                        { input: "1\n2010 2024", output: "14", isSample: false },
+                        { input: "1\n1995 2024", output: "29", isSample: false },
+                ],
+        },
+
+        // Problem 45: Array Sum
+        {
+                title: "Array Sum",
+                slug: "array-sum",
+                difficulty: Difficulty.EASY,
+                statement: `Buddy has an array of N integers. Find the sum of all elements.`,
+                inputFormat: `The first line contains T, the number of test cases.
+Each test case consists of:
+- First line: integer N (size of array)
+- Second line: N space-separated integers`,
+                outputFormat: `For each test case, output the sum of all elements.`,
+                constraints: `1 ≤ T ≤ 100
+1 ≤ N ≤ 1000
+-1000 ≤ each element ≤ 1000`,
+                sampleInput: `3
+5
+1 2 3 4 5
+3
+-1 0 1
+4
+100 200 300 400`,
+                sampleOutput: `15
+0
+1000`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "Iterate through the array and sum all elements.",
+                tags: ["arrays", "implementation"],
+                testCases: [
+                        { input: "3\n5\n1 2 3 4 5\n3\n-1 0 1\n4\n100 200 300 400", output: "15\n0\n1000", isSample: true },
+                        { input: "1\n1\n42", output: "42", isSample: false },
+                        { input: "1\n5\n0 0 0 0 0", output: "0", isSample: false },
+                        { input: "1\n3\n-1000 -1000 -1000", output: "-3000", isSample: false },
+                        { input: "1\n3\n1000 1000 1000", output: "3000", isSample: false },
+                        { input: "1\n10\n1 2 3 4 5 6 7 8 9 10", output: "55", isSample: false },
+                        { input: "1\n2\n-500 500", output: "0", isSample: false },
+                        { input: "1\n4\n25 25 25 25", output: "100", isSample: false },
+                        { input: "1\n1\n-1", output: "-1", isSample: false },
+                        { input: "1\n6\n10 20 30 40 50 60", output: "210", isSample: false },
+                ],
+        },
+
+        // Problem 46: Array Product
+        {
+                title: "Array Product",
+                slug: "array-product",
+                difficulty: Difficulty.EASY,
+                statement: `Buddy has an array of N integers. Find the product of all elements.`,
+                inputFormat: `The first line contains T, the number of test cases.
+Each test case consists of:
+- First line: integer N (size of array)
+- Second line: N space-separated integers`,
+                outputFormat: `For each test case, output the product of all elements.`,
+                constraints: `1 ≤ T ≤ 100
+1 ≤ N ≤ 10
+-100 ≤ each element ≤ 100`,
+                sampleInput: `3
+3
+1 2 3
+3
+-1 2 3
+4
+2 2 2 2`,
+                sampleOutput: `6
+-6
+16`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "Iterate through the array and multiply all elements.",
+                tags: ["arrays", "implementation"],
+                testCases: [
+                        { input: "3\n3\n1 2 3\n3\n-1 2 3\n4\n2 2 2 2", output: "6\n-6\n16", isSample: true },
+                        { input: "1\n1\n42", output: "42", isSample: false },
+                        { input: "1\n3\n0 100 200", output: "0", isSample: false },
+                        { input: "1\n2\n-10 -10", output: "100", isSample: false },
+                        { input: "1\n5\n1 1 1 1 1", output: "1", isSample: false },
+                        { input: "1\n3\n-1 -1 -1", output: "-1", isSample: false },
+                        { input: "1\n4\n5 4 3 2", output: "120", isSample: false },
+                        { input: "1\n2\n10 10", output: "100", isSample: false },
+                        { input: "1\n3\n-2 3 4", output: "-24", isSample: false },
+                        { input: "1\n1\n-50", output: "-50", isSample: false },
+                ],
+        },
+
+        // Problem 47: Find Minimum Element
+        {
+                title: "Find Minimum Element",
+                slug: "find-minimum-element",
+                difficulty: Difficulty.EASY,
+                statement: `Buddy has an array of N integers. Find the minimum element.`,
+                inputFormat: `The first line contains T, the number of test cases.
+Each test case consists of:
+- First line: integer N (size of array)
+- Second line: N space-separated integers`,
+                outputFormat: `For each test case, output the minimum element.`,
+                constraints: `1 ≤ T ≤ 100
+1 ≤ N ≤ 1000
+-1000000 ≤ each element ≤ 1000000`,
+                sampleInput: `3
+5
+5 3 8 1 9
+3
+100 200 300
+4
+-5 -10 -3 -1`,
+                sampleOutput: `1
+100
+-10`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "Initialize min with first element, compare with rest.",
+                tags: ["arrays", "implementation"],
+                testCases: [
+                        { input: "3\n5\n5 3 8 1 9\n3\n100 200 300\n4\n-5 -10 -3 -1", output: "1\n100\n-10", isSample: true },
+                        { input: "1\n1\n42", output: "42", isSample: false },
+                        { input: "1\n5\n1 1 1 1 1", output: "1", isSample: false },
+                        { input: "1\n3\n-1000000 0 1000000", output: "-1000000", isSample: false },
+                        { input: "1\n5\n5 4 3 2 1", output: "1", isSample: false },
+                        { input: "1\n5\n1 2 3 4 5", output: "1", isSample: false },
+                        { input: "1\n4\n0 0 0 -1", output: "-1", isSample: false },
+                        { input: "1\n3\n999 998 997", output: "997", isSample: false },
+                        { input: "1\n2\n50 49", output: "49", isSample: false },
+                        { input: "1\n6\n10 20 5 30 40 50", output: "5", isSample: false },
+                ],
+        },
+
+        // Problem 48: Find Maximum Element
+        {
+                title: "Find Maximum Element",
+                slug: "find-maximum-element",
+                difficulty: Difficulty.EASY,
+                statement: `Buddy has an array of N integers. Find the maximum element.`,
+                inputFormat: `The first line contains T, the number of test cases.
+Each test case consists of:
+- First line: integer N (size of array)
+- Second line: N space-separated integers`,
+                outputFormat: `For each test case, output the maximum element.`,
+                constraints: `1 ≤ T ≤ 100
+1 ≤ N ≤ 1000
+-1000000 ≤ each element ≤ 1000000`,
+                sampleInput: `3
+5
+5 3 8 1 9
+3
+100 200 300
+4
+-5 -10 -3 -1`,
+                sampleOutput: `9
+300
+-1`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "Initialize max with first element, compare with rest.",
+                tags: ["arrays", "implementation"],
+                testCases: [
+                        { input: "3\n5\n5 3 8 1 9\n3\n100 200 300\n4\n-5 -10 -3 -1", output: "9\n300\n-1", isSample: true },
+                        { input: "1\n1\n42", output: "42", isSample: false },
+                        { input: "1\n5\n1 1 1 1 1", output: "1", isSample: false },
+                        { input: "1\n3\n-1000000 0 1000000", output: "1000000", isSample: false },
+                        { input: "1\n5\n5 4 3 2 1", output: "5", isSample: false },
+                        { input: "1\n5\n1 2 3 4 5", output: "5", isSample: false },
+                        { input: "1\n4\n0 0 0 1", output: "1", isSample: false },
+                        { input: "1\n3\n997 998 999", output: "999", isSample: false },
+                        { input: "1\n2\n49 50", output: "50", isSample: false },
+                        { input: "1\n6\n10 20 50 30 40 5", output: "50", isSample: false },
+                ],
+        },
+
+        // Problem 49: Count Occurrences
+        {
+                title: "Count Occurrences",
+                slug: "count-occurrences",
+                difficulty: Difficulty.EASY,
+                statement: `Buddy has an array of N integers. Count how many times a given number X appears in the array.`,
+                inputFormat: `The first line contains T, the number of test cases.
+Each test case consists of:
+- First line: two integers N (size of array) and X (number to count)
+- Second line: N space-separated integers`,
+                outputFormat: `For each test case, output the count of X in the array.`,
+                constraints: `1 ≤ T ≤ 100
+1 ≤ N ≤ 1000
+-1000 ≤ X ≤ 1000
+-1000 ≤ each element ≤ 1000`,
+                sampleInput: `3
+5 3
+1 3 3 4 3
+4 5
+1 2 3 4
+6 0
+0 0 1 0 2 0`,
+                sampleOutput: `3
+0
+4`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "Iterate through array and count elements equal to X.",
+                tags: ["arrays", "implementation"],
+                testCases: [
+                        { input: "3\n5 3\n1 3 3 4 3\n4 5\n1 2 3 4\n6 0\n0 0 1 0 2 0", output: "3\n0\n4", isSample: true },
+                        { input: "1\n1 42\n42", output: "1", isSample: false },
+                        { input: "1\n5 1\n1 1 1 1 1", output: "5", isSample: false },
+                        { input: "1\n3 10\n1 2 3", output: "0", isSample: false },
+                        { input: "1\n4 -5\n-5 -5 5 5", output: "2", isSample: false },
+                        { input: "1\n10 7\n7 7 7 7 7 7 7 7 7 7", output: "10", isSample: false },
+                        { input: "1\n3 0\n1 2 3", output: "0", isSample: false },
+                        { input: "1\n5 100\n100 200 100 300 100", output: "3", isSample: false },
+                        { input: "1\n2 1\n1 2", output: "1", isSample: false },
+                        { input: "1\n6 5\n1 2 3 4 6 7", output: "0", isSample: false },
+                ],
+        },
+
+        // Problem 50: Reverse Array
+        {
+                title: "Reverse Array",
+                slug: "reverse-array",
+                difficulty: Difficulty.EASY,
+                statement: `Buddy has an array of N integers. Reverse the array.`,
+                inputFormat: `The first line contains T, the number of test cases.
+Each test case consists of:
+- First line: integer N (size of array)
+- Second line: N space-separated integers`,
+                outputFormat: `For each test case, output the reversed array as space-separated integers.`,
+                constraints: `1 ≤ T ≤ 100
+1 ≤ N ≤ 1000
+-1000 ≤ each element ≤ 1000`,
+                sampleInput: `3
+5
+1 2 3 4 5
+3
+10 20 30
+1
+42`,
+                sampleOutput: `5 4 3 2 1
+30 20 10
+42`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "Swap elements from both ends moving toward center, or use built-in reverse.",
+                tags: ["arrays", "implementation"],
+                testCases: [
+                        { input: "3\n5\n1 2 3 4 5\n3\n10 20 30\n1\n42", output: "5 4 3 2 1\n30 20 10\n42", isSample: true },
+                        { input: "1\n2\n1 2", output: "2 1", isSample: false },
+                        { input: "1\n4\n1 1 1 1", output: "1 1 1 1", isSample: false },
+                        { input: "1\n5\n-5 -4 -3 -2 -1", output: "-1 -2 -3 -4 -5", isSample: false },
+                        { input: "1\n6\n1 2 3 3 2 1", output: "1 2 3 3 2 1", isSample: false },
+                        { input: "1\n3\n100 0 -100", output: "-100 0 100", isSample: false },
+                        { input: "1\n7\n7 6 5 4 3 2 1", output: "1 2 3 4 5 6 7", isSample: false },
+                        { input: "1\n4\n0 0 0 0", output: "0 0 0 0", isSample: false },
+                        { input: "1\n2\n999 -999", output: "-999 999", isSample: false },
+                        { input: "1\n5\n11 22 33 44 55", output: "55 44 33 22 11", isSample: false },
+                ],
+        },
+
+        // Problem 51: Second Largest Element
+        {
+                title: "Second Largest Element",
+                slug: "second-largest-element",
+                difficulty: Difficulty.EASY,
+                statement: `Buddy has an array of N distinct integers. Find the second largest element.`,
+                inputFormat: `The first line contains T, the number of test cases.
+Each test case consists of:
+- First line: integer N (size of array)
+- Second line: N space-separated distinct integers`,
+                outputFormat: `For each test case, output the second largest element.`,
+                constraints: `1 ≤ T ≤ 100
+2 ≤ N ≤ 1000
+-1000000 ≤ each element ≤ 1000000
+All elements are distinct`,
+                sampleInput: `3
+5
+5 3 8 1 9
+3
+100 200 300
+4
+-5 -10 -3 -1`,
+                sampleOutput: `8
+200
+-3`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "Track both largest and second largest while iterating.",
+                tags: ["arrays", "implementation"],
+                testCases: [
+                        { input: "3\n5\n5 3 8 1 9\n3\n100 200 300\n4\n-5 -10 -3 -1", output: "8\n200\n-3", isSample: true },
+                        { input: "1\n2\n1 2", output: "1", isSample: false },
+                        { input: "1\n5\n10 20 30 40 50", output: "40", isSample: false },
+                        { input: "1\n3\n-1000000 0 1000000", output: "0", isSample: false },
+                        { input: "1\n5\n5 4 3 2 1", output: "4", isSample: false },
+                        { input: "1\n4\n1 3 2 4", output: "3", isSample: false },
+                        { input: "1\n6\n10 20 5 30 40 50", output: "40", isSample: false },
+                        { input: "1\n3\n-1 -2 -3", output: "-2", isSample: false },
+                        { input: "1\n2\n100 99", output: "99", isSample: false },
+                        { input: "1\n5\n1 5 2 4 3", output: "4", isSample: false },
+                ],
+        },
+
+        // Problem 52: Binary to Decimal
+        {
+                title: "Binary to Decimal",
+                slug: "binary-to-decimal",
+                difficulty: Difficulty.EASY,
+                statement: `Buddy wants to convert a binary number to decimal.
+
+Given a binary string, convert it to its decimal equivalent.`,
+                inputFormat: `The first line contains T, the number of test cases.
+Each test case contains a binary string (consisting of only 0s and 1s).`,
+                outputFormat: `For each test case, output the decimal equivalent.`,
+                constraints: `1 ≤ T ≤ 100
+1 ≤ length of binary string ≤ 30`,
+                sampleInput: `4
+101
+1111
+10000
+1`,
+                sampleOutput: `5
+15
+16
+1`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "Process from right to left, multiply each bit by 2^position and sum.",
+                tags: ["math", "implementation"],
+                testCases: [
+                        { input: "4\n101\n1111\n10000\n1", output: "5\n15\n16\n1", isSample: true },
+                        { input: "1\n0", output: "0", isSample: false },
+                        { input: "1\n11111111", output: "255", isSample: false },
+                        { input: "1\n100000000", output: "256", isSample: false },
+                        { input: "1\n1010101010", output: "682", isSample: false },
+                        { input: "1\n111111111111111111111111111111", output: "1073741823", isSample: false },
+                        { input: "1\n10", output: "2", isSample: false },
+                        { input: "1\n11", output: "3", isSample: false },
+                        { input: "1\n100", output: "4", isSample: false },
+                        { input: "1\n1000", output: "8", isSample: false },
+                ],
+        },
+
+        // Problem 53: Decimal to Binary
+        {
+                title: "Decimal to Binary",
+                slug: "decimal-to-binary",
+                difficulty: Difficulty.EASY,
+                statement: `Buddy wants to convert a decimal number to binary.
+
+Given a non-negative integer N, convert it to its binary representation.`,
+                inputFormat: `The first line contains T, the number of test cases.
+Each test case contains a non-negative integer N.`,
+                outputFormat: `For each test case, output the binary representation (without leading zeros, except for 0 itself).`,
+                constraints: `1 ≤ T ≤ 100
+0 ≤ N ≤ 1000000000`,
+                sampleInput: `5
+5
+15
+16
+1
+0`,
+                sampleOutput: `101
+1111
+10000
+1
+0`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "Repeatedly divide by 2 and collect remainders, then reverse.",
+                tags: ["math", "implementation"],
+                testCases: [
+                        { input: "5\n5\n15\n16\n1\n0", output: "101\n1111\n10000\n1\n0", isSample: true },
+                        { input: "1\n255", output: "11111111", isSample: false },
+                        { input: "1\n256", output: "100000000", isSample: false },
+                        { input: "1\n2", output: "10", isSample: false },
+                        { input: "1\n3", output: "11", isSample: false },
+                        { input: "1\n4", output: "100", isSample: false },
+                        { input: "1\n8", output: "1000", isSample: false },
+                        { input: "1\n1024", output: "10000000000", isSample: false },
+                        { input: "1\n100", output: "1100100", isSample: false },
+                        { input: "1\n999", output: "1111100111", isSample: false },
+                ],
+        },
+
+        // Problem 54: Perfect Number
+        {
+                title: "Perfect Number",
+                slug: "perfect-number",
+                difficulty: Difficulty.EASY,
+                statement: `Buddy wants to check if a given number is a perfect number.
+
+A perfect number is a positive integer that equals the sum of its proper divisors (excluding itself).
+
+For example: 6 = 1 + 2 + 3 is a perfect number.`,
+                inputFormat: `The first line contains T, the number of test cases.
+Each test case contains a single positive integer N.`,
+                outputFormat: `For each test case, output YES if N is a perfect number, NO otherwise.`,
+                constraints: `1 ≤ T ≤ 100
+1 ≤ N ≤ 1000000`,
+                sampleInput: `5
+6
+28
+12
+1
+496`,
+                sampleOutput: `YES
+YES
+NO
+NO
+YES`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "Sum all proper divisors (1 to N/2 that divide N) and check if sum equals N.",
+                tags: ["math", "number-theory"],
+                testCases: [
+                        { input: "5\n6\n28\n12\n1\n496", output: "YES\nYES\nNO\nNO\nYES", isSample: true },
+                        { input: "1\n2", output: "NO", isSample: false },
+                        { input: "1\n3", output: "NO", isSample: false },
+                        { input: "1\n8128", output: "YES", isSample: false },
+                        { input: "1\n100", output: "NO", isSample: false },
+                        { input: "1\n500", output: "NO", isSample: false },
+                        { input: "1\n10", output: "NO", isSample: false },
+                        { input: "1\n4", output: "NO", isSample: false },
+                        { input: "1\n5", output: "NO", isSample: false },
+                        { input: "1\n27", output: "NO", isSample: false },
+                ],
+        },
+
+        // Problem 55: Buddy and Stairs
+        {
+                title: "Buddy and Stairs",
+                slug: "buddy-and-stairs",
+                difficulty: Difficulty.EASY,
+                statement: `Buddy is climbing a staircase with N steps. He can climb either 1 or 2 steps at a time.
+
+How many distinct ways can Buddy climb to the top?`,
+                inputFormat: `The first line contains T, the number of test cases.
+Each test case contains a single integer N.`,
+                outputFormat: `For each test case, output the number of distinct ways to climb N steps.`,
+                constraints: `1 ≤ T ≤ 100
+1 ≤ N ≤ 30`,
+                sampleInput: `5
+1
+2
+3
+4
+5`,
+                sampleOutput: `1
+2
+3
+5
+8`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "This is the Fibonacci sequence! ways(N) = ways(N-1) + ways(N-2).",
+                tags: ["math", "dp"],
+                testCases: [
+                        { input: "5\n1\n2\n3\n4\n5", output: "1\n2\n3\n5\n8", isSample: true },
+                        { input: "1\n6", output: "13", isSample: false },
+                        { input: "1\n7", output: "21", isSample: false },
+                        { input: "1\n10", output: "89", isSample: false },
+                        { input: "1\n15", output: "987", isSample: false },
+                        { input: "1\n20", output: "10946", isSample: false },
+                        { input: "1\n25", output: "121393", isSample: false },
+                        { input: "1\n30", output: "1346269", isSample: false },
+                        { input: "1\n8", output: "34", isSample: false },
+                        { input: "1\n12", output: "233", isSample: false },
+                ],
+        },
 ];
 
 // Export the questions
