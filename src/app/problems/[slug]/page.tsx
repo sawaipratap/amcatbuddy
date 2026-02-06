@@ -33,6 +33,7 @@ type CachedProblem = {
     author: { username: string | null; name: string | null; image: string | null };
     testCases: { input: string; expectedOutput: string; order: number }[];
     _count: { submissions: number };
+    createdAt: Date;
 };
 
 // Cache the problem fetch with Redis + React cache
@@ -46,6 +47,7 @@ const getProblem = cache(async (slug: string) => {
                     id: true,
                     title: true,
                     slug: true,
+                    createdAt: true,
                     statement: true,
                     inputFormat: true,
                     outputFormat: true,
@@ -133,13 +135,40 @@ export default async function ProblemPage({ params }: PageProps) {
     const hasSolved = userSubmissions?.some((s) => s.verdict === "ACCEPTED") ?? false;
 
     return (
-        <ProblemView
-            problem={problem}
-            sampleTestCases={problem.testCases}
-            userSubmissions={userSubmissions}
-            hasSolved={hasSolved}
-            isLoggedIn={!!session?.user}
-        />
+        <>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify({
+                        "@context": "https://schema.org",
+                        "@type": "TechArticle",
+                        "headline": problem.title,
+                        "description": problem.statement.substring(0, 160).replace(/<[^>]*>?/gm, ''),
+                        "articleBody": problem.statement.replace(/<[^>]*>?/gm, ''),
+                        "author": {
+                            "@type": "Person",
+                            "name": problem.author.name || problem.author.username || "AMCATBuddy"
+                        },
+                        "datePublished": problem.createdAt ? new Date(problem.createdAt).toISOString() : new Date().toISOString(), // Assuming createdAt exists on generic prisma model, but checked select: it might not be selected. I'll add it to select below if needed or use fallback.
+                        "publisher": {
+                            "@type": "Organization",
+                            "name": "AMCATBuddy",
+                            "logo": {
+                                "@type": "ImageObject",
+                                "url": "https://www.amcatbuddy.qzz.io/logo.png"
+                            }
+                        }
+                    })
+                }}
+            />
+            <ProblemView
+                problem={problem}
+                sampleTestCases={problem.testCases}
+                userSubmissions={userSubmissions}
+                hasSolved={hasSolved}
+                isLoggedIn={!!session?.user}
+            />
+        </>
     );
 }
 

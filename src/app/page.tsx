@@ -166,6 +166,23 @@ export default async function HomePage() {
           </div>
         </section>
       )}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "AMCATBuddy",
+            "url": "https://www.amcatbuddy.qzz.io",
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": "https://www.amcatbuddy.qzz.io/problems?q={search_term_string}",
+              "query-input": "required name=search_term_string"
+            },
+            "description": "Practice real AMCAT Automata coding patterns, take mock tests, and prepare to ace your AMCAT assessment."
+          })
+        }}
+      />
     </div>
   );
 }
