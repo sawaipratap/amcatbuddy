@@ -3,6 +3,7 @@ import { partAQuestions, AMCATQuestion } from "./amcat-questions";
 import { partB1Questions } from "./amcat-questions-b1";
 import { partB2Questions } from "./amcat-questions-b2";
 import { directory2Questions } from "./amcat-questions-dir2";
+import { codechefQuestions } from "./codechef-questions";
 
 const prisma = new PrismaClient();
 
@@ -138,6 +139,7 @@ async function main() {
                     sampleOutput: problem.sampleOutput,
                     hint: problem.hint,
                     isPublic: true,
+                    category: "AMCAT_PYQ", // Set category for AMCAT questions
                     authorId: adminUser.id,
                 },
             });
@@ -209,8 +211,93 @@ async function main() {
     });
 
     console.log("✅ Created sample mock test");
+
+    // Seed CodeChef/Practice questions
+    console.log(`\n📚 Seeding CodeChef Practice problems: ${codechefQuestions.length}`);
+    let practiceCount = 0;
+
+    for (const problemData of codechefQuestions) {
+        // Skip if already seeded (duplicate check)
+        if (seededSlugs.has(problemData.slug)) {
+            console.log(`⏭️  Skipping duplicate: ${problemData.title}`);
+            skipCount++;
+            continue;
+        }
+
+        try {
+            const { testCases: testCaseData, tags: tagSlugs, ...problem } = problemData;
+
+            const createdProblem = await prisma.problem.upsert({
+                where: { slug: problem.slug },
+                update: {},
+                create: {
+                    title: problem.title,
+                    slug: problem.slug,
+                    statement: problem.statement,
+                    inputFormat: problem.inputFormat,
+                    outputFormat: problem.outputFormat,
+                    constraints: problem.constraints,
+                    difficulty: problem.difficulty as any,
+                    timeLimit: problem.timeLimit,
+                    memoryLimit: problem.memoryLimit,
+                    sampleInput: problem.sampleInput,
+                    sampleOutput: problem.sampleOutput,
+                    hint: problem.hint,
+                    isPublic: true,
+                    category: "PRACTICE", // Set category for CodeChef/Practice questions
+                    authorId: adminUser.id,
+                },
+            });
+
+            // Create test cases
+            for (let i = 0; i < testCaseData.length; i++) {
+                await prisma.testCase.upsert({
+                    where: {
+                        id: `${createdProblem.id}-${i}`,
+                    },
+                    update: {},
+                    create: {
+                        id: `${createdProblem.id}-${i}`,
+                        problemId: createdProblem.id,
+                        input: testCaseData[i].input,
+                        expectedOutput: testCaseData[i].output,
+                        isSample: testCaseData[i].isSample,
+                        order: i,
+                    },
+                });
+            }
+
+            // Link tags
+            for (const tagSlug of tagSlugs) {
+                const tag = tags.find((t) => t.slug === tagSlug);
+                if (tag) {
+                    await prisma.problemTag.upsert({
+                        where: {
+                            problemId_tagId: {
+                                problemId: createdProblem.id,
+                                tagId: tag.id,
+                            },
+                        },
+                        update: {},
+                        create: {
+                            problemId: createdProblem.id,
+                            tagId: tag.id,
+                        },
+                    });
+                }
+            }
+
+            seededSlugs.add(problemData.slug);
+            practiceCount++;
+            console.log(`✅ Created practice problem: ${problem.title}`);
+        } catch (error) {
+            console.error(`❌ Error creating ${problemData.title}:`, error);
+        }
+    }
+
     console.log(`\n🎉 Seeding complete!`);
-    console.log(`   ✅ ${successCount} questions added`);
+    console.log(`   ✅ ${successCount} AMCAT PYQ questions added`);
+    console.log(`   ✅ ${practiceCount} Practice problems added`);
     console.log(`   ⏭️  ${skipCount} duplicates skipped`);
 }
 

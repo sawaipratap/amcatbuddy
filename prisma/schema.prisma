@@ -41,6 +41,11 @@ enum Language {
   RUST
 }
 
+enum Category {
+  AMCAT_PYQ
+  PRACTICE
+}
+
 // ============================================
 // USER & AUTH MODELS
 // ============================================
@@ -133,6 +138,7 @@ model Problem {
   timeLimit    Int        @default(1000) // in milliseconds
   memoryLimit  Int        @default(256)  // in MB
   isPublic     Boolean    @default(false)
+  category     Category   @default(PRACTICE)
   sampleInput  String     @db.Text
   sampleOutput String     @db.Text
   hint         String?    @db.Text

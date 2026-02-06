@@ -3,10 +3,10 @@ import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
 import { Difficulty } from "@prisma/client";
-import styles from "./problems.module.css";
+import styles from "../problems/problems.module.css";
 import { getCached, CACHE_TTL } from "@/lib/cache";
 
-// Revalidate every 5 minutes (problems don't change frequently)
+// Revalidate every 5 minutes
 export const revalidate = 300;
 
 interface SearchParams {
@@ -14,10 +14,8 @@ interface SearchParams {
     tag?: string;
     search?: string;
     page?: string;
-    category?: string;
 }
 
-// Cache tags - they rarely change
 type CachedTag = { name: string; slug: string; color: string };
 
 async function getTags(): Promise<CachedTag[]> {
@@ -40,12 +38,8 @@ async function getProblems(searchParams: SearchParams) {
 
     const where: Record<string, unknown> = {
         isPublic: true,
+        category: "PRACTICE", // Only Practice problems (CodeChef)
     };
-
-    // Category filter
-    if (searchParams.category && searchParams.category !== "all") {
-        where.category = searchParams.category.toUpperCase();
-    }
 
     if (searchParams.difficulty && searchParams.difficulty !== "all") {
         where.difficulty = searchParams.difficulty.toUpperCase() as Difficulty;
@@ -86,7 +80,7 @@ async function getProblems(searchParams: SearchParams) {
             take: pageSize,
         }),
         prisma.problem.count({ where }),
-        getTags(), // Now cached!
+        getTags(),
     ]);
 
     return {
@@ -106,15 +100,14 @@ const difficultyConfig = {
     EXPERT: { label: "Expert", class: "badge-expert" },
 };
 
-export default async function ProblemsPage({
+export default async function PracticePage({
     searchParams,
 }: {
     searchParams: Promise<SearchParams>;
 }) {
-    // Check authentication
     const session = await auth();
     if (!session?.user) {
-        redirect("/login?callbackUrl=/problems");
+        redirect("/login?callbackUrl=/practice");
     }
 
     const params = await searchParams;
@@ -123,45 +116,19 @@ export default async function ProblemsPage({
     return (
         <div className="container">
             <div className={styles.header}>
-                <h1 className={styles.title}>All Problems</h1>
+                <h1 className={styles.title}>Practice</h1>
                 <p className={styles.subtitle}>
-                    {total} problems available. Filter by category, difficulty, or topic.
+                    {total} logical problems to sharpen your skills. Difficulty range: 500-1000.
                 </p>
             </div>
 
             {/* Filters */}
             <div className={styles.filters}>
                 <div className={styles.filterGroup}>
-                    <label className="label">Category</label>
-                    <div className={styles.filterButtons}>
-                        <Link
-                            href="/problems"
-                            className={`btn btn-sm ${!params.category || params.category === "all" ? "btn-primary" : "btn-secondary"}`}
-                        >
-                            All
-                        </Link>
-                        <Link
-                            href="/problems?category=amcat_pyq"
-                            className={`btn btn-sm ${params.category === "amcat_pyq" ? "btn-primary" : "btn-secondary"}`}
-                        >
-                            AMCAT PYQs
-                        </Link>
-                        <Link
-                            href="/problems?category=practice"
-                            className={`btn btn-sm ${params.category === "practice" ? "btn-primary" : "btn-secondary"}`}
-                        >
-                            Practice
-                        </Link>
-                    </div>
-                </div>
-            </div>
-
-            <div className={styles.filters}>
-                <div className={styles.filterGroup}>
                     <label className="label">Difficulty</label>
                     <div className={styles.filterButtons}>
                         <Link
-                            href="/problems"
+                            href="/practice"
                             className={`btn btn-sm ${!params.difficulty || params.difficulty === "all" ? "btn-primary" : "btn-secondary"}`}
                         >
                             All
@@ -169,7 +136,7 @@ export default async function ProblemsPage({
                         {Object.entries(difficultyConfig).map(([key, config]) => (
                             <Link
                                 key={key}
-                                href={`/problems?difficulty=${key.toLowerCase()}`}
+                                href={`/practice?difficulty=${key.toLowerCase()}`}
                                 className={`btn btn-sm ${params.difficulty === key.toLowerCase() ? "btn-primary" : "btn-secondary"}`}
                             >
                                 {config.label}
@@ -185,7 +152,7 @@ export default async function ProblemsPage({
                             {tags.slice(0, 10).map((tag) => (
                                 <Link
                                     key={tag.slug}
-                                    href={`/problems?tag=${tag.slug}`}
+                                    href={`/practice?tag=${tag.slug}`}
                                     className={`${styles.tagChip} ${params.tag === tag.slug ? styles.tagChipActive : ""}`}
                                     style={{ "--tag-color": tag.color } as React.CSSProperties}
                                 >
@@ -210,7 +177,7 @@ export default async function ProblemsPage({
                 {problems.length === 0 ? (
                     <div className={styles.emptyState}>
                         <p>No problems found matching your criteria.</p>
-                        <Link href="/problems" className="btn btn-primary">
+                        <Link href="/practice" className="btn btn-primary">
                             Clear Filters
                         </Link>
                     </div>
@@ -257,7 +224,7 @@ export default async function ProblemsPage({
                 <div className={styles.pagination}>
                     {page > 1 && (
                         <Link
-                            href={`/problems?page=${page - 1}`}
+                            href={`/practice?page=${page - 1}`}
                             className="btn btn-secondary"
                         >
                             Previous
@@ -268,7 +235,7 @@ export default async function ProblemsPage({
                     </span>
                     {page < totalPages && (
                         <Link
-                            href={`/problems?page=${page + 1}`}
+                            href={`/practice?page=${page + 1}`}
                             className="btn btn-secondary"
                         >
                             Next

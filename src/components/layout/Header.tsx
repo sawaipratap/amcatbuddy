@@ -24,7 +24,10 @@ export async function Header() {
 
                 {/* Navigation */}
                 <nav className={styles.nav}>
-                    <Link href="/problems" className={styles.navLink}>
+                    <Link href="/amcat-pyqs" className={styles.navLink}>
+                        AMCAT PYQs
+                    </Link>
+                    <Link href="/practice" className={styles.navLink}>
                         Practice
                     </Link>
                     <Link href="/contests" className={styles.navLink}>
