@@ -2242,6 +2242,3250 @@ Each test case contains a single integer N.`,
                         { input: "1\n12", output: "233", isSample: false },
                 ],
         },
+
+        // ============== MEDIUM PROBLEMS ==============
+
+        // Problem 56: Longest Increasing Subsequence
+        {
+                title: "Longest Increasing Subsequence",
+                slug: "longest-increasing-subsequence",
+                difficulty: Difficulty.MEDIUM,
+                statement: `Buddy has an array of N integers. Find the length of the longest strictly increasing subsequence.
+
+A subsequence is a sequence derived from another sequence by deleting some or no elements without changing the order.`,
+                inputFormat: `The first line contains T, the number of test cases.
+Each test case consists of:
+- First line: integer N
+- Second line: N space-separated integers`,
+                outputFormat: `For each test case, output the length of the longest increasing subsequence.`,
+                constraints: `1 ≤ T ≤ 100
+1 ≤ N ≤ 1000
+1 ≤ each element ≤ 10^9`,
+                sampleInput: `2
+6
+10 22 9 33 21 50
+5
+5 4 3 2 1`,
+                sampleOutput: `4
+1`,
+                timeLimit: 2000,
+                memoryLimit: 256,
+                hint: "Use dynamic programming. For O(n²): dp[i] = max(dp[j]+1) where j<i and arr[j]<arr[i]. For O(n log n): use binary search.",
+                tags: ["dynamic-programming", "binary-search"],
+                testCases: [
+                        { input: "2\n6\n10 22 9 33 21 50\n5\n5 4 3 2 1", output: "4\n1", isSample: true },
+                        { input: "1\n5\n1 2 3 4 5", output: "5", isSample: false },
+                        { input: "1\n5\n3 10 2 1 20", output: "3", isSample: false },
+                        { input: "1\n1\n100", output: "1", isSample: false },
+                        { input: "1\n8\n0 8 4 12 2 10 6 14", output: "4", isSample: false },
+                        { input: "1\n7\n7 7 7 7 7 7 7", output: "1", isSample: false },
+                        { input: "1\n6\n1 3 2 4 3 5", output: "4", isSample: false },
+                        { input: "1\n4\n10 20 10 30", output: "3", isSample: false },
+                        { input: "1\n10\n1 2 3 4 5 6 7 8 9 10", output: "10", isSample: false },
+                        { input: "1\n6\n50 40 30 20 10 60", output: "2", isSample: false },
+                ],
+        },
+
+        // Problem 57: Coin Change
+        {
+                title: "Coin Change",
+                slug: "coin-change",
+                difficulty: Difficulty.MEDIUM,
+                statement: `Buddy has coins of different denominations and a total amount. Find the minimum number of coins needed to make that amount. If it's not possible, return -1.`,
+                inputFormat: `First line: N (number of coin types) and amount
+Second line: N coin denominations`,
+                outputFormat: `Minimum coins needed, or -1 if impossible.`,
+                constraints: `1 ≤ N ≤ 100
+1 ≤ amount ≤ 10000
+1 ≤ coin value ≤ 10000`,
+                sampleInput: `3 11
+1 2 5`,
+                sampleOutput: `3`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "Use DP: dp[i] = min coins to make amount i. dp[i] = min(dp[i-coin]+1) for all coins.",
+                tags: ["dynamic-programming", "greedy"],
+                testCases: [
+                        { input: "3 11\n1 2 5", output: "3", isSample: true },
+                        { input: "2 3\n2 5", output: "-1", isSample: false },
+                        { input: "1 0\n1", output: "0", isSample: false },
+                        { input: "3 6\n1 3 4", output: "2", isSample: false },
+                        { input: "3 100\n1 5 10", output: "10", isSample: false },
+                        { input: "4 15\n1 5 10 25", output: "2", isSample: false },
+                        { input: "2 7\n3 5", output: "-1", isSample: false },
+                        { input: "3 12\n1 5 6", output: "2", isSample: false },
+                        { input: "1 5\n2", output: "-1", isSample: false },
+                        { input: "3 30\n1 5 10", output: "3", isSample: false },
+                ],
+        },
+
+        // Problem 58: 0/1 Knapsack
+        {
+                title: "Buddy's Knapsack",
+                slug: "buddys-knapsack",
+                difficulty: Difficulty.MEDIUM,
+                statement: `Buddy has N items, each with a weight and value. He has a knapsack with capacity W. Find the maximum value he can carry.`,
+                inputFormat: `First line: N and W
+Next N lines: weight and value of each item`,
+                outputFormat: `Maximum value that fits in the knapsack.`,
+                constraints: `1 ≤ N ≤ 100
+1 ≤ W ≤ 1000
+1 ≤ weight, value ≤ 1000`,
+                sampleInput: `3 50
+10 60
+20 100
+30 120`,
+                sampleOutput: `220`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "Classic DP: dp[i][w] = max(dp[i-1][w], dp[i-1][w-wt[i]] + val[i])",
+                tags: ["dynamic-programming", "greedy"],
+                testCases: [
+                        { input: "3 50\n10 60\n20 100\n30 120", output: "220", isSample: true },
+                        { input: "4 10\n5 10\n4 40\n6 30\n3 50", output: "90", isSample: false },
+                        { input: "1 5\n10 100", output: "0", isSample: false },
+                        { input: "2 100\n50 50\n50 50", output: "100", isSample: false },
+                        { input: "3 6\n1 1\n2 6\n5 18", output: "18", isSample: false },
+                        { input: "4 7\n1 1\n3 4\n4 5\n5 7", output: "9", isSample: false },
+                        { input: "2 3\n2 3\n2 4", output: "4", isSample: false },
+                        { input: "3 10\n3 4\n4 5\n5 6", output: "11", isSample: false },
+                        { input: "1 100\n50 200", output: "200", isSample: false },
+                        { input: "5 15\n1 1\n5 5\n10 10\n3 3\n7 7", output: "15", isSample: false },
+                ],
+        },
+
+        // Problem 59: Two Sum with Target
+        {
+                title: "Two Sum",
+                slug: "two-sum",
+                difficulty: Difficulty.MEDIUM,
+                statement: `Given an array and a target sum, find two distinct indices such that arr[i] + arr[j] = target. Return the indices (1-indexed).`,
+                inputFormat: `First line: N and target
+Second line: N integers`,
+                outputFormat: `Two space-separated indices, or -1 if not found.`,
+                constraints: `2 ≤ N ≤ 10000
+-10^9 ≤ elements, target ≤ 10^9`,
+                sampleInput: `4 9
+2 7 11 15`,
+                sampleOutput: `1 2`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "Use a hash map to store seen values and their indices.",
+                tags: ["arrays", "hash-table"],
+                testCases: [
+                        { input: "4 9\n2 7 11 15", output: "1 2", isSample: true },
+                        { input: "3 6\n3 2 4", output: "2 3", isSample: false },
+                        { input: "2 6\n3 3", output: "1 2", isSample: false },
+                        { input: "5 10\n1 2 3 4 5", output: "-1", isSample: false },
+                        { input: "4 0\n-1 1 -2 2", output: "1 2", isSample: false },
+                        { input: "5 100\n50 25 75 50 100", output: "2 3", isSample: false },
+                        { input: "3 8\n4 4 5", output: "1 2", isSample: false },
+                        { input: "6 15\n1 2 3 5 10 12", output: "3 5", isSample: false },
+                        { input: "4 -5\n-10 5 -3 2", output: "1 2", isSample: false },
+                        { input: "5 20\n5 10 15 20 25", output: "1 4", isSample: false },
+                ],
+        },
+
+        // Problem 60: Merge Two Sorted Arrays
+        {
+                title: "Merge Sorted Arrays",
+                slug: "merge-sorted-arrays",
+                difficulty: Difficulty.MEDIUM,
+                statement: `Given two sorted arrays, merge them into one sorted array.`,
+                inputFormat: `First line: N and M (sizes)
+Second line: N sorted integers
+Third line: M sorted integers`,
+                outputFormat: `The merged sorted array.`,
+                constraints: `1 ≤ N, M ≤ 10000
+-10^9 ≤ elements ≤ 10^9`,
+                sampleInput: `3 3
+1 3 5
+2 4 6`,
+                sampleOutput: `1 2 3 4 5 6`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "Use two pointers, one for each array. Compare and add smaller element.",
+                tags: ["arrays", "sorting"],
+                testCases: [
+                        { input: "3 3\n1 3 5\n2 4 6", output: "1 2 3 4 5 6", isSample: true },
+                        { input: "2 3\n1 2\n3 4 5", output: "1 2 3 4 5", isSample: false },
+                        { input: "3 2\n3 4 5\n1 2", output: "1 2 3 4 5", isSample: false },
+                        { input: "1 1\n1\n2", output: "1 2", isSample: false },
+                        { input: "4 2\n1 1 1 1\n1 1", output: "1 1 1 1 1 1", isSample: false },
+                        { input: "3 3\n-5 -3 0\n-4 -2 1", output: "-5 -4 -3 -2 0 1", isSample: false },
+                        { input: "5 1\n1 2 3 4 5\n3", output: "1 2 3 3 4 5", isSample: false },
+                        { input: "2 4\n10 20\n5 15 25 30", output: "5 10 15 20 25 30", isSample: false },
+                        { input: "1 5\n50\n10 20 30 40 60", output: "10 20 30 40 50 60", isSample: false },
+                        { input: "3 3\n100 200 300\n150 250 350", output: "100 150 200 250 300 350", isSample: false },
+                ],
+        },
+
+        // Problem 61: Subarray with Given Sum
+        {
+                title: "Subarray Sum",
+                slug: "subarray-sum",
+                difficulty: Difficulty.MEDIUM,
+                statement: `Find a contiguous subarray with sum equal to target. Return start and end indices (1-indexed).`,
+                inputFormat: `First line: N and target
+Second line: N non-negative integers`,
+                outputFormat: `Start and end indices, or -1 if not found.`,
+                constraints: `1 ≤ N ≤ 10^5
+0 ≤ target ≤ 10^9
+0 ≤ elements ≤ 10^6`,
+                sampleInput: `5 12
+1 2 3 7 5`,
+                sampleOutput: `2 4`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "Use sliding window technique for non-negative numbers.",
+                tags: ["arrays", "sliding-window"],
+                testCases: [
+                        { input: "5 12\n1 2 3 7 5", output: "2 4", isSample: true },
+                        { input: "10 15\n1 2 3 4 5 6 7 8 9 10", output: "1 5", isSample: false },
+                        { input: "5 0\n0 0 0 1 0", output: "1 1", isSample: false },
+                        { input: "3 100\n1 2 3", output: "-1", isSample: false },
+                        { input: "4 10\n5 5 5 5", output: "1 2", isSample: false },
+                        { input: "6 21\n1 2 3 4 5 6", output: "1 6", isSample: false },
+                        { input: "5 7\n1 4 0 0 3", output: "2 5", isSample: false },
+                        { input: "3 6\n1 2 3", output: "1 3", isSample: false },
+                        { input: "4 9\n4 2 3 5", output: "2 4", isSample: false },
+                        { input: "1 5\n5", output: "1 1", isSample: false },
+                ],
+        },
+
+        // Problem 62: Kadane's Algorithm (Max Subarray Sum)
+        {
+                title: "Maximum Subarray Sum",
+                slug: "maximum-subarray-sum",
+                difficulty: Difficulty.MEDIUM,
+                statement: `Find the contiguous subarray with the largest sum.`,
+                inputFormat: `First line: N
+Second line: N integers (can be negative)`,
+                outputFormat: `The maximum subarray sum.`,
+                constraints: `1 ≤ N ≤ 10^5
+-10^6 ≤ elements ≤ 10^6`,
+                sampleInput: `8
+-2 -3 4 -1 -2 1 5 -3`,
+                sampleOutput: `7`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "Kadane's algorithm: max_ending_here = max(element, max_ending_here + element)",
+                tags: ["arrays", "dynamic-programming"],
+                testCases: [
+                        { input: "8\n-2 -3 4 -1 -2 1 5 -3", output: "7", isSample: true },
+                        { input: "5\n1 2 3 4 5", output: "15", isSample: false },
+                        { input: "5\n-1 -2 -3 -4 -5", output: "-1", isSample: false },
+                        { input: "1\n100", output: "100", isSample: false },
+                        { input: "6\n-2 1 -3 4 -1 2", output: "5", isSample: false },
+                        { input: "4\n5 -9 6 -2", output: "6", isSample: false },
+                        { input: "7\n-1 3 -5 4 6 -1 2", output: "11", isSample: false },
+                        { input: "3\n-1 -2 1", output: "1", isSample: false },
+                        { input: "5\n0 0 0 0 0", output: "0", isSample: false },
+                        { input: "6\n2 -1 2 3 -9 3", output: "6", isSample: false },
+                ],
+        },
+
+        // Problem 63: Next Greater Element
+        {
+                title: "Next Greater Element",
+                slug: "next-greater-element",
+                difficulty: Difficulty.MEDIUM,
+                statement: `For each element in the array, find the next greater element to its right. If none exists, output -1.`,
+                inputFormat: `First line: N
+Second line: N integers`,
+                outputFormat: `N space-separated integers (next greater elements).`,
+                constraints: `1 ≤ N ≤ 10^5
+1 ≤ elements ≤ 10^9`,
+                sampleInput: `4
+4 5 2 25`,
+                sampleOutput: `5 25 25 -1`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "Use a stack. Process from right to left, pop elements smaller than current.",
+                tags: ["arrays", "stack"],
+                testCases: [
+                        { input: "4\n4 5 2 25", output: "5 25 25 -1", isSample: true },
+                        { input: "5\n5 4 3 2 1", output: "-1 -1 -1 -1 -1", isSample: false },
+                        { input: "5\n1 2 3 4 5", output: "2 3 4 5 -1", isSample: false },
+                        { input: "1\n100", output: "-1", isSample: false },
+                        { input: "6\n13 7 6 12 8 10", output: "-1 12 12 -1 10 -1", isSample: false },
+                        { input: "3\n1 1 1", output: "-1 -1 -1", isSample: false },
+                        { input: "4\n6 8 0 1", output: "8 -1 1 -1", isSample: false },
+                        { input: "5\n3 2 1 5 4", output: "5 5 5 -1 -1", isSample: false },
+                        { input: "4\n10 20 10 20", output: "20 -1 20 -1", isSample: false },
+                        { input: "6\n1 3 2 4 3 5", output: "3 4 4 5 5 -1", isSample: false },
+                ],
+        },
+
+        // Problem 64: Rotate Array
+        {
+                title: "Rotate Array by K",
+                slug: "rotate-array-by-k",
+                difficulty: Difficulty.MEDIUM,
+                statement: `Rotate array to the right by K steps.`,
+                inputFormat: `First line: N and K
+Second line: N integers`,
+                outputFormat: `The rotated array.`,
+                constraints: `1 ≤ N ≤ 10^5
+0 ≤ K ≤ 10^9
+-10^9 ≤ elements ≤ 10^9`,
+                sampleInput: `7 3
+1 2 3 4 5 6 7`,
+                sampleOutput: `5 6 7 1 2 3 4`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "Use K = K % N. Reverse entire array, reverse first K, reverse remaining.",
+                tags: ["arrays", "implementation"],
+                testCases: [
+                        { input: "7 3\n1 2 3 4 5 6 7", output: "5 6 7 1 2 3 4", isSample: true },
+                        { input: "5 0\n1 2 3 4 5", output: "1 2 3 4 5", isSample: false },
+                        { input: "5 5\n1 2 3 4 5", output: "1 2 3 4 5", isSample: false },
+                        { input: "4 2\n-1 -100 3 99", output: "3 99 -1 -100", isSample: false },
+                        { input: "3 10\n1 2 3", output: "3 1 2", isSample: false },
+                        { input: "1 100\n42", output: "42", isSample: false },
+                        { input: "6 1\n1 2 3 4 5 6", output: "6 1 2 3 4 5", isSample: false },
+                        { input: "5 7\n10 20 30 40 50", output: "40 50 10 20 30", isSample: false },
+                        { input: "4 4\n1 2 3 4", output: "1 2 3 4", isSample: false },
+                        { input: "8 5\n1 2 3 4 5 6 7 8", output: "4 5 6 7 8 1 2 3", isSample: false },
+                ],
+        },
+
+        // Problem 65: Valid Parentheses
+        {
+                title: "Valid Parentheses",
+                slug: "valid-parentheses",
+                difficulty: Difficulty.MEDIUM,
+                statement: `Check if a string containing (){}[] has valid matching parentheses.`,
+                inputFormat: `A single string containing only (){}[]`,
+                outputFormat: `YES if valid, NO otherwise.`,
+                constraints: `1 ≤ length ≤ 10^4`,
+                sampleInput: `{[()]}`,
+                sampleOutput: `YES`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "Use a stack. Push opening brackets, pop and match for closing.",
+                tags: ["strings", "stack"],
+                testCases: [
+                        { input: "{[()]}", output: "YES", isSample: true },
+                        { input: "([)]", output: "NO", isSample: false },
+                        { input: "()", output: "YES", isSample: false },
+                        { input: "((()))", output: "YES", isSample: false },
+                        { input: "{{}[]}", output: "YES", isSample: false },
+                        { input: "[", output: "NO", isSample: false },
+                        { input: "]", output: "NO", isSample: false },
+                        { input: "{{{{))))", output: "NO", isSample: false },
+                        { input: "()[]{}", output: "YES", isSample: false },
+                        { input: "{[}]", output: "NO", isSample: false },
+                ],
+        },
+
+        // Problem 66: Binary Search
+        {
+                title: "Binary Search",
+                slug: "binary-search",
+                difficulty: Difficulty.MEDIUM,
+                statement: `Find the index of target in a sorted array using binary search. Return -1 if not found.`,
+                inputFormat: `First line: N and target
+Second line: N sorted integers`,
+                outputFormat: `Index of target (0-indexed), or -1.`,
+                constraints: `1 ≤ N ≤ 10^5
+-10^9 ≤ elements, target ≤ 10^9`,
+                sampleInput: `5 3
+1 2 3 4 5`,
+                sampleOutput: `2`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "Compare middle element with target. Go left or right accordingly.",
+                tags: ["binary-search", "arrays"],
+                testCases: [
+                        { input: "5 3\n1 2 3 4 5", output: "2", isSample: true },
+                        { input: "5 6\n1 2 3 4 5", output: "-1", isSample: false },
+                        { input: "1 1\n1", output: "0", isSample: false },
+                        { input: "1 2\n1", output: "-1", isSample: false },
+                        { input: "10 1\n1 2 3 4 5 6 7 8 9 10", output: "0", isSample: false },
+                        { input: "10 10\n1 2 3 4 5 6 7 8 9 10", output: "9", isSample: false },
+                        { input: "6 -5\n-10 -5 0 5 10 15", output: "1", isSample: false },
+                        { input: "4 7\n2 4 6 8", output: "-1", isSample: false },
+                        { input: "7 50\n10 20 30 40 50 60 70", output: "4", isSample: false },
+                        { input: "3 100\n100 200 300", output: "0", isSample: false },
+                ],
+        },
+
+        // Problem 67: Power Function
+        {
+                title: "Power Function",
+                slug: "power-function",
+                difficulty: Difficulty.MEDIUM,
+                statement: `Calculate x^n mod (10^9 + 7) efficiently.`,
+                inputFormat: `Two integers x and n.`,
+                outputFormat: `x^n mod (10^9 + 7).`,
+                constraints: `1 ≤ x ≤ 10^9
+0 ≤ n ≤ 10^9`,
+                sampleInput: `2 10`,
+                sampleOutput: `1024`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "Use binary exponentiation: x^n = (x^(n/2))^2 for even n.",
+                tags: ["math", "binary-search"],
+                testCases: [
+                        { input: "2 10", output: "1024", isSample: true },
+                        { input: "2 0", output: "1", isSample: false },
+                        { input: "5 3", output: "125", isSample: false },
+                        { input: "10 9", output: "1000000000", isSample: false },
+                        { input: "2 30", output: "73741817", isSample: false },
+                        { input: "3 20", output: "486784380", isSample: false },
+                        { input: "7 7", output: "823543", isSample: false },
+                        { input: "1 1000000000", output: "1", isSample: false },
+                        { input: "2 1", output: "2", isSample: false },
+                        { input: "100 2", output: "10000", isSample: false },
+                ],
+        },
+
+        // Problem 68: Count Inversions
+        {
+                title: "Count Inversions",
+                slug: "count-inversions",
+                difficulty: Difficulty.MEDIUM,
+                statement: `Count pairs (i,j) where i < j but arr[i] > arr[j].`,
+                inputFormat: `First line: N
+Second line: N integers`,
+                outputFormat: `Number of inversions.`,
+                constraints: `1 ≤ N ≤ 10^5
+1 ≤ elements ≤ 10^9`,
+                sampleInput: `5
+2 4 1 3 5`,
+                sampleOutput: `3`,
+                timeLimit: 2000,
+                memoryLimit: 256,
+                hint: "Use modified merge sort to count inversions in O(n log n).",
+                tags: ["sorting", "arrays"],
+                testCases: [
+                        { input: "5\n2 4 1 3 5", output: "3", isSample: true },
+                        { input: "5\n1 2 3 4 5", output: "0", isSample: false },
+                        { input: "5\n5 4 3 2 1", output: "10", isSample: false },
+                        { input: "1\n1", output: "0", isSample: false },
+                        { input: "3\n3 1 2", output: "2", isSample: false },
+                        { input: "4\n4 3 2 1", output: "6", isSample: false },
+                        { input: "6\n1 3 5 2 4 6", output: "3", isSample: false },
+                        { input: "4\n1 1 1 1", output: "0", isSample: false },
+                        { input: "3\n2 1 3", output: "1", isSample: false },
+                        { input: "6\n6 5 4 3 2 1", output: "15", isSample: false },
+                ],
+        },
+
+        // Problem 69: Longest Common Subsequence
+        {
+                title: "Longest Common Subsequence",
+                slug: "longest-common-subsequence",
+                difficulty: Difficulty.MEDIUM,
+                statement: `Find the length of the longest common subsequence of two strings.`,
+                inputFormat: `Two strings on separate lines.`,
+                outputFormat: `Length of LCS.`,
+                constraints: `1 ≤ |s1|, |s2| ≤ 1000`,
+                sampleInput: `abcde
+ace`,
+                sampleOutput: `3`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "DP: if s1[i]==s2[j], dp[i][j]=dp[i-1][j-1]+1, else max(dp[i-1][j], dp[i][j-1]).",
+                tags: ["dynamic-programming", "strings"],
+                testCases: [
+                        { input: "abcde\nace", output: "3", isSample: true },
+                        { input: "abc\ndef", output: "0", isSample: false },
+                        { input: "abc\nabc", output: "3", isSample: false },
+                        { input: "abcd\nabdc", output: "3", isSample: false },
+                        { input: "a\na", output: "1", isSample: false },
+                        { input: "aaa\naa", output: "2", isSample: false },
+                        { input: "abcdefgh\naceg", output: "4", isSample: false },
+                        { input: "xyz\nxyz", output: "3", isSample: false },
+                        { input: "abab\nbaba", output: "3", isSample: false },
+                        { input: "hello\nworld", output: "1", isSample: false },
+                ],
+        },
+
+        // Problem 70: Edit Distance
+        {
+                title: "Edit Distance",
+                slug: "edit-distance",
+                difficulty: Difficulty.MEDIUM,
+                statement: `Find minimum operations (insert, delete, replace) to convert s1 to s2.`,
+                inputFormat: `Two strings on separate lines.`,
+                outputFormat: `Minimum edit distance.`,
+                constraints: `0 ≤ |s1|, |s2| ≤ 500`,
+                sampleInput: `horse
+ros`,
+                sampleOutput: `3`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "DP: dp[i][j] = min(dp[i-1][j]+1, dp[i][j-1]+1, dp[i-1][j-1] + (s1[i]!=s2[j])).",
+                tags: ["dynamic-programming", "strings"],
+                testCases: [
+                        { input: "horse\nros", output: "3", isSample: true },
+                        { input: "intention\nexecution", output: "5", isSample: false },
+                        { input: "abc\nabc", output: "0", isSample: false },
+                        { input: "abc\n", output: "3", isSample: false },
+                        { input: "\nabc", output: "3", isSample: false },
+                        { input: "a\nb", output: "1", isSample: false },
+                        { input: "kitten\nsitting", output: "3", isSample: false },
+                        { input: "saturday\nsunday", output: "3", isSample: false },
+                        { input: "ab\nba", output: "2", isSample: false },
+                        { input: "aaa\nbbb", output: "3", isSample: false },
+                ],
+        },
+
+        // Problem 71: Matrix Chain Multiplication
+        {
+                title: "Matrix Chain Multiplication",
+                slug: "matrix-chain-multiplication",
+                difficulty: Difficulty.MEDIUM,
+                statement: `Find minimum scalar multiplications needed to multiply chain of matrices.`,
+                inputFormat: `First line: N (number of matrices)
+Second line: N+1 dimensions`,
+                outputFormat: `Minimum multiplications.`,
+                constraints: `1 ≤ N ≤ 100
+1 ≤ dimensions ≤ 500`,
+                sampleInput: `4
+10 20 30 40 30`,
+                sampleOutput: `30000`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "dp[i][j] = min(dp[i][k] + dp[k+1][j] + dims[i-1]*dims[k]*dims[j]) for all k.",
+                tags: ["dynamic-programming", "math"],
+                testCases: [
+                        { input: "4\n10 20 30 40 30", output: "30000", isSample: true },
+                        { input: "3\n10 30 5 60", output: "4500", isSample: false },
+                        { input: "2\n40 20 30", output: "24000", isSample: false },
+                        { input: "1\n10 20", output: "0", isSample: false },
+                        { input: "4\n1 2 3 4 3", output: "30", isSample: false },
+                        { input: "3\n5 10 20 35", output: "4500", isSample: false },
+                        { input: "5\n2 3 4 5 6 7", output: "228", isSample: false },
+                        { input: "3\n100 100 100 100", output: "2000000", isSample: false },
+                        { input: "4\n5 4 6 2 7", output: "158", isSample: false },
+                        { input: "2\n10 10 10", output: "1000", isSample: false },
+                ],
+        },
+
+        // Problem 72: Jump Game
+        {
+                title: "Jump Game",
+                slug: "jump-game",
+                difficulty: Difficulty.MEDIUM,
+                statement: `Given array of jump lengths, determine if you can reach the last index starting from index 0.`,
+                inputFormat: `First line: N
+Second line: N non-negative integers`,
+                outputFormat: `YES if reachable, NO otherwise.`,
+                constraints: `1 ≤ N ≤ 10^5
+0 ≤ elements ≤ 10^5`,
+                sampleInput: `5
+2 3 1 1 4`,
+                sampleOutput: `YES`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "Track maximum reachable index. Update as you iterate.",
+                tags: ["greedy", "arrays"],
+                testCases: [
+                        { input: "5\n2 3 1 1 4", output: "YES", isSample: true },
+                        { input: "5\n3 2 1 0 4", output: "NO", isSample: false },
+                        { input: "1\n0", output: "YES", isSample: false },
+                        { input: "2\n0 1", output: "NO", isSample: false },
+                        { input: "3\n2 0 0", output: "YES", isSample: false },
+                        { input: "4\n1 1 1 1", output: "YES", isSample: false },
+                        { input: "5\n5 0 0 0 0", output: "YES", isSample: false },
+                        { input: "6\n1 2 3 0 0 0", output: "YES", isSample: false },
+                        { input: "4\n1 0 0 1", output: "NO", isSample: false },
+                        { input: "3\n0 2 3", output: "NO", isSample: false },
+                ],
+        },
+
+        // Problem 73: House Robber
+        {
+                title: "Buddy's Heist",
+                slug: "buddys-heist",
+                difficulty: Difficulty.MEDIUM,
+                statement: `Buddy plans to rob houses. He cannot rob two adjacent houses. Find maximum money he can rob.`,
+                inputFormat: `First line: N
+Second line: N values`,
+                outputFormat: `Maximum money.`,
+                constraints: `1 ≤ N ≤ 10^5
+0 ≤ values ≤ 10^4`,
+                sampleInput: `4
+1 2 3 1`,
+                sampleOutput: `4`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "dp[i] = max(dp[i-1], dp[i-2] + arr[i]).",
+                tags: ["dynamic-programming", "arrays"],
+                testCases: [
+                        { input: "4\n1 2 3 1", output: "4", isSample: true },
+                        { input: "5\n2 7 9 3 1", output: "12", isSample: false },
+                        { input: "1\n100", output: "100", isSample: false },
+                        { input: "2\n1 2", output: "2", isSample: false },
+                        { input: "3\n5 5 5", output: "10", isSample: false },
+                        { input: "6\n1 2 3 4 5 6", output: "12", isSample: false },
+                        { input: "5\n10 1 10 1 10", output: "30", isSample: false },
+                        { input: "4\n0 0 0 0", output: "0", isSample: false },
+                        { input: "3\n100 1 100", output: "200", isSample: false },
+                        { input: "7\n1 3 1 3 100 3 1", output: "106", isSample: false },
+                ],
+        },
+
+        // Problem 74: Longest Palindromic Substring
+        {
+                title: "Longest Palindromic Substring",
+                slug: "longest-palindromic-substring",
+                difficulty: Difficulty.MEDIUM,
+                statement: `Find the longest palindromic substring in a string.`,
+                inputFormat: `A single string.`,
+                outputFormat: `Length of longest palindromic substring.`,
+                constraints: `1 ≤ |s| ≤ 1000`,
+                sampleInput: `babad`,
+                sampleOutput: `3`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "Expand around center for each character and between pairs.",
+                tags: ["strings", "dynamic-programming"],
+                testCases: [
+                        { input: "babad", output: "3", isSample: true },
+                        { input: "cbbd", output: "2", isSample: false },
+                        { input: "a", output: "1", isSample: false },
+                        { input: "ac", output: "1", isSample: false },
+                        { input: "racecar", output: "7", isSample: false },
+                        { input: "aaa", output: "3", isSample: false },
+                        { input: "abcba", output: "5", isSample: false },
+                        { input: "abcd", output: "1", isSample: false },
+                        { input: "abacdfgdcaba", output: "3", isSample: false },
+                        { input: "aaaa", output: "4", isSample: false },
+                ],
+        },
+
+        // Problem 75: Partition Equal Subset Sum
+        {
+                title: "Partition Equal Subset",
+                slug: "partition-equal-subset",
+                difficulty: Difficulty.MEDIUM,
+                statement: `Can the array be partitioned into two subsets with equal sum?`,
+                inputFormat: `First line: N
+Second line: N positive integers`,
+                outputFormat: `YES or NO.`,
+                constraints: `1 ≤ N ≤ 200
+1 ≤ elements ≤ 100`,
+                sampleInput: `4
+1 5 11 5`,
+                sampleOutput: `YES`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "If sum is odd, NO. Else, find subset with sum = total/2 using DP.",
+                tags: ["dynamic-programming", "arrays"],
+                testCases: [
+                        { input: "4\n1 5 11 5", output: "YES", isSample: true },
+                        { input: "3\n1 2 3", output: "YES", isSample: false },
+                        { input: "3\n1 2 5", output: "NO", isSample: false },
+                        { input: "1\n1", output: "NO", isSample: false },
+                        { input: "2\n5 5", output: "YES", isSample: false },
+                        { input: "6\n1 2 3 4 5 5", output: "YES", isSample: false },
+                        { input: "4\n1 1 1 1", output: "YES", isSample: false },
+                        { input: "5\n2 2 2 2 2", output: "NO", isSample: false },
+                        { input: "4\n100 100 100 100", output: "YES", isSample: false },
+                        { input: "3\n3 3 3", output: "NO", isSample: false },
+                ],
+        },
+
+        // Problem 76: Word Break
+        {
+                title: "Word Break",
+                slug: "word-break",
+                difficulty: Difficulty.MEDIUM,
+                statement: `Check if a string can be segmented into dictionary words.`,
+                inputFormat: `First line: string s
+Second line: N (number of words in dictionary)
+Next N lines: dictionary words`,
+                outputFormat: `YES or NO.`,
+                constraints: `1 ≤ |s| ≤ 300
+1 ≤ N ≤ 1000`,
+                sampleInput: `leetcode
+2
+leet
+code`,
+                sampleOutput: `YES`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "DP: dp[i] = true if s[0..i] can be segmented.",
+                tags: ["dynamic-programming", "strings"],
+                testCases: [
+                        { input: "leetcode\n2\nleet\ncode", output: "YES", isSample: true },
+                        { input: "applepenapple\n2\napple\npen", output: "YES", isSample: false },
+                        { input: "catsandog\n3\ncats\ndog\nand", output: "NO", isSample: false },
+                        { input: "a\n1\na", output: "YES", isSample: false },
+                        { input: "ab\n2\na\nb", output: "YES", isSample: false },
+                        { input: "cars\n2\ncar\nca", output: "NO", isSample: false },
+                        { input: "goal\n2\ngo\ngoal", output: "YES", isSample: false },
+                        { input: "aaab\n2\na\naa", output: "NO", isSample: false },
+                        { input: "bb\n2\na\nb", output: "YES", isSample: false },
+                        { input: "abc\n3\na\nb\nc", output: "YES", isSample: false },
+                ],
+        },
+
+        // Problem 77: Decode Ways
+        {
+                title: "Decode Ways",
+                slug: "decode-ways",
+                difficulty: Difficulty.MEDIUM,
+                statement: `A message with letters A-Z is encoded to numbers 1-26. Count ways to decode a digit string.`,
+                inputFormat: `A string of digits.`,
+                outputFormat: `Number of ways to decode.`,
+                constraints: `1 ≤ |s| ≤ 100
+String contains only digits`,
+                sampleInput: `226`,
+                sampleOutput: `3`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "DP: consider taking 1 or 2 digits at each step.",
+                tags: ["dynamic-programming", "strings"],
+                testCases: [
+                        { input: "226", output: "3", isSample: true },
+                        { input: "12", output: "2", isSample: false },
+                        { input: "1", output: "1", isSample: false },
+                        { input: "0", output: "0", isSample: false },
+                        { input: "10", output: "1", isSample: false },
+                        { input: "27", output: "1", isSample: false },
+                        { input: "111", output: "3", isSample: false },
+                        { input: "101", output: "1", isSample: false },
+                        { input: "2101", output: "1", isSample: false },
+                        { input: "1234", output: "3", isSample: false },
+                ],
+        },
+
+        // Problem 78: Number of Islands
+        {
+                title: "Number of Islands",
+                slug: "number-of-islands",
+                difficulty: Difficulty.MEDIUM,
+                statement: `Count number of islands in a grid. '1' is land, '0' is water. An island is surrounded by water.`,
+                inputFormat: `First line: N M (rows, cols)
+Next N lines: M characters (0 or 1)`,
+                outputFormat: `Number of islands.`,
+                constraints: `1 ≤ N, M ≤ 300`,
+                sampleInput: `4 5
+11110
+11010
+11000
+00000`,
+                sampleOutput: `1`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "Use DFS/BFS to mark visited cells when you find land.",
+                tags: ["graphs", "arrays"],
+                testCases: [
+                        { input: "4 5\n11110\n11010\n11000\n00000", output: "1", isSample: true },
+                        { input: "4 5\n11000\n11000\n00100\n00011", output: "3", isSample: false },
+                        { input: "1 1\n1", output: "1", isSample: false },
+                        { input: "1 1\n0", output: "0", isSample: false },
+                        { input: "3 3\n101\n010\n101", output: "5", isSample: false },
+                        { input: "2 2\n11\n11", output: "1", isSample: false },
+                        { input: "3 3\n000\n000\n000", output: "0", isSample: false },
+                        { input: "3 3\n111\n111\n111", output: "1", isSample: false },
+                        { input: "2 4\n1010\n0101", output: "4", isSample: false },
+                        { input: "4 3\n100\n010\n001\n000", output: "3", isSample: false },
+                ],
+        },
+
+        // Problem 79: Product of Array Except Self
+        {
+                title: "Product Except Self",
+                slug: "product-except-self",
+                difficulty: Difficulty.MEDIUM,
+                statement: `For each index, compute product of all elements except the element at that index.`,
+                inputFormat: `First line: N
+Second line: N integers`,
+                outputFormat: `N space-separated products.`,
+                constraints: `2 ≤ N ≤ 10^5
+-30 ≤ elements ≤ 30
+Product fits in 32-bit integer`,
+                sampleInput: `4
+1 2 3 4`,
+                sampleOutput: `24 12 8 6`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "Use prefix and suffix products without division.",
+                tags: ["arrays", "math"],
+                testCases: [
+                        { input: "4\n1 2 3 4", output: "24 12 8 6", isSample: true },
+                        { input: "5\n-1 1 0 -3 3", output: "0 0 9 0 0", isSample: false },
+                        { input: "2\n1 2", output: "2 1", isSample: false },
+                        { input: "3\n2 2 2", output: "4 4 4", isSample: false },
+                        { input: "4\n0 0 0 0", output: "0 0 0 0", isSample: false },
+                        { input: "3\n1 0 3", output: "0 3 0", isSample: false },
+                        { input: "4\n5 4 3 2", output: "24 30 40 60", isSample: false },
+                        { input: "5\n1 1 1 1 1", output: "1 1 1 1 1", isSample: false },
+                        { input: "3\n-1 -1 -1", output: "1 1 1", isSample: false },
+                        { input: "4\n2 -2 3 -3", output: "18 -18 -12 12", isSample: false },
+                ],
+        },
+
+        // Problem 80: Sort Colors (Dutch National Flag)
+        {
+                title: "Sort Colors",
+                slug: "sort-colors",
+                difficulty: Difficulty.MEDIUM,
+                statement: `Sort array containing only 0, 1, and 2 in-place in one pass.`,
+                inputFormat: `First line: N
+Second line: N integers (0, 1, or 2)`,
+                outputFormat: `Sorted array.`,
+                constraints: `1 ≤ N ≤ 300
+Elements are 0, 1, or 2`,
+                sampleInput: `6
+2 0 2 1 1 0`,
+                sampleOutput: `0 0 1 1 2 2`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "Dutch National Flag algorithm: use three pointers.",
+                tags: ["arrays", "sorting"],
+                testCases: [
+                        { input: "6\n2 0 2 1 1 0", output: "0 0 1 1 2 2", isSample: true },
+                        { input: "3\n2 0 1", output: "0 1 2", isSample: false },
+                        { input: "1\n0", output: "0", isSample: false },
+                        { input: "3\n0 0 0", output: "0 0 0", isSample: false },
+                        { input: "3\n2 2 2", output: "2 2 2", isSample: false },
+                        { input: "5\n1 1 1 1 1", output: "1 1 1 1 1", isSample: false },
+                        { input: "6\n0 1 2 0 1 2", output: "0 0 1 1 2 2", isSample: false },
+                        { input: "4\n1 0 2 1", output: "0 1 1 2", isSample: false },
+                        { input: "2\n1 0", output: "0 1", isSample: false },
+                        { input: "7\n2 1 0 2 1 0 1", output: "0 0 1 1 1 2 2", isSample: false },
+                ],
+        },
+
+        // Problem 81: Find Peak Element
+        {
+                title: "Find Peak Element",
+                slug: "find-peak-element",
+                difficulty: Difficulty.MEDIUM,
+                statement: `Find any peak element (greater than neighbors). Return its index.`,
+                inputFormat: `First line: N
+Second line: N integers`,
+                outputFormat: `Index of a peak element (0-indexed).`,
+                constraints: `1 ≤ N ≤ 10^5
+nums[i] ≠ nums[i+1] for all i`,
+                sampleInput: `4
+1 2 3 1`,
+                sampleOutput: `2`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "Binary search: if mid < mid+1, peak is on right; else left.",
+                tags: ["binary-search", "arrays"],
+                testCases: [
+                        { input: "4\n1 2 3 1", output: "2", isSample: true },
+                        { input: "5\n1 2 1 3 5", output: "4", isSample: false },
+                        { input: "1\n1", output: "0", isSample: false },
+                        { input: "2\n1 2", output: "1", isSample: false },
+                        { input: "2\n2 1", output: "0", isSample: false },
+                        { input: "3\n1 3 2", output: "1", isSample: false },
+                        { input: "5\n5 4 3 2 1", output: "0", isSample: false },
+                        { input: "5\n1 2 3 4 5", output: "4", isSample: false },
+                        { input: "6\n1 6 5 4 3 2", output: "1", isSample: false },
+                        { input: "4\n1 3 2 4", output: "3", isSample: false },
+                ],
+        },
+
+        // Problem 82: Search in Rotated Sorted Array
+        {
+                title: "Search in Rotated Array",
+                slug: "search-rotated-array",
+                difficulty: Difficulty.MEDIUM,
+                statement: `Search for target in a rotated sorted array. Return index or -1.`,
+                inputFormat: `First line: N and target
+Second line: N distinct integers (rotated sorted)`,
+                outputFormat: `Index of target or -1.`,
+                constraints: `1 ≤ N ≤ 5000
+-10^4 ≤ elements, target ≤ 10^4`,
+                sampleInput: `7 0
+4 5 6 7 0 1 2`,
+                sampleOutput: `4`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "Modified binary search. Check which half is sorted.",
+                tags: ["binary-search", "arrays"],
+                testCases: [
+                        { input: "7 0\n4 5 6 7 0 1 2", output: "4", isSample: true },
+                        { input: "7 3\n4 5 6 7 0 1 2", output: "-1", isSample: false },
+                        { input: "1 0\n1", output: "-1", isSample: false },
+                        { input: "1 1\n1", output: "0", isSample: false },
+                        { input: "5 4\n3 4 5 1 2", output: "1", isSample: false },
+                        { input: "5 1\n3 4 5 1 2", output: "3", isSample: false },
+                        { input: "4 2\n2 3 4 1", output: "0", isSample: false },
+                        { input: "6 6\n6 7 1 2 3 4", output: "0", isSample: false },
+                        { input: "6 4\n6 7 1 2 3 4", output: "5", isSample: false },
+                        { input: "3 2\n1 2 3", output: "1", isSample: false },
+                ],
+        },
+
+        // Problem 83: Container With Most Water
+        {
+                title: "Container With Most Water",
+                slug: "container-most-water",
+                difficulty: Difficulty.MEDIUM,
+                statement: `Find two lines that form a container holding the most water.`,
+                inputFormat: `First line: N
+Second line: N heights`,
+                outputFormat: `Maximum water area.`,
+                constraints: `2 ≤ N ≤ 10^5
+0 ≤ heights ≤ 10^4`,
+                sampleInput: `9
+1 8 6 2 5 4 8 3 7`,
+                sampleOutput: `49`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "Two pointers from both ends. Move the shorter line inward.",
+                tags: ["arrays", "greedy"],
+                testCases: [
+                        { input: "9\n1 8 6 2 5 4 8 3 7", output: "49", isSample: true },
+                        { input: "2\n1 1", output: "1", isSample: false },
+                        { input: "3\n4 3 2", output: "4", isSample: false },
+                        { input: "4\n1 2 4 3", output: "4", isSample: false },
+                        { input: "5\n1 1 1 1 1", output: "4", isSample: false },
+                        { input: "6\n2 3 4 5 18 17", output: "17", isSample: false },
+                        { input: "4\n1 8 6 2", output: "6", isSample: false },
+                        { input: "5\n5 4 3 2 1", output: "6", isSample: false },
+                        { input: "3\n1 2 1", output: "2", isSample: false },
+                        { input: "6\n10 9 8 7 6 5", output: "25", isSample: false },
+                ],
+        },
+
+        // Problem 84: 3Sum
+        {
+                title: "Three Sum",
+                slug: "three-sum",
+                difficulty: Difficulty.MEDIUM,
+                statement: `Find all unique triplets that sum to zero.`,
+                inputFormat: `First line: N
+Second line: N integers`,
+                outputFormat: `Number of unique triplets.`,
+                constraints: `3 ≤ N ≤ 3000
+-10^5 ≤ elements ≤ 10^5`,
+                sampleInput: `6
+-1 0 1 2 -1 -4`,
+                sampleOutput: `2`,
+                timeLimit: 2000,
+                memoryLimit: 256,
+                hint: "Sort, then use two pointers for each fixed first element.",
+                tags: ["arrays", "sorting"],
+                testCases: [
+                        { input: "6\n-1 0 1 2 -1 -4", output: "2", isSample: true },
+                        { input: "3\n0 1 1", output: "0", isSample: false },
+                        { input: "3\n0 0 0", output: "1", isSample: false },
+                        { input: "4\n-1 0 1 0", output: "1", isSample: false },
+                        { input: "6\n-2 0 1 1 2 2", output: "2", isSample: false },
+                        { input: "5\n1 2 -2 -1 0", output: "1", isSample: false },
+                        { input: "6\n-4 -2 -1 0 1 2", output: "2", isSample: false },
+                        { input: "7\n-1 -1 -1 0 1 1 1", output: "1", isSample: false },
+                        { input: "4\n1 1 1 1", output: "0", isSample: false },
+                        { input: "9\n-4 -2 -2 -2 0 1 2 2 2", output: "3", isSample: false },
+                ],
+        },
+
+        // Problem 85: Minimum Path Sum
+        {
+                title: "Minimum Path Sum",
+                slug: "minimum-path-sum",
+                difficulty: Difficulty.MEDIUM,
+                statement: `Find minimum sum path from top-left to bottom-right in a grid (only move right or down).`,
+                inputFormat: `First line: N M
+Next N lines: M integers`,
+                outputFormat: `Minimum path sum.`,
+                constraints: `1 ≤ N, M ≤ 200
+0 ≤ grid values ≤ 200`,
+                sampleInput: `3 3
+1 3 1
+1 5 1
+4 2 1`,
+                sampleOutput: `7`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "dp[i][j] = grid[i][j] + min(dp[i-1][j], dp[i][j-1]).",
+                tags: ["dynamic-programming", "arrays"],
+                testCases: [
+                        { input: "3 3\n1 3 1\n1 5 1\n4 2 1", output: "7", isSample: true },
+                        { input: "2 3\n1 2 3\n4 5 6", output: "12", isSample: false },
+                        { input: "1 1\n5", output: "5", isSample: false },
+                        { input: "1 3\n1 2 3", output: "6", isSample: false },
+                        { input: "3 1\n1\n2\n3", output: "6", isSample: false },
+                        { input: "2 2\n1 2\n3 4", output: "7", isSample: false },
+                        { input: "3 3\n0 0 0\n0 0 0\n0 0 0", output: "0", isSample: false },
+                        { input: "2 2\n1 1\n1 1", output: "3", isSample: false },
+                        { input: "4 4\n1 2 3 4\n5 6 7 8\n9 10 11 12\n13 14 15 16", output: "40", isSample: false },
+                        { input: "3 2\n1 100\n1 100\n1 1", output: "4", isSample: false },
+                ],
+        },
+
+        // Problem 86: Unique Paths
+        {
+                title: "Unique Paths",
+                slug: "unique-paths",
+                difficulty: Difficulty.MEDIUM,
+                statement: `Count unique paths from top-left to bottom-right in an m x n grid (only move right or down).`,
+                inputFormat: `Two integers m and n.`,
+                outputFormat: `Number of unique paths.`,
+                constraints: `1 ≤ m, n ≤ 100`,
+                sampleInput: `3 7`,
+                sampleOutput: `28`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "dp[i][j] = dp[i-1][j] + dp[i][j-1]. Or use combinations: C(m+n-2, m-1).",
+                tags: ["dynamic-programming", "math"],
+                testCases: [
+                        { input: "3 7", output: "28", isSample: true },
+                        { input: "3 2", output: "3", isSample: false },
+                        { input: "1 1", output: "1", isSample: false },
+                        { input: "1 10", output: "1", isSample: false },
+                        { input: "10 1", output: "1", isSample: false },
+                        { input: "2 2", output: "2", isSample: false },
+                        { input: "4 4", output: "20", isSample: false },
+                        { input: "5 5", output: "70", isSample: false },
+                        { input: "3 3", output: "6", isSample: false },
+                        { input: "10 10", output: "48620", isSample: false },
+                ],
+        },
+
+        // Problem 87: Spiral Matrix
+        {
+                title: "Spiral Matrix",
+                slug: "spiral-matrix",
+                difficulty: Difficulty.MEDIUM,
+                statement: `Print elements of a matrix in spiral order.`,
+                inputFormat: `First line: N M
+Next N lines: M integers`,
+                outputFormat: `Elements in spiral order.`,
+                constraints: `1 ≤ N, M ≤ 10
+-100 ≤ elements ≤ 100`,
+                sampleInput: `3 3
+1 2 3
+4 5 6
+7 8 9`,
+                sampleOutput: `1 2 3 6 9 8 7 4 5`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "Maintain four boundaries and traverse in order: right, down, left, up.",
+                tags: ["arrays", "implementation"],
+                testCases: [
+                        { input: "3 3\n1 2 3\n4 5 6\n7 8 9", output: "1 2 3 6 9 8 7 4 5", isSample: true },
+                        { input: "1 4\n1 2 3 4", output: "1 2 3 4", isSample: false },
+                        { input: "4 1\n1\n2\n3\n4", output: "1 2 3 4", isSample: false },
+                        { input: "1 1\n5", output: "5", isSample: false },
+                        { input: "2 2\n1 2\n3 4", output: "1 2 4 3", isSample: false },
+                        { input: "2 3\n1 2 3\n4 5 6", output: "1 2 3 6 5 4", isSample: false },
+                        { input: "3 2\n1 2\n3 4\n5 6", output: "1 2 4 6 5 3", isSample: false },
+                        { input: "4 4\n1 2 3 4\n5 6 7 8\n9 10 11 12\n13 14 15 16", output: "1 2 3 4 8 12 16 15 14 13 9 5 6 7 11 10", isSample: false },
+                        { input: "2 4\n1 2 3 4\n5 6 7 8", output: "1 2 3 4 8 7 6 5", isSample: false },
+                        { input: "3 4\n1 2 3 4\n5 6 7 8\n9 10 11 12", output: "1 2 3 4 8 12 11 10 9 5 6 7", isSample: false },
+                ],
+        },
+
+        // Problem 88: Set Matrix Zeroes
+        {
+                title: "Set Matrix Zeroes",
+                slug: "set-matrix-zeroes",
+                difficulty: Difficulty.MEDIUM,
+                statement: `If an element is 0, set its entire row and column to 0.`,
+                inputFormat: `First line: N M
+Next N lines: M integers`,
+                outputFormat: `Modified matrix.`,
+                constraints: `1 ≤ N, M ≤ 200
+-2^31 ≤ elements ≤ 2^31 - 1`,
+                sampleInput: `3 3
+1 1 1
+1 0 1
+1 1 1`,
+                sampleOutput: `1 0 1
+0 0 0
+1 0 1`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "Use first row/column as markers to achieve O(1) extra space.",
+                tags: ["arrays", "implementation"],
+                testCases: [
+                        { input: "3 3\n1 1 1\n1 0 1\n1 1 1", output: "1 0 1\n0 0 0\n1 0 1", isSample: true },
+                        { input: "3 4\n0 1 2 0\n3 4 5 2\n1 3 1 5", output: "0 0 0 0\n0 4 5 0\n0 3 1 0", isSample: false },
+                        { input: "1 1\n0", output: "0", isSample: false },
+                        { input: "1 1\n1", output: "1", isSample: false },
+                        { input: "2 2\n1 2\n3 4", output: "1 2\n3 4", isSample: false },
+                        { input: "2 2\n0 1\n1 1", output: "0 0\n0 1", isSample: false },
+                        { input: "3 3\n1 2 3\n4 0 6\n7 8 9", output: "1 0 3\n0 0 0\n7 0 9", isSample: false },
+                        { input: "2 3\n1 0 1\n0 1 1", output: "0 0 0\n0 0 0", isSample: false },
+                        { input: "3 2\n1 1\n1 0\n1 1", output: "1 0\n0 0\n1 0", isSample: false },
+                        { input: "4 4\n1 0 1 1\n1 1 1 1\n1 1 1 1\n1 1 1 0", output: "0 0 0 0\n1 0 1 0\n1 0 1 0\n0 0 0 0", isSample: false },
+                ],
+        },
+
+        // Problem 89: Group Anagrams
+        {
+                title: "Group Anagrams",
+                slug: "group-anagrams",
+                difficulty: Difficulty.MEDIUM,
+                statement: `Group strings that are anagrams of each other.`,
+                inputFormat: `First line: N
+Next N lines: strings`,
+                outputFormat: `Number of anagram groups.`,
+                constraints: `1 ≤ N ≤ 10^4
+0 ≤ string length ≤ 100`,
+                sampleInput: `6
+eat
+tea
+tan
+ate
+nat
+bat`,
+                sampleOutput: `3`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "Use sorted string as key in a hash map.",
+                tags: ["strings", "hash-table"],
+                testCases: [
+                        { input: "6\neat\ntea\ntan\nate\nnat\nbat", output: "3", isSample: true },
+                        { input: "1\na", output: "1", isSample: false },
+                        { input: "1\n", output: "1", isSample: false },
+                        { input: "3\nabc\ncba\nbac", output: "1", isSample: false },
+                        { input: "4\na\nb\nc\nd", output: "4", isSample: false },
+                        { input: "2\nab\nba", output: "1", isSample: false },
+                        { input: "5\nlisten\nsilent\nenlist\ninlets\ntinsel", output: "1", isSample: false },
+                        { input: "4\ncat\ndog\ntac\ngod", output: "2", isSample: false },
+                        { input: "3\naa\naa\naa", output: "1", isSample: false },
+                        { input: "6\na\nb\na\nb\na\nb", output: "2", isSample: false },
+                ],
+        },
+
+        // Problem 90: Subsets
+        {
+                title: "Generate Subsets",
+                slug: "generate-subsets",
+                difficulty: Difficulty.MEDIUM,
+                statement: `Generate all subsets (power set) of a set of distinct integers.`,
+                inputFormat: `First line: N
+Second line: N distinct integers`,
+                outputFormat: `Total number of subsets (2^N).`,
+                constraints: `0 ≤ N ≤ 10
+-10 ≤ elements ≤ 10`,
+                sampleInput: `3
+1 2 3`,
+                sampleOutput: `8`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "Use backtracking or bit manipulation. Total subsets = 2^n.",
+                tags: ["arrays", "backtracking"],
+                testCases: [
+                        { input: "3\n1 2 3", output: "8", isSample: true },
+                        { input: "0", output: "1", isSample: false },
+                        { input: "1\n0", output: "2", isSample: false },
+                        { input: "2\n1 2", output: "4", isSample: false },
+                        { input: "4\n1 2 3 4", output: "16", isSample: false },
+                        { input: "5\n1 2 3 4 5", output: "32", isSample: false },
+                        { input: "6\n1 2 3 4 5 6", output: "64", isSample: false },
+                        { input: "7\n1 2 3 4 5 6 7", output: "128", isSample: false },
+                        { input: "8\n1 2 3 4 5 6 7 8", output: "256", isSample: false },
+                        { input: "10\n1 2 3 4 5 6 7 8 9 10", output: "1024", isSample: false },
+                ],
+        },
+
+        // Problem 91: Permutations
+        {
+                title: "Generate Permutations",
+                slug: "generate-permutations",
+                difficulty: Difficulty.MEDIUM,
+                statement: `Generate all permutations of distinct integers.`,
+                inputFormat: `First line: N
+Second line: N distinct integers`,
+                outputFormat: `Total number of permutations (N!).`,
+                constraints: `1 ≤ N ≤ 8`,
+                sampleInput: `3
+1 2 3`,
+                sampleOutput: `6`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "Use backtracking. Swap elements and recurse.",
+                tags: ["arrays", "backtracking"],
+                testCases: [
+                        { input: "3\n1 2 3", output: "6", isSample: true },
+                        { input: "1\n1", output: "1", isSample: false },
+                        { input: "2\n1 2", output: "2", isSample: false },
+                        { input: "4\n1 2 3 4", output: "24", isSample: false },
+                        { input: "5\n1 2 3 4 5", output: "120", isSample: false },
+                        { input: "6\n1 2 3 4 5 6", output: "720", isSample: false },
+                        { input: "7\n1 2 3 4 5 6 7", output: "5040", isSample: false },
+                        { input: "8\n1 2 3 4 5 6 7 8", output: "40320", isSample: false },
+                        { input: "2\n0 1", output: "2", isSample: false },
+                        { input: "3\n-1 0 1", output: "6", isSample: false },
+                ],
+        },
+
+        // Problem 92: Combination Sum
+        {
+                title: "Combination Sum",
+                slug: "combination-sum",
+                difficulty: Difficulty.MEDIUM,
+                statement: `Find all unique combinations that sum to target. Each number can be used unlimited times.`,
+                inputFormat: `First line: N and target
+Second line: N distinct positive integers`,
+                outputFormat: `Number of unique combinations.`,
+                constraints: `1 ≤ N ≤ 30
+1 ≤ target ≤ 200
+1 ≤ elements ≤ 200`,
+                sampleInput: `4 7
+2 3 6 7`,
+                sampleOutput: `2`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "Use backtracking. For each element, choose to include it or move on.",
+                tags: ["arrays", "backtracking"],
+                testCases: [
+                        { input: "4 7\n2 3 6 7", output: "2", isSample: true },
+                        { input: "3 8\n2 3 5", output: "3", isSample: false },
+                        { input: "1 1\n2", output: "0", isSample: false },
+                        { input: "1 2\n1", output: "1", isSample: false },
+                        { input: "2 4\n1 2", output: "3", isSample: false },
+                        { input: "3 9\n2 3 4", output: "3", isSample: false },
+                        { input: "2 10\n2 5", output: "2", isSample: false },
+                        { input: "4 10\n2 3 5 7", output: "5", isSample: false },
+                        { input: "1 7\n7", output: "1", isSample: false },
+                        { input: "3 12\n2 4 6", output: "4", isSample: false },
+                ],
+        },
+
+        // Problem 93: Letter Combinations of Phone Number
+        {
+                title: "Phone Letter Combinations",
+                slug: "phone-letter-combinations",
+                difficulty: Difficulty.MEDIUM,
+                statement: `Given digits 2-9, return all possible letter combinations (like phone keypad).`,
+                inputFormat: `A string of digits.`,
+                outputFormat: `Number of letter combinations.`,
+                constraints: `0 ≤ length ≤ 4
+Digits are 2-9`,
+                sampleInput: `23`,
+                sampleOutput: `9`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "Backtracking. Map each digit to its letters and generate combinations.",
+                tags: ["strings", "backtracking"],
+                testCases: [
+                        { input: "23", output: "9", isSample: true },
+                        { input: "", output: "0", isSample: false },
+                        { input: "2", output: "3", isSample: false },
+                        { input: "7", output: "4", isSample: false },
+                        { input: "9", output: "4", isSample: false },
+                        { input: "234", output: "27", isSample: false },
+                        { input: "79", output: "16", isSample: false },
+                        { input: "22", output: "9", isSample: false },
+                        { input: "2345", output: "108", isSample: false },
+                        { input: "7777", output: "256", isSample: false },
+                ],
+        },
+
+        // Problem 94: Kth Largest Element
+        {
+                title: "Kth Largest Element",
+                slug: "kth-largest-element",
+                difficulty: Difficulty.MEDIUM,
+                statement: `Find the kth largest element in an unsorted array.`,
+                inputFormat: `First line: N and K
+Second line: N integers`,
+                outputFormat: `The kth largest element.`,
+                constraints: `1 ≤ K ≤ N ≤ 10^5
+-10^4 ≤ elements ≤ 10^4`,
+                sampleInput: `6 2
+3 2 1 5 6 4`,
+                sampleOutput: `5`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "Use quickselect for O(n) average, or heap for O(n log k).",
+                tags: ["arrays", "sorting"],
+                testCases: [
+                        { input: "6 2\n3 2 1 5 6 4", output: "5", isSample: true },
+                        { input: "9 4\n3 2 3 1 2 4 5 5 6", output: "4", isSample: false },
+                        { input: "1 1\n1", output: "1", isSample: false },
+                        { input: "5 1\n5 4 3 2 1", output: "5", isSample: false },
+                        { input: "5 5\n5 4 3 2 1", output: "1", isSample: false },
+                        { input: "4 2\n1 1 1 1", output: "1", isSample: false },
+                        { input: "7 3\n7 6 5 4 3 2 1", output: "5", isSample: false },
+                        { input: "10 5\n1 2 3 4 5 6 7 8 9 10", output: "6", isSample: false },
+                        { input: "5 3\n-1 -2 -3 -4 -5", output: "-3", isSample: false },
+                        { input: "6 1\n-10 0 10 -20 20 -30", output: "20", isSample: false },
+                ],
+        },
+
+        // Problem 95: Merge Intervals
+        {
+                title: "Merge Intervals",
+                slug: "merge-intervals",
+                difficulty: Difficulty.MEDIUM,
+                statement: `Given intervals, merge all overlapping intervals.`,
+                inputFormat: `First line: N
+Next N lines: start end of each interval`,
+                outputFormat: `Number of merged intervals.`,
+                constraints: `1 ≤ N ≤ 10^4
+0 ≤ start ≤ end ≤ 10^4`,
+                sampleInput: `4
+1 3
+2 6
+8 10
+15 18`,
+                sampleOutput: `3`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "Sort by start time. Merge if current start ≤ previous end.",
+                tags: ["arrays", "sorting"],
+                testCases: [
+                        { input: "4\n1 3\n2 6\n8 10\n15 18", output: "3", isSample: true },
+                        { input: "2\n1 4\n4 5", output: "1", isSample: false },
+                        { input: "1\n1 5", output: "1", isSample: false },
+                        { input: "3\n1 2\n3 4\n5 6", output: "3", isSample: false },
+                        { input: "3\n1 10\n2 5\n6 8", output: "1", isSample: false },
+                        { input: "5\n1 4\n0 4\n2 3\n3 5\n4 6", output: "1", isSample: false },
+                        { input: "4\n1 2\n2 3\n3 4\n4 5", output: "1", isSample: false },
+                        { input: "2\n1 5\n6 10", output: "2", isSample: false },
+                        { input: "3\n0 0\n1 1\n2 2", output: "3", isSample: false },
+                        { input: "5\n1 5\n2 3\n4 6\n7 8\n8 9", output: "2", isSample: false },
+                ],
+        },
+
+        // Problem 96: Top K Frequent Elements
+        {
+                title: "Top K Frequent Elements",
+                slug: "top-k-frequent-elements",
+                difficulty: Difficulty.MEDIUM,
+                statement: `Find the k most frequent elements in an array.`,
+                inputFormat: `First line: N and K
+Second line: N integers`,
+                outputFormat: `K elements sorted by frequency (highest first).`,
+                constraints: `1 ≤ K ≤ number of unique elements ≤ N ≤ 10^5`,
+                sampleInput: `6 2
+1 1 1 2 2 3`,
+                sampleOutput: `1 2`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "Use hash map for frequency, then heap or bucket sort.",
+                tags: ["arrays", "hash-table"],
+                testCases: [
+                        { input: "6 2\n1 1 1 2 2 3", output: "1 2", isSample: true },
+                        { input: "1 1\n1", output: "1", isSample: false },
+                        { input: "5 2\n1 2 3 4 5", output: "1 2", isSample: false },
+                        { input: "7 3\n1 1 2 2 3 3 3", output: "3 1 2", isSample: false },
+                        { input: "4 1\n4 4 4 4", output: "4", isSample: false },
+                        { input: "8 2\n1 2 1 2 1 2 3 4", output: "1 2", isSample: false },
+                        { input: "5 3\n5 5 4 4 3", output: "5 4 3", isSample: false },
+                        { input: "6 2\n-1 -1 2 2 3 3", output: "-1 2", isSample: false },
+                        { input: "10 1\n1 2 3 4 5 1 2 3 4 1", output: "1", isSample: false },
+                        { input: "9 3\n1 1 1 2 2 2 3 3 3", output: "1 2 3", isSample: false },
+                ],
+        },
+
+        // Problem 97: LRU Cache
+        {
+                title: "LRU Cache Operations",
+                slug: "lru-cache-operations",
+                difficulty: Difficulty.MEDIUM,
+                statement: `Implement LRU cache with get and put operations. Output results of get operations.`,
+                inputFormat: `First line: capacity and Q (queries)
+Next Q lines: GET key or PUT key value`,
+                outputFormat: `Results of GET operations (-1 if not found).`,
+                constraints: `1 ≤ capacity ≤ 3000
+1 ≤ Q ≤ 10^4`,
+                sampleInput: `2 5
+PUT 1 1
+PUT 2 2
+GET 1
+PUT 3 3
+GET 2`,
+                sampleOutput: `1
+-1`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "Use hash map + doubly linked list for O(1) operations.",
+                tags: ["implementation", "hash-table"],
+                testCases: [
+                        { input: "2 5\nPUT 1 1\nPUT 2 2\nGET 1\nPUT 3 3\nGET 2", output: "1\n-1", isSample: true },
+                        { input: "1 3\nPUT 1 1\nGET 1\nPUT 2 2", output: "1", isSample: false },
+                        { input: "2 4\nGET 1\nPUT 1 1\nGET 1\nGET 2", output: "-1\n1\n-1", isSample: false },
+                        { input: "3 6\nPUT 1 1\nPUT 2 2\nPUT 3 3\nGET 1\nGET 2\nGET 3", output: "1\n2\n3", isSample: false },
+                        { input: "2 6\nPUT 1 1\nPUT 2 2\nPUT 1 10\nGET 1\nGET 2\nGET 3", output: "10\n2\n-1", isSample: false },
+                        { input: "1 4\nPUT 1 1\nPUT 2 2\nGET 1\nGET 2", output: "-1\n2", isSample: false },
+                        { input: "3 5\nPUT 1 1\nGET 1\nPUT 2 2\nPUT 3 3\nGET 1", output: "1\n1", isSample: false },
+                        { input: "2 3\nPUT 1 5\nPUT 1 10\nGET 1", output: "10", isSample: false },
+                        { input: "2 4\nPUT 1 1\nGET 1\nPUT 2 2\nGET 1", output: "1\n1", isSample: false },
+                        { input: "3 7\nPUT 1 1\nPUT 2 2\nPUT 3 3\nPUT 4 4\nGET 1\nGET 2\nGET 4", output: "-1\n2\n4", isSample: false },
+                ],
+        },
+
+        // Problem 98: Trapping Rain Water
+        {
+                title: "Trapping Rain Water",
+                slug: "trapping-rain-water",
+                difficulty: Difficulty.MEDIUM,
+                statement: `Given elevation map, compute how much water can be trapped after rain.`,
+                inputFormat: `First line: N
+Second line: N non-negative heights`,
+                outputFormat: `Total water trapped.`,
+                constraints: `1 ≤ N ≤ 2 × 10^4
+0 ≤ heights ≤ 10^5`,
+                sampleInput: `12
+0 1 0 2 1 0 1 3 2 1 2 1`,
+                sampleOutput: `6`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "For each position, water = min(maxLeft, maxRight) - height.",
+                tags: ["arrays", "dynamic-programming"],
+                testCases: [
+                        { input: "12\n0 1 0 2 1 0 1 3 2 1 2 1", output: "6", isSample: true },
+                        { input: "6\n4 2 0 3 2 5", output: "9", isSample: false },
+                        { input: "1\n5", output: "0", isSample: false },
+                        { input: "2\n1 2", output: "0", isSample: false },
+                        { input: "3\n2 0 2", output: "2", isSample: false },
+                        { input: "5\n3 0 0 2 0", output: "2", isSample: false },
+                        { input: "6\n0 1 2 3 2 1", output: "0", isSample: false },
+                        { input: "5\n5 4 3 2 1", output: "0", isSample: false },
+                        { input: "5\n1 2 3 2 1", output: "0", isSample: false },
+                        { input: "7\n3 0 2 0 4 0 1", output: "8", isSample: false },
+                ],
+        },
+
+        // Problem 99: Longest Substring Without Repeating
+        {
+                title: "Longest Substring Without Repeating",
+                slug: "longest-substring-no-repeat",
+                difficulty: Difficulty.MEDIUM,
+                statement: `Find the length of the longest substring without repeating characters.`,
+                inputFormat: `A single string.`,
+                outputFormat: `Length of longest substring.`,
+                constraints: `0 ≤ |s| ≤ 5 × 10^4`,
+                sampleInput: `abcabcbb`,
+                sampleOutput: `3`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "Sliding window with hash set to track characters.",
+                tags: ["strings", "sliding-window"],
+                testCases: [
+                        { input: "abcabcbb", output: "3", isSample: true },
+                        { input: "bbbbb", output: "1", isSample: false },
+                        { input: "pwwkew", output: "3", isSample: false },
+                        { input: "", output: "0", isSample: false },
+                        { input: "a", output: "1", isSample: false },
+                        { input: "abcdef", output: "6", isSample: false },
+                        { input: "aab", output: "2", isSample: false },
+                        { input: "dvdf", output: "3", isSample: false },
+                        { input: "anviaj", output: "5", isSample: false },
+                        { input: "tmmzuxt", output: "5", isSample: false },
+                ],
+        },
+
+        // Problem 100: Minimum Window Substring
+        {
+                title: "Minimum Window Substring",
+                slug: "minimum-window-substring",
+                difficulty: Difficulty.MEDIUM,
+                statement: `Find minimum window in s containing all characters of t.`,
+                inputFormat: `Two strings s and t.`,
+                outputFormat: `Length of minimum window, or 0 if not found.`,
+                constraints: `1 ≤ |s|, |t| ≤ 10^5`,
+                sampleInput: `ADOBECODEBANC
+ABC`,
+                sampleOutput: `4`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "Sliding window with character count. Expand right, shrink left.",
+                tags: ["strings", "sliding-window"],
+                testCases: [
+                        { input: "ADOBECODEBANC\nABC", output: "4", isSample: true },
+                        { input: "a\na", output: "1", isSample: false },
+                        { input: "a\naa", output: "0", isSample: false },
+                        { input: "aa\naa", output: "2", isSample: false },
+                        { input: "abc\ncba", output: "3", isSample: false },
+                        { input: "aaflslflsldkalskabc\nabc", output: "3", isSample: false },
+                        { input: "cabwefgewcwaefgcf\ncae", output: "4", isSample: false },
+                        { input: "bba\nab", output: "2", isSample: false },
+                        { input: "bdab\nab", output: "2", isSample: false },
+                        { input: "abcd\nz", output: "0", isSample: false },
+                ],
+        },
+
+        // Problem 101: Course Schedule
+        {
+                title: "Course Schedule",
+                slug: "course-schedule",
+                difficulty: Difficulty.MEDIUM,
+                statement: `Check if all courses can be finished given prerequisites (detect cycle).`,
+                inputFormat: `First line: N courses, M prerequisites
+Next M lines: course prerequisite pairs`,
+                outputFormat: `YES if possible, NO if there's a cycle.`,
+                constraints: `1 ≤ N ≤ 2000
+0 ≤ M ≤ 5000`,
+                sampleInput: `2 1
+1 0`,
+                sampleOutput: `YES`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "Topological sort using DFS or BFS (Kahn's algorithm).",
+                tags: ["graphs", "topological-sort"],
+                testCases: [
+                        { input: "2 1\n1 0", output: "YES", isSample: true },
+                        { input: "2 2\n1 0\n0 1", output: "NO", isSample: false },
+                        { input: "1 0", output: "YES", isSample: false },
+                        { input: "3 2\n1 0\n2 1", output: "YES", isSample: false },
+                        { input: "3 3\n0 1\n1 2\n2 0", output: "NO", isSample: false },
+                        { input: "4 4\n1 0\n2 0\n3 1\n3 2", output: "YES", isSample: false },
+                        { input: "5 4\n1 0\n2 1\n3 2\n4 3", output: "YES", isSample: false },
+                        { input: "4 5\n1 0\n2 1\n3 2\n0 3\n2 0", output: "NO", isSample: false },
+                        { input: "20 0", output: "YES", isSample: false },
+                        { input: "3 3\n0 1\n0 2\n1 2", output: "YES", isSample: false },
+                ],
+        },
+
+        // Problem 102: Clone Graph
+        {
+                title: "Clone Graph Nodes",
+                slug: "clone-graph-nodes",
+                difficulty: Difficulty.MEDIUM,
+                statement: `Given an undirected graph, count the total number of nodes.`,
+                inputFormat: `First line: N nodes, M edges
+Next M lines: node1 node2 pairs`,
+                outputFormat: `Total nodes in graph.`,
+                constraints: `0 ≤ N ≤ 100
+0 ≤ M ≤ 500`,
+                sampleInput: `4 4
+1 2
+1 4
+2 3
+3 4`,
+                sampleOutput: `4`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "Use BFS or DFS to traverse and count all nodes.",
+                tags: ["graphs", "implementation"],
+                testCases: [
+                        { input: "4 4\n1 2\n1 4\n2 3\n3 4", output: "4", isSample: true },
+                        { input: "1 0", output: "1", isSample: false },
+                        { input: "0 0", output: "0", isSample: false },
+                        { input: "3 2\n1 2\n2 3", output: "3", isSample: false },
+                        { input: "5 5\n1 2\n2 3\n3 4\n4 5\n5 1", output: "5", isSample: false },
+                        { input: "6 4\n1 2\n3 4\n5 6\n1 3", output: "6", isSample: false },
+                        { input: "2 1\n1 2", output: "2", isSample: false },
+                        { input: "10 9\n1 2\n2 3\n3 4\n4 5\n5 6\n6 7\n7 8\n8 9\n9 10", output: "10", isSample: false },
+                        { input: "4 6\n1 2\n1 3\n1 4\n2 3\n2 4\n3 4", output: "4", isSample: false },
+                        { input: "7 0", output: "7", isSample: false },
+                ],
+        },
+
+        // Problem 103: Word Ladder Length
+        {
+                title: "Word Ladder Length",
+                slug: "word-ladder-length",
+                difficulty: Difficulty.MEDIUM,
+                statement: `Find shortest transformation sequence length from begin to end word, changing one letter at a time.`,
+                inputFormat: `First line: begin word
+Second line: end word
+Third line: N (dictionary size)
+Next N lines: dictionary words`,
+                outputFormat: `Minimum number of words in sequence, or 0 if impossible.`,
+                constraints: `1 ≤ word length ≤ 10
+1 ≤ N ≤ 5000`,
+                sampleInput: `hit
+cog
+6
+hot
+dot
+dog
+lot
+log
+cog`,
+                sampleOutput: `5`,
+                timeLimit: 2000,
+                memoryLimit: 256,
+                hint: "BFS from start word. Each level changes one character.",
+                tags: ["graphs", "strings"],
+                testCases: [
+                        { input: "hit\ncog\n6\nhot\ndot\ndog\nlot\nlog\ncog", output: "5", isSample: true },
+                        { input: "hit\ncog\n5\nhot\ndot\ndog\nlot\nlog", output: "0", isSample: false },
+                        { input: "a\nc\n2\na\nc", output: "2", isSample: false },
+                        { input: "hot\ndog\n3\nhot\ndog\ndot", output: "3", isSample: false },
+                        { input: "cat\ndog\n4\ncot\ncog\ndog\ncat", output: "4", isSample: false },
+                        { input: "abc\nabc\n1\nabc", output: "1", isSample: false },
+                        { input: "ab\ncd\n0", output: "0", isSample: false },
+                        { input: "aa\nbb\n2\nab\nba", output: "0", isSample: false },
+                        { input: "leet\ncode\n6\nlest\nleet\nlose\ncode\nlode\nrode", output: "0", isSample: false },
+                        { input: "talk\ntale\n5\ntalk\ntalk\nwalk\ntale\ntalk", output: "3", isSample: false },
+                ],
+        },
+
+        // Problem 104: Find Median from Data Stream
+        {
+                title: "Running Median",
+                slug: "running-median",
+                difficulty: Difficulty.MEDIUM,
+                statement: `Find median after each insertion in a stream of integers.`,
+                inputFormat: `First line: N
+Second line: N integers to insert`,
+                outputFormat: `Median after all insertions (floor if even count).`,
+                constraints: `1 ≤ N ≤ 10^5
+-10^5 ≤ elements ≤ 10^5`,
+                sampleInput: `5
+2 3 4 1 5`,
+                sampleOutput: `3`,
+                timeLimit: 2000,
+                memoryLimit: 256,
+                hint: "Use two heaps: max-heap for lower half, min-heap for upper half.",
+                tags: ["sorting", "heap"],
+                testCases: [
+                        { input: "5\n2 3 4 1 5", output: "3", isSample: true },
+                        { input: "1\n5", output: "5", isSample: false },
+                        { input: "2\n1 2", output: "1", isSample: false },
+                        { input: "3\n3 1 2", output: "2", isSample: false },
+                        { input: "4\n1 2 3 4", output: "2", isSample: false },
+                        { input: "6\n6 5 4 3 2 1", output: "3", isSample: false },
+                        { input: "7\n1 2 3 4 5 6 7", output: "4", isSample: false },
+                        { input: "5\n5 5 5 5 5", output: "5", isSample: false },
+                        { input: "4\n-1 -2 -3 -4", output: "-2", isSample: false },
+                        { input: "10\n1 2 3 4 5 6 7 8 9 10", output: "5", isSample: false },
+                ],
+        },
+
+        // Problem 105: Serialize and Deserialize Binary Tree
+        {
+                title: "Count Tree Nodes",
+                slug: "count-tree-nodes",
+                difficulty: Difficulty.MEDIUM,
+                statement: `Given a binary tree in preorder with nulls marked as -1, count total non-null nodes.`,
+                inputFormat: `Space-separated integers (-1 for null).`,
+                outputFormat: `Total nodes.`,
+                constraints: `0 ≤ nodes ≤ 10^4`,
+                sampleInput: `1 2 -1 -1 3 4 -1 -1 5 -1 -1`,
+                sampleOutput: `5`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "Count all values that are not -1.",
+                tags: ["trees", "implementation"],
+                testCases: [
+                        { input: "1 2 -1 -1 3 4 -1 -1 5 -1 -1", output: "5", isSample: true },
+                        { input: "-1", output: "0", isSample: false },
+                        { input: "1 -1 -1", output: "1", isSample: false },
+                        { input: "1 2 -1 -1 -1", output: "2", isSample: false },
+                        { input: "1 2 3 -1 -1 -1 4 -1 -1", output: "4", isSample: false },
+                        { input: "5 3 2 -1 -1 4 -1 -1 7 6 -1 -1 8 -1 -1", output: "7", isSample: false },
+                        { input: "1 -1 2 -1 3 -1 -1", output: "3", isSample: false },
+                        { input: "10 20 30 -1 -1 40 -1 -1 50 60 -1 -1 70 -1 -1", output: "7", isSample: false },
+                        { input: "1 1 1 -1 -1 1 -1 -1 1 1 -1 -1 1 -1 -1", output: "7", isSample: false },
+                        { input: "100 -1 -1", output: "1", isSample: false },
+                ],
+        },
+
+        // ============== HARD PROBLEMS ==============
+
+        // Problem 106: N-Queens
+        {
+                title: "N-Queens",
+                slug: "n-queens",
+                difficulty: Difficulty.HARD,
+                statement: `Count the number of distinct solutions to place N queens on an N×N chessboard.`,
+                inputFormat: `A single integer N.`,
+                outputFormat: `Number of solutions.`,
+                constraints: `1 ≤ N ≤ 9`,
+                sampleInput: `4`,
+                sampleOutput: `2`,
+                timeLimit: 2000,
+                memoryLimit: 256,
+                hint: "Use backtracking. Track columns and diagonals attacked.",
+                tags: ["backtracking", "arrays"],
+                testCases: [
+                        { input: "4", output: "2", isSample: true },
+                        { input: "1", output: "1", isSample: false },
+                        { input: "2", output: "0", isSample: false },
+                        { input: "3", output: "0", isSample: false },
+                        { input: "5", output: "10", isSample: false },
+                        { input: "6", output: "4", isSample: false },
+                        { input: "7", output: "40", isSample: false },
+                        { input: "8", output: "92", isSample: false },
+                        { input: "9", output: "352", isSample: false },
+                        { input: "0", output: "1", isSample: false },
+                ],
+        },
+
+        // Problem 107: Sudoku Solver
+        {
+                title: "Sudoku Validator",
+                slug: "sudoku-validator",
+                difficulty: Difficulty.HARD,
+                statement: `Check if a partially filled 9x9 Sudoku board is valid.`,
+                inputFormat: `9 lines of 9 characters (1-9 or . for empty).`,
+                outputFormat: `YES if valid, NO otherwise.`,
+                constraints: `Board is 9x9`,
+                sampleInput: `53..7....
+6..195...
+.98....6.
+8...6...3
+4..8.3..1
+7...2...6
+.6....28.
+...419..5
+....8..79`,
+                sampleOutput: `YES`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "Check each row, column, and 3x3 box for duplicates.",
+                tags: ["arrays", "implementation"],
+                testCases: [
+                        { input: "53..7....\n6..195...\n.98....6.\n8...6...3\n4..8.3..1\n7...2...6\n.6....28.\n...419..5\n....8..79", output: "YES", isSample: true },
+                        { input: "83..7....\n6..195...\n.98....6.\n8...6...3\n4..8.3..1\n7...2...6\n.6....28.\n...419..5\n....8..79", output: "NO", isSample: false },
+                        { input: ".........\n.........\n.........\n.........\n.........\n.........\n.........\n.........\n.........", output: "YES", isSample: false },
+                        { input: "123456789\n.........\n.........\n.........\n.........\n.........\n.........\n.........\n.........", output: "YES", isSample: false },
+                        { input: "11.......\n.........\n.........\n.........\n.........\n.........\n.........\n.........\n.........", output: "NO", isSample: false },
+                        { input: "1........\n2........\n3........\n4........\n5........\n6........\n7........\n8........\n9........", output: "YES", isSample: false },
+                        { input: "1........\n1........\n.........\n.........\n.........\n.........\n.........\n.........\n.........", output: "NO", isSample: false },
+                        { input: "123......\n456......\n789......\n.........\n.........\n.........\n.........\n.........\n.........", output: "YES", isSample: false },
+                        { input: "12.......\n.........\n.........\n3........\n.........\n.........\n.........\n.........\n.........", output: "YES", isSample: false },
+                        { input: "111......\n.........\n.........\n.........\n.........\n.........\n.........\n.........\n.........", output: "NO", isSample: false },
+                ],
+        },
+
+        // Problem 108: Regular Expression Matching
+        {
+                title: "Regex Matching",
+                slug: "regex-matching",
+                difficulty: Difficulty.HARD,
+                statement: `Implement regex matching with '.' (any char) and '*' (zero or more of preceding).`,
+                inputFormat: `First line: string s
+Second line: pattern p`,
+                outputFormat: `YES if matches, NO otherwise.`,
+                constraints: `1 ≤ |s|, |p| ≤ 20`,
+                sampleInput: `aa
+a*`,
+                sampleOutput: `YES`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "DP: dp[i][j] = does s[0..i] match p[0..j]?",
+                tags: ["dynamic-programming", "strings"],
+                testCases: [
+                        { input: "aa\na*", output: "YES", isSample: true },
+                        { input: "aa\na", output: "NO", isSample: false },
+                        { input: "ab\n.*", output: "YES", isSample: false },
+                        { input: "aab\nc*a*b", output: "YES", isSample: false },
+                        { input: "mississippi\nmis*is*p*.", output: "NO", isSample: false },
+                        { input: "a\n.", output: "YES", isSample: false },
+                        { input: "ab\n..", output: "YES", isSample: false },
+                        { input: "aaa\na*a", output: "YES", isSample: false },
+                        { input: "a\na*a", output: "YES", isSample: false },
+                        { input: "ab\na*b*", output: "YES", isSample: false },
+                ],
+        },
+
+        // Problem 109: Wildcard Matching
+        {
+                title: "Wildcard Matching",
+                slug: "wildcard-matching",
+                difficulty: Difficulty.HARD,
+                statement: `Match pattern with '?' (any single char) and '*' (any sequence including empty).`,
+                inputFormat: `First line: string s
+Second line: pattern p`,
+                outputFormat: `YES if matches, NO otherwise.`,
+                constraints: `0 ≤ |s|, |p| ≤ 2000`,
+                sampleInput: `adceb
+*a*b`,
+                sampleOutput: `YES`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "DP or greedy with backtracking for '*'.",
+                tags: ["dynamic-programming", "strings"],
+                testCases: [
+                        { input: "adceb\n*a*b", output: "YES", isSample: true },
+                        { input: "aa\na", output: "NO", isSample: false },
+                        { input: "aa\n*", output: "YES", isSample: false },
+                        { input: "cb\n?a", output: "NO", isSample: false },
+                        { input: "acdcb\na*c?b", output: "NO", isSample: false },
+                        { input: "a\n?", output: "YES", isSample: false },
+                        { input: "ab\n??", output: "YES", isSample: false },
+                        { input: "\n*", output: "YES", isSample: false },
+                        { input: "abc\na*c", output: "YES", isSample: false },
+                        { input: "abcd\n*?*?*?*?", output: "YES", isSample: false },
+                ],
+        },
+
+        // Problem 110: Longest Valid Parentheses
+        {
+                title: "Longest Valid Parentheses",
+                slug: "longest-valid-parentheses",
+                difficulty: Difficulty.HARD,
+                statement: `Find the length of the longest valid (well-formed) parentheses substring.`,
+                inputFormat: `A string containing only '(' and ')'.`,
+                outputFormat: `Length of longest valid substring.`,
+                constraints: `0 ≤ |s| ≤ 3 × 10^4`,
+                sampleInput: `(()`,
+                sampleOutput: `2`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "Use stack to track indices, or DP where dp[i] = length ending at i.",
+                tags: ["dynamic-programming", "stack"],
+                testCases: [
+                        { input: "(()", output: "2", isSample: true },
+                        { input: ")()())", output: "4", isSample: false },
+                        { input: "", output: "0", isSample: false },
+                        { input: "()", output: "2", isSample: false },
+                        { input: "()()", output: "4", isSample: false },
+                        { input: "((()))", output: "6", isSample: false },
+                        { input: "()(()", output: "2", isSample: false },
+                        { input: "()(())", output: "6", isSample: false },
+                        { input: "))(((", output: "0", isSample: false },
+                        { input: "(()())", output: "6", isSample: false },
+                ],
+        },
+
+        // Problem 111: Median of Two Sorted Arrays
+        {
+                title: "Median of Two Sorted Arrays",
+                slug: "median-two-sorted-arrays",
+                difficulty: Difficulty.HARD,
+                statement: `Find median of two sorted arrays of sizes m and n in O(log(m+n)) time.`,
+                inputFormat: `First line: m n
+Second line: m sorted integers
+Third line: n sorted integers`,
+                outputFormat: `Median (if even, floor of average).`,
+                constraints: `0 ≤ m, n ≤ 1000
+m + n ≥ 1`,
+                sampleInput: `2 2
+1 3
+2 4`,
+                sampleOutput: `2`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "Binary search on the smaller array to find the partition.",
+                tags: ["binary-search", "arrays"],
+                testCases: [
+                        { input: "2 2\n1 3\n2 4", output: "2", isSample: true },
+                        { input: "2 1\n1 2\n3", output: "2", isSample: false },
+                        { input: "0 1\n\n1", output: "1", isSample: false },
+                        { input: "1 0\n1\n", output: "1", isSample: false },
+                        { input: "3 3\n1 2 3\n4 5 6", output: "3", isSample: false },
+                        { input: "5 5\n1 3 5 7 9\n2 4 6 8 10", output: "5", isSample: false },
+                        { input: "2 2\n1 2\n3 4", output: "2", isSample: false },
+                        { input: "1 1\n1\n2", output: "1", isSample: false },
+                        { input: "4 4\n1 2 3 4\n5 6 7 8", output: "4", isSample: false },
+                        { input: "3 2\n1 3 5\n2 4", output: "3", isSample: false },
+                ],
+        },
+
+        // Problem 112: Merge K Sorted Lists
+        {
+                title: "Merge K Sorted Arrays",
+                slug: "merge-k-sorted-arrays",
+                difficulty: Difficulty.HARD,
+                statement: `Merge k sorted arrays into one sorted array.`,
+                inputFormat: `First line: K (number of arrays)
+Next K pairs of lines: length and sorted array`,
+                outputFormat: `Merged sorted array.`,
+                constraints: `1 ≤ K ≤ 10^4
+0 ≤ total elements ≤ 10^4`,
+                sampleInput: `3
+3
+1 4 5
+3
+1 3 4
+2
+2 6`,
+                sampleOutput: `1 1 2 3 4 4 5 6`,
+                timeLimit: 2000,
+                memoryLimit: 256,
+                hint: "Use min-heap with size K, or divide and conquer.",
+                tags: ["sorting", "heap"],
+                testCases: [
+                        { input: "3\n3\n1 4 5\n3\n1 3 4\n2\n2 6", output: "1 1 2 3 4 4 5 6", isSample: true },
+                        { input: "1\n3\n1 2 3", output: "1 2 3", isSample: false },
+                        { input: "2\n2\n1 3\n2\n2 4", output: "1 2 3 4", isSample: false },
+                        { input: "3\n1\n5\n1\n3\n1\n1", output: "1 3 5", isSample: false },
+                        { input: "2\n3\n1 1 1\n3\n1 1 1", output: "1 1 1 1 1 1", isSample: false },
+                        { input: "4\n1\n1\n1\n2\n1\n3\n1\n4", output: "1 2 3 4", isSample: false },
+                        { input: "2\n0\n\n3\n1 2 3", output: "1 2 3", isSample: false },
+                        { input: "3\n2\n1 2\n2\n3 4\n2\n5 6", output: "1 2 3 4 5 6", isSample: false },
+                        { input: "2\n4\n1 3 5 7\n4\n2 4 6 8", output: "1 2 3 4 5 6 7 8", isSample: false },
+                        { input: "1\n5\n10 20 30 40 50", output: "10 20 30 40 50", isSample: false },
+                ],
+        },
+
+        // Problem 113: Reverse Nodes in K-Group
+        {
+                title: "Reverse in K-Groups",
+                slug: "reverse-k-groups",
+                difficulty: Difficulty.HARD,
+                statement: `Reverse elements in groups of K. If remaining elements < K, leave them as is.`,
+                inputFormat: `First line: N K
+Second line: N integers`,
+                outputFormat: `Modified array.`,
+                constraints: `1 ≤ K ≤ N ≤ 5000`,
+                sampleInput: `5 2
+1 2 3 4 5`,
+                sampleOutput: `2 1 4 3 5`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "Reverse each group of K elements, skip last group if < K.",
+                tags: ["arrays", "implementation"],
+                testCases: [
+                        { input: "5 2\n1 2 3 4 5", output: "2 1 4 3 5", isSample: true },
+                        { input: "5 3\n1 2 3 4 5", output: "3 2 1 4 5", isSample: false },
+                        { input: "4 4\n1 2 3 4", output: "4 3 2 1", isSample: false },
+                        { input: "4 5\n1 2 3 4", output: "1 2 3 4", isSample: false },
+                        { input: "6 2\n1 2 3 4 5 6", output: "2 1 4 3 6 5", isSample: false },
+                        { input: "6 3\n1 2 3 4 5 6", output: "3 2 1 6 5 4", isSample: false },
+                        { input: "1 1\n1", output: "1", isSample: false },
+                        { input: "3 1\n1 2 3", output: "1 2 3", isSample: false },
+                        { input: "8 3\n1 2 3 4 5 6 7 8", output: "3 2 1 6 5 4 7 8", isSample: false },
+                        { input: "10 5\n1 2 3 4 5 6 7 8 9 10", output: "5 4 3 2 1 10 9 8 7 6", isSample: false },
+                ],
+        },
+
+        // Problem 114: First Missing Positive
+        {
+                title: "First Missing Positive",
+                slug: "first-missing-positive",
+                difficulty: Difficulty.HARD,
+                statement: `Find the smallest missing positive integer in unsorted array in O(n) time, O(1) space.`,
+                inputFormat: `First line: N
+Second line: N integers`,
+                outputFormat: `Smallest missing positive.`,
+                constraints: `1 ≤ N ≤ 10^5
+-10^9 ≤ elements ≤ 10^9`,
+                sampleInput: `3
+1 2 0`,
+                sampleOutput: `3`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "Place each number n at index n-1. Then find first mismatch.",
+                tags: ["arrays", "hash-table"],
+                testCases: [
+                        { input: "3\n1 2 0", output: "3", isSample: true },
+                        { input: "4\n3 4 -1 1", output: "2", isSample: false },
+                        { input: "3\n7 8 9", output: "1", isSample: false },
+                        { input: "1\n1", output: "2", isSample: false },
+                        { input: "1\n-1", output: "1", isSample: false },
+                        { input: "5\n1 2 3 4 5", output: "6", isSample: false },
+                        { input: "5\n5 4 3 2 1", output: "6", isSample: false },
+                        { input: "6\n1 1 1 1 1 1", output: "2", isSample: false },
+                        { input: "4\n2 3 4 5", output: "1", isSample: false },
+                        { input: "3\n0 0 0", output: "1", isSample: false },
+                ],
+        },
+
+        // Problem 115: Largest Rectangle in Histogram
+        {
+                title: "Largest Rectangle in Histogram",
+                slug: "largest-rectangle-histogram",
+                difficulty: Difficulty.HARD,
+                statement: `Find the largest rectangular area in a histogram.`,
+                inputFormat: `First line: N
+Second line: N non-negative heights`,
+                outputFormat: `Maximum rectangular area.`,
+                constraints: `1 ≤ N ≤ 10^5
+0 ≤ heights ≤ 10^4`,
+                sampleInput: `6
+2 1 5 6 2 3`,
+                sampleOutput: `10`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "Use stack to track increasing heights. Pop when decrease found.",
+                tags: ["stack", "arrays"],
+                testCases: [
+                        { input: "6\n2 1 5 6 2 3", output: "10", isSample: true },
+                        { input: "2\n2 4", output: "4", isSample: false },
+                        { input: "1\n5", output: "5", isSample: false },
+                        { input: "5\n1 1 1 1 1", output: "5", isSample: false },
+                        { input: "3\n6 2 5", output: "6", isSample: false },
+                        { input: "4\n1 2 3 4", output: "6", isSample: false },
+                        { input: "4\n4 3 2 1", output: "6", isSample: false },
+                        { input: "5\n2 4 6 4 2", output: "12", isSample: false },
+                        { input: "6\n1 2 3 4 5 6", output: "12", isSample: false },
+                        { input: "7\n3 3 3 3 3 3 3", output: "21", isSample: false },
+                ],
+        },
+
+        // Problem 116: Maximal Rectangle
+        {
+                title: "Maximal Rectangle in Matrix",
+                slug: "maximal-rectangle-matrix",
+                difficulty: Difficulty.HARD,
+                statement: `Find the largest rectangle containing only 1s in a binary matrix.`,
+                inputFormat: `First line: N M
+Next N lines: M characters (0 or 1)`,
+                outputFormat: `Maximum rectangle area.`,
+                constraints: `1 ≤ N, M ≤ 200`,
+                sampleInput: `4 5
+10100
+10111
+11111
+10010`,
+                sampleOutput: `6`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "Build histogram for each row, apply largest rectangle in histogram.",
+                tags: ["stack", "dynamic-programming"],
+                testCases: [
+                        { input: "4 5\n10100\n10111\n11111\n10010", output: "6", isSample: true },
+                        { input: "1 1\n0", output: "0", isSample: false },
+                        { input: "1 1\n1", output: "1", isSample: false },
+                        { input: "2 2\n11\n11", output: "4", isSample: false },
+                        { input: "3 3\n111\n111\n111", output: "9", isSample: false },
+                        { input: "3 3\n101\n111\n101", output: "3", isSample: false },
+                        { input: "2 3\n011\n111", output: "4", isSample: false },
+                        { input: "4 4\n1111\n1111\n1111\n1111", output: "16", isSample: false },
+                        { input: "3 4\n0110\n0110\n0110", output: "6", isSample: false },
+                        { input: "2 5\n11111\n11111", output: "10", isSample: false },
+                ],
+        },
+
+        // Problem 117: Word Search II (Trie + Backtracking)
+        {
+                title: "Word Search Count",
+                slug: "word-search-count",
+                difficulty: Difficulty.HARD,
+                statement: `Count how many words from dictionary can be found in the grid using adjacent cells.`,
+                inputFormat: `First line: N M K
+Next N lines: M characters (grid)
+Next K lines: words to find`,
+                outputFormat: `Number of words found.`,
+                constraints: `1 ≤ N, M ≤ 12
+1 ≤ K ≤ 3 × 10^4`,
+                sampleInput: `3 4 3
+oaan
+etae
+ihkr
+eat
+oath
+rain`,
+                sampleOutput: `2`,
+                timeLimit: 2000,
+                memoryLimit: 256,
+                hint: "Build Trie with words, DFS from each cell with Trie navigation.",
+                tags: ["backtracking", "trees"],
+                testCases: [
+                        { input: "3 4 3\noaan\netae\nihkr\neat\noath\nrain", output: "2", isSample: true },
+                        { input: "2 2 2\nab\ncd\nabcd\nab", output: "1", isSample: false },
+                        { input: "1 1 1\na\na", output: "1", isSample: false },
+                        { input: "1 1 1\na\nb", output: "0", isSample: false },
+                        { input: "2 2 4\naa\naa\na\naa\naaa\naaaa", output: "4", isSample: false },
+                        { input: "3 3 2\nabc\ndef\nghi\nabc\nghi", output: "2", isSample: false },
+                        { input: "2 3 3\ncat\ndog\ncat\ntac\nact", output: "2", isSample: false },
+                        { input: "3 3 3\nxyy\nyxx\nxyx\nxyx\nyxy\nxxy", output: "2", isSample: false },
+                        { input: "2 2 1\nab\nba\nabba", output: "1", isSample: false },
+                        { input: "4 4 2\ntest\nest!\nstar\ntart\ntest\nstar", output: "2", isSample: false },
+                ],
+        },
+
+        // Problem 118: Palindrome Pairs
+        {
+                title: "Palindrome Pair Count",
+                slug: "palindrome-pair-count",
+                difficulty: Difficulty.HARD,
+                statement: `Count pairs (i, j) where words[i] + words[j] forms a palindrome.`,
+                inputFormat: `First line: N
+Next N lines: words`,
+                outputFormat: `Number of palindrome pairs.`,
+                constraints: `1 ≤ N ≤ 5000
+0 ≤ word length ≤ 300`,
+                sampleInput: `3
+abcd
+dcba
+lls`,
+                sampleOutput: `2`,
+                timeLimit: 2000,
+                memoryLimit: 256,
+                hint: "Use hash map with reversed words. Check for palindrome prefixes/suffixes.",
+                tags: ["strings", "hash-table"],
+                testCases: [
+                        { input: "3\nabcd\ndcba\nlls", output: "2", isSample: true },
+                        { input: "3\nbat\ntab\ncat", output: "2", isSample: false },
+                        { input: "2\na\n", output: "2", isSample: false },
+                        { input: "2\nab\nba", output: "2", isSample: false },
+                        { input: "4\na\nb\nc\nd", output: "0", isSample: false },
+                        { input: "2\naa\naa", output: "2", isSample: false },
+                        { input: "3\n\na\na", output: "4", isSample: false },
+                        { input: "4\nabc\ncba\nab\nba", output: "4", isSample: false },
+                        { input: "2\nrace\ncar", output: "0", isSample: false },
+                        { input: "5\na\nb\nab\nba\naba", output: "8", isSample: false },
+                ],
+        },
+
+        // Problem 119: Skyline Problem
+        {
+                title: "Skyline Points",
+                slug: "skyline-points",
+                difficulty: Difficulty.HARD,
+                statement: `Count the number of key points in the skyline formed by buildings.`,
+                inputFormat: `First line: N
+Next N lines: left right height of each building`,
+                outputFormat: `Number of key points in skyline.`,
+                constraints: `1 ≤ N ≤ 10^4
+0 ≤ coordinates ≤ 2^31 - 1`,
+                sampleInput: `5
+2 9 10
+3 7 15
+5 12 12
+15 20 10
+19 24 8`,
+                sampleOutput: `7`,
+                timeLimit: 2000,
+                memoryLimit: 256,
+                hint: "Use events (start/end) with max-heap for current heights.",
+                tags: ["sorting", "heap"],
+                testCases: [
+                        { input: "5\n2 9 10\n3 7 15\n5 12 12\n15 20 10\n19 24 8", output: "7", isSample: true },
+                        { input: "1\n0 2 3", output: "2", isSample: false },
+                        { input: "2\n0 2 3\n2 5 3", output: "2", isSample: false },
+                        { input: "2\n0 5 3\n2 7 3", output: "2", isSample: false },
+                        { input: "2\n0 3 5\n1 2 3", output: "2", isSample: false },
+                        { input: "3\n0 5 10\n0 5 10\n0 5 10", output: "2", isSample: false },
+                        { input: "3\n0 2 5\n3 5 5\n6 8 5", output: "6", isSample: false },
+                        { input: "2\n0 10 5\n2 8 7", output: "4", isSample: false },
+                        { input: "4\n0 2 3\n1 3 4\n2 4 5\n3 5 6", output: "5", isSample: false },
+                        { input: "1\n0 100 50", output: "2", isSample: false },
+                ],
+        },
+
+        // Problem 120: Burst Balloons
+        {
+                title: "Burst Balloons",
+                slug: "burst-balloons",
+                difficulty: Difficulty.HARD,
+                statement: `Burst balloons [nums] wisely to get max coins. When burst balloon i, get nums[i-1]*nums[i]*nums[i+1] coins.`,
+                inputFormat: `First line: N
+Second line: N values`,
+                outputFormat: `Maximum coins.`,
+                constraints: `1 ≤ N ≤ 500
+0 ≤ nums ≤ 100`,
+                sampleInput: `4
+3 1 5 8`,
+                sampleOutput: `167`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "DP: dp[i][j] = max coins to burst all balloons between i and j.",
+                tags: ["dynamic-programming", "arrays"],
+                testCases: [
+                        { input: "4\n3 1 5 8", output: "167", isSample: true },
+                        { input: "2\n1 5", output: "10", isSample: false },
+                        { input: "1\n5", output: "5", isSample: false },
+                        { input: "3\n1 2 3", output: "12", isSample: false },
+                        { input: "3\n3 2 1", output: "12", isSample: false },
+                        { input: "4\n1 1 1 1", output: "4", isSample: false },
+                        { input: "2\n10 10", output: "200", isSample: false },
+                        { input: "5\n1 2 3 4 5", output: "110", isSample: false },
+                        { input: "3\n9 1 9", output: "162", isSample: false },
+                        { input: "4\n5 5 5 5", output: "375", isSample: false },
+                ],
+        },
+
+        // Problem 121: Alien Dictionary
+        {
+                title: "Alien Dictionary Order",
+                slug: "alien-dictionary-order",
+                difficulty: Difficulty.HARD,
+                statement: `Given sorted words in alien language, determine if valid order exists. Return 1 if valid, 0 otherwise.`,
+                inputFormat: `First line: N
+Next N lines: words in sorted order`,
+                outputFormat: `1 if valid order exists, 0 otherwise.`,
+                constraints: `1 ≤ N ≤ 100
+1 ≤ word length ≤ 100`,
+                sampleInput: `3
+wrt
+wrf
+er`,
+                sampleOutput: `1`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "Build graph from adjacent word comparisons. Topological sort.",
+                tags: ["graphs", "topological-sort"],
+                testCases: [
+                        { input: "3\nwrt\nwrf\ner", output: "1", isSample: true },
+                        { input: "2\nz\nx", output: "1", isSample: false },
+                        { input: "2\nz\nz", output: "1", isSample: false },
+                        { input: "3\na\nb\na", output: "0", isSample: false },
+                        { input: "2\nabc\nab", output: "0", isSample: false },
+                        { input: "1\nabc", output: "1", isSample: false },
+                        { input: "4\na\nb\nc\nd", output: "1", isSample: false },
+                        { input: "3\nab\nabc\nabcd", output: "1", isSample: false },
+                        { input: "3\nabc\nab\na", output: "0", isSample: false },
+                        { input: "5\nac\nab\nzc\nzb\nchd", output: "1", isSample: false },
+                ],
+        },
+
+        // Problem 122: Minimum Window Subsequence
+        {
+                title: "Minimum Window Subsequence Length",
+                slug: "min-window-subsequence-length",
+                difficulty: Difficulty.HARD,
+                statement: `Find length of minimum window in s1 that contains s2 as subsequence.`,
+                inputFormat: `Two strings s1 and s2.`,
+                outputFormat: `Minimum window length, or 0 if not found.`,
+                constraints: `1 ≤ |s1|, |s2| ≤ 2 × 10^4`,
+                sampleInput: `abcdebdde
+bde`,
+                sampleOutput: `4`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "DP or two-pointer: find s2 as subsequence, then shrink window.",
+                tags: ["dynamic-programming", "strings"],
+                testCases: [
+                        { input: "abcdebdde\nbde", output: "4", isSample: true },
+                        { input: "jmeqksfrsdcmsiwvaovztaqenprpvnbstl\nu", output: "0", isSample: false },
+                        { input: "a\na", output: "1", isSample: false },
+                        { input: "ab\nb", output: "1", isSample: false },
+                        { input: "abc\nac", output: "3", isSample: false },
+                        { input: "abcde\nace", output: "5", isSample: false },
+                        { input: "aaaa\naa", output: "2", isSample: false },
+                        { input: "axxbxxcxx\nabc", output: "9", isSample: false },
+                        { input: "xyz\nxyz", output: "3", isSample: false },
+                        { input: "fgrqsqsnodwmxzkzxwqegkndaa\nkzed", output: "11", isSample: false },
+                ],
+        },
+
+        // Problem 123: Sliding Window Maximum
+        {
+                title: "Sliding Window Maximum",
+                slug: "sliding-window-maximum",
+                difficulty: Difficulty.HARD,
+                statement: `Find max in each sliding window of size k.`,
+                inputFormat: `First line: N K
+Second line: N integers`,
+                outputFormat: `Space-separated maximums.`,
+                constraints: `1 ≤ K ≤ N ≤ 10^5`,
+                sampleInput: `8 3
+1 3 -1 -3 5 3 6 7`,
+                sampleOutput: `3 3 5 5 6 7`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "Use deque to maintain decreasing order of elements in window.",
+                tags: ["arrays", "sliding-window"],
+                testCases: [
+                        { input: "8 3\n1 3 -1 -3 5 3 6 7", output: "3 3 5 5 6 7", isSample: true },
+                        { input: "1 1\n1", output: "1", isSample: false },
+                        { input: "2 1\n1 2", output: "1 2", isSample: false },
+                        { input: "3 3\n1 2 3", output: "3", isSample: false },
+                        { input: "5 2\n5 4 3 2 1", output: "5 4 3 2", isSample: false },
+                        { input: "5 2\n1 2 3 4 5", output: "2 3 4 5", isSample: false },
+                        { input: "6 3\n7 2 4 1 3 5", output: "7 4 4 5", isSample: false },
+                        { input: "4 2\n1 1 1 1", output: "1 1 1", isSample: false },
+                        { input: "5 5\n1 3 5 7 9", output: "9", isSample: false },
+                        { input: "7 4\n8 5 10 7 9 4 15", output: "10 10 10 15", isSample: false },
+                ],
+        },
+
+        // Problem 124: Minimum Cost to Merge Stones
+        {
+                title: "Minimum Cost Merge Stones",
+                slug: "min-cost-merge-stones",
+                difficulty: Difficulty.HARD,
+                statement: `Merge K consecutive piles until one pile. Cost = sum of merged stones. Return min cost or -1 if impossible.`,
+                inputFormat: `First line: N K
+Second line: N stones per pile`,
+                outputFormat: `Minimum cost or -1.`,
+                constraints: `1 ≤ N ≤ 30
+2 ≤ K ≤ 30`,
+                sampleInput: `5 3
+3 2 4 1 5`,
+                sampleOutput: `25`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "DP with interval: check if (n-1) % (k-1) == 0 first.",
+                tags: ["dynamic-programming", "arrays"],
+                testCases: [
+                        { input: "5 3\n3 2 4 1 5", output: "25", isSample: true },
+                        { input: "3 2\n1 2 3", output: "9", isSample: false },
+                        { input: "4 3\n1 1 1 1", output: "-1", isSample: false },
+                        { input: "5 2\n1 1 1 1 1", output: "12", isSample: false },
+                        { input: "4 2\n3 5 1 2", output: "22", isSample: false },
+                        { input: "3 3\n1 2 3", output: "6", isSample: false },
+                        { input: "7 3\n1 1 1 1 1 1 1", output: "15", isSample: false },
+                        { input: "2 2\n1 1", output: "2", isSample: false },
+                        { input: "1 2\n5", output: "0", isSample: false },
+                        { input: "6 2\n1 2 3 4 5 6", output: "51", isSample: false },
+                ],
+        },
+
+        // Problem 125: Count of Smaller Numbers After Self
+        {
+                title: "Count Smaller After",
+                slug: "count-smaller-after",
+                difficulty: Difficulty.HARD,
+                statement: `For each element, count elements to its right that are smaller.`,
+                inputFormat: `First line: N
+Second line: N integers`,
+                outputFormat: `Space-separated counts.`,
+                constraints: `1 ≤ N ≤ 10^5
+-10^4 ≤ elements ≤ 10^4`,
+                sampleInput: `4
+5 2 6 1`,
+                sampleOutput: `2 1 1 0`,
+                timeLimit: 2000,
+                memoryLimit: 256,
+                hint: "Use merge sort with index tracking, or BST/BIT.",
+                tags: ["sorting", "binary-search"],
+                testCases: [
+                        { input: "4\n5 2 6 1", output: "2 1 1 0", isSample: true },
+                        { input: "1\n-1", output: "0", isSample: false },
+                        { input: "2\n-1 -1", output: "0 0", isSample: false },
+                        { input: "5\n1 2 3 4 5", output: "0 0 0 0 0", isSample: false },
+                        { input: "5\n5 4 3 2 1", output: "4 3 2 1 0", isSample: false },
+                        { input: "6\n26 78 27 100 33 67", output: "1 2 0 2 0 0", isSample: false },
+                        { input: "3\n2 2 2", output: "0 0 0", isSample: false },
+                        { input: "4\n1 6 3 4", output: "0 2 0 0", isSample: false },
+                        { input: "7\n7 6 5 4 3 2 1", output: "6 5 4 3 2 1 0", isSample: false },
+                        { input: "5\n3 1 2 5 4", output: "2 0 0 1 0", isSample: false },
+                ],
+        },
+
+        // Problem 126: Dungeon Game
+        {
+                title: "Dungeon Game",
+                slug: "dungeon-game",
+                difficulty: Difficulty.HARD,
+                statement: `Find min initial health to reach bottom-right from top-left. Each cell adds/subtracts health. Health must always be > 0.`,
+                inputFormat: `First line: N M
+Next N lines: M integers (negative = damage)`,
+                outputFormat: `Minimum initial health.`,
+                constraints: `1 ≤ N, M ≤ 200
+-1000 ≤ cell value ≤ 1000`,
+                sampleInput: `3 3
+-2 -3 3
+-5 -10 1
+10 30 -5`,
+                sampleOutput: `7`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "DP from bottom-right. dp[i][j] = min health needed at (i,j).",
+                tags: ["dynamic-programming", "arrays"],
+                testCases: [
+                        { input: "3 3\n-2 -3 3\n-5 -10 1\n10 30 -5", output: "7", isSample: true },
+                        { input: "1 1\n0", output: "1", isSample: false },
+                        { input: "1 1\n-5", output: "6", isSample: false },
+                        { input: "1 1\n5", output: "1", isSample: false },
+                        { input: "2 2\n-1 -1\n-1 -1", output: "4", isSample: false },
+                        { input: "2 2\n1 1\n1 1", output: "1", isSample: false },
+                        { input: "1 3\n-1 -2 -3", output: "7", isSample: false },
+                        { input: "3 1\n-1\n-2\n-3", output: "7", isSample: false },
+                        { input: "2 3\n1 -3 3\n0 -2 0", output: "3", isSample: false },
+                        { input: "3 3\n0 0 0\n0 0 0\n0 0 0", output: "1", isSample: false },
+                ],
+        },
+
+        // Problem 127: Expression Add Operators
+        {
+                title: "Expression Add Operators Count",
+                slug: "expression-add-operators-count",
+                difficulty: Difficulty.HARD,
+                statement: `Count ways to insert +, -, * between digits to make expression equal target.`,
+                inputFormat: `First line: digit string
+Second line: target value`,
+                outputFormat: `Number of valid expressions.`,
+                constraints: `1 ≤ |digits| ≤ 10
+-2^31 ≤ target ≤ 2^31 - 1`,
+                sampleInput: `123
+6`,
+                sampleOutput: `2`,
+                timeLimit: 2000,
+                memoryLimit: 256,
+                hint: "Backtracking with careful handling of * operator precedence.",
+                tags: ["backtracking", "strings"],
+                testCases: [
+                        { input: "123\n6", output: "2", isSample: true },
+                        { input: "232\n8", output: "2", isSample: false },
+                        { input: "105\n5", output: "2", isSample: false },
+                        { input: "00\n0", output: "3", isSample: false },
+                        { input: "3456237490\n9191", output: "0", isSample: false },
+                        { input: "1\n1", output: "1", isSample: false },
+                        { input: "12\n3", output: "1", isSample: false },
+                        { input: "123\n123", output: "1", isSample: false },
+                        { input: "111\n3", output: "1", isSample: false },
+                        { input: "2222\n8", output: "9", isSample: false },
+                ],
+        },
+
+        // Problem 128: Candy Distribution
+        {
+                title: "Candy Distribution",
+                slug: "candy-distribution",
+                difficulty: Difficulty.HARD,
+                statement: `Distribute candies to children. Each child must have at least 1. Child with higher rating than neighbor gets more candies. Find minimum total.`,
+                inputFormat: `First line: N
+Second line: N ratings`,
+                outputFormat: `Minimum candies.`,
+                constraints: `1 ≤ N ≤ 2 × 10^4`,
+                sampleInput: `3
+1 0 2`,
+                sampleOutput: `5`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "Two passes: left-to-right, then right-to-left.",
+                tags: ["greedy", "arrays"],
+                testCases: [
+                        { input: "3\n1 0 2", output: "5", isSample: true },
+                        { input: "3\n1 2 2", output: "4", isSample: false },
+                        { input: "1\n1", output: "1", isSample: false },
+                        { input: "2\n1 2", output: "3", isSample: false },
+                        { input: "2\n2 1", output: "3", isSample: false },
+                        { input: "5\n1 2 3 4 5", output: "15", isSample: false },
+                        { input: "5\n5 4 3 2 1", output: "15", isSample: false },
+                        { input: "4\n1 2 2 1", output: "6", isSample: false },
+                        { input: "5\n1 3 2 2 1", output: "7", isSample: false },
+                        { input: "6\n1 1 1 1 1 1", output: "6", isSample: false },
+                ],
+        },
+
+        // Problem 129: Binary Tree Maximum Path Sum
+        {
+                title: "Max Path Sum in Tree",
+                slug: "max-path-sum-tree",
+                difficulty: Difficulty.HARD,
+                statement: `Find maximum path sum in binary tree. Path can start and end at any node.`,
+                inputFormat: `Preorder traversal with -1001 as null marker.`,
+                outputFormat: `Maximum path sum.`,
+                constraints: `1 ≤ nodes ≤ 3 × 10^4
+-1000 ≤ node value ≤ 1000`,
+                sampleInput: `-10 9 -1001 -1001 20 15 -1001 -1001 7 -1001 -1001`,
+                sampleOutput: `42`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "At each node: max(left, 0) + val + max(right, 0). Return max to extend path.",
+                tags: ["trees", "dynamic-programming"],
+                testCases: [
+                        { input: "-10 9 -1001 -1001 20 15 -1001 -1001 7 -1001 -1001", output: "42", isSample: true },
+                        { input: "1 2 -1001 -1001 3 -1001 -1001", output: "6", isSample: false },
+                        { input: "-3 -1001 -1001", output: "-3", isSample: false },
+                        { input: "1 -1001 -1001", output: "1", isSample: false },
+                        { input: "2 -1 -1001 -1001 -1001", output: "2", isSample: false },
+                        { input: "5 4 3 -1001 -1001 -1001 6 7 -1001 -1001 -1001", output: "22", isSample: false },
+                        { input: "1 -2 -1001 -1001 -2 -1001 -1001", output: "1", isSample: false },
+                        { input: "10 -1001 -1001", output: "10", isSample: false },
+                        { input: "5 3 2 -1001 -1001 1 -1001 -1001 4 6 -1001 -1001 8 -1001 -1001", output: "26", isSample: false },
+                        { input: "-1 -2 -1001 -1001 -3 -1001 -1001", output: "-1", isSample: false },
+                ],
+        },
+
+        // Problem 130: Distinct Subsequences
+        {
+                title: "Distinct Subsequences",
+                slug: "distinct-subsequences",
+                difficulty: Difficulty.HARD,
+                statement: `Count distinct subsequences of s that equal t.`,
+                inputFormat: `Two strings s and t.`,
+                outputFormat: `Number of distinct subsequences.`,
+                constraints: `1 ≤ |s|, |t| ≤ 1000`,
+                sampleInput: `rabbbit
+rabbit`,
+                sampleOutput: `3`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "DP: dp[i][j] = ways to form t[0..j] from s[0..i].",
+                tags: ["dynamic-programming", "strings"],
+                testCases: [
+                        { input: "rabbbit\nrabbit", output: "3", isSample: true },
+                        { input: "babgbag\nbag", output: "5", isSample: false },
+                        { input: "a\na", output: "1", isSample: false },
+                        { input: "a\nb", output: "0", isSample: false },
+                        { input: "aa\na", output: "2", isSample: false },
+                        { input: "aaa\naa", output: "3", isSample: false },
+                        { input: "abc\nabc", output: "1", isSample: false },
+                        { input: "abc\nab", output: "1", isSample: false },
+                        { input: "aab\nab", output: "2", isSample: false },
+                        { input: "aaaaa\naaa", output: "10", isSample: false },
+                ],
+        },
+
+        // Problem 131: Interleaving String
+        {
+                title: "Interleaving String",
+                slug: "interleaving-string",
+                difficulty: Difficulty.HARD,
+                statement: `Check if s3 is formed by interleaving s1 and s2.`,
+                inputFormat: `Three strings s1, s2, s3.`,
+                outputFormat: `YES or NO.`,
+                constraints: `0 ≤ |s1|, |s2| ≤ 100`,
+                sampleInput: `aabcc
+dbbca
+aadbbcbcac`,
+                sampleOutput: `YES`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "DP: dp[i][j] = can form s3[0..i+j] using s1[0..i] and s2[0..j]?",
+                tags: ["dynamic-programming", "strings"],
+                testCases: [
+                        { input: "aabcc\ndbbca\naadbbcbcac", output: "YES", isSample: true },
+                        { input: "aabcc\ndbbca\naadbbbaccc", output: "NO", isSample: false },
+                        { input: "\n\n", output: "YES", isSample: false },
+                        { input: "a\n\na", output: "YES", isSample: false },
+                        { input: "\nb\nb", output: "YES", isSample: false },
+                        { input: "ab\ncd\nabcd", output: "YES", isSample: false },
+                        { input: "ab\ncd\nacbd", output: "YES", isSample: false },
+                        { input: "ab\ncd\nacdb", output: "YES", isSample: false },
+                        { input: "ab\ncd\nadbc", output: "NO", isSample: false },
+                        { input: "aa\nab\naaba", output: "NO", isSample: false },
+                ],
+        },
+
+        // Problem 132: Scramble String
+        {
+                title: "Scramble String",
+                slug: "scramble-string",
+                difficulty: Difficulty.HARD,
+                statement: `Check if s2 is a scrambled version of s1 (by splitting and swapping subtrees).`,
+                inputFormat: `Two strings.`,
+                outputFormat: `YES or NO.`,
+                constraints: `1 ≤ |s| ≤ 30`,
+                sampleInput: `great
+rgeat`,
+                sampleOutput: `YES`,
+                timeLimit: 2000,
+                memoryLimit: 256,
+                hint: "DP with memoization. Try all split points recursively.",
+                tags: ["dynamic-programming", "strings"],
+                testCases: [
+                        { input: "great\nrgeat", output: "YES", isSample: true },
+                        { input: "abcde\ncaebd", output: "NO", isSample: false },
+                        { input: "a\na", output: "YES", isSample: false },
+                        { input: "a\nb", output: "NO", isSample: false },
+                        { input: "ab\nba", output: "YES", isSample: false },
+                        { input: "ab\nab", output: "YES", isSample: false },
+                        { input: "abc\nbca", output: "YES", isSample: false },
+                        { input: "abc\ncba", output: "YES", isSample: false },
+                        { input: "abcd\nbdca", output: "NO", isSample: false },
+                        { input: "abb\nbba", output: "YES", isSample: false },
+                ],
+        },
+
+        // Problem 133: Recover Binary Search Tree
+        {
+                title: "BST Swap Detection",
+                slug: "bst-swap-detection",
+                difficulty: Difficulty.HARD,
+                statement: `Two nodes in BST are swapped. Find which two values were swapped.`,
+                inputFormat: `Preorder with -1 as null.`,
+                outputFormat: `Two swapped values (smaller first).`,
+                constraints: `2 ≤ nodes ≤ 1000`,
+                sampleInput: `3 1 -1 -1 4 2 -1 -1 -1`,
+                sampleOutput: `2 3`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "Inorder traversal should be sorted. Find two elements out of place.",
+                tags: ["trees", "implementation"],
+                testCases: [
+                        { input: "3 1 -1 -1 4 2 -1 -1 -1", output: "2 3", isSample: true },
+                        { input: "1 3 -1 2 -1 -1 -1", output: "1 2", isSample: false },
+                        { input: "2 1 -1 -1 3 -1 -1", output: "No swap needed", isSample: false },
+                        { input: "3 2 1 -1 -1 -1 -1", output: "1 3", isSample: false },
+                        { input: "4 2 -1 -1 3 -1 -1", output: "3 4", isSample: false },
+                        { input: "1 -1 2 -1 -1", output: "No swap needed", isSample: false },
+                        { input: "2 -1 1 -1 -1", output: "1 2", isSample: false },
+                        { input: "5 3 2 -1 -1 1 -1 -1 7 -1 -1", output: "1 4", isSample: false },
+                        { input: "4 1 -1 -1 5 3 -1 -1 6 -1 -1", output: "3 4", isSample: false },
+                        { input: "6 2 1 -1 -1 3 -1 -1 7 5 -1 -1 8 -1 -1", output: "5 6", isSample: false },
+                ],
+        },
+
+        // Problem 134: Palindrome Partitioning II
+        {
+                title: "Min Palindrome Cuts",
+                slug: "min-palindrome-cuts",
+                difficulty: Difficulty.HARD,
+                statement: `Find minimum cuts to partition string into palindromic substrings.`,
+                inputFormat: `A string.`,
+                outputFormat: `Minimum cuts.`,
+                constraints: `1 ≤ |s| ≤ 2000`,
+                sampleInput: `aab`,
+                sampleOutput: `1`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "DP: precompute palindrome table, then dp[i] = min cuts for s[0..i].",
+                tags: ["dynamic-programming", "strings"],
+                testCases: [
+                        { input: "aab", output: "1", isSample: true },
+                        { input: "a", output: "0", isSample: false },
+                        { input: "ab", output: "1", isSample: false },
+                        { input: "aa", output: "0", isSample: false },
+                        { input: "aaa", output: "0", isSample: false },
+                        { input: "abc", output: "2", isSample: false },
+                        { input: "abcba", output: "0", isSample: false },
+                        { input: "abccba", output: "0", isSample: false },
+                        { input: "abcd", output: "3", isSample: false },
+                        { input: "ababab", output: "1", isSample: false },
+                ],
+        },
+
+        // Problem 135: Max Points on a Line
+        {
+                title: "Max Points on Line",
+                slug: "max-points-on-line",
+                difficulty: Difficulty.HARD,
+                statement: `Find maximum number of points that lie on a single line.`,
+                inputFormat: `First line: N
+Next N lines: x y coordinates`,
+                outputFormat: `Maximum collinear points.`,
+                constraints: `1 ≤ N ≤ 300
+-10^4 ≤ x, y ≤ 10^4`,
+                sampleInput: `4
+1 1
+2 2
+3 3
+1 4`,
+                sampleOutput: `3`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "For each point, map slopes to other points using GCD for precision.",
+                tags: ["math", "hash-table"],
+                testCases: [
+                        { input: "4\n1 1\n2 2\n3 3\n1 4", output: "3", isSample: true },
+                        { input: "6\n1 1\n3 2\n5 3\n4 1\n2 3\n1 4", output: "4", isSample: false },
+                        { input: "1\n0 0", output: "1", isSample: false },
+                        { input: "2\n0 0\n1 1", output: "2", isSample: false },
+                        { input: "3\n0 0\n0 0\n0 0", output: "3", isSample: false },
+                        { input: "4\n0 0\n1 0\n2 0\n3 0", output: "4", isSample: false },
+                        { input: "4\n0 0\n0 1\n0 2\n0 3", output: "4", isSample: false },
+                        { input: "5\n1 1\n2 2\n3 3\n4 4\n5 5", output: "5", isSample: false },
+                        { input: "5\n1 2\n2 4\n3 6\n4 8\n5 10", output: "5", isSample: false },
+                        { input: "4\n1 1\n2 3\n1 5\n3 1", output: "2", isSample: false },
+                ],
+        },
+
+        // Problem 136: Cherry Pickup
+        {
+                title: "Cherry Pickup",
+                slug: "cherry-pickup",
+                difficulty: Difficulty.HARD,
+                statement: `Two paths from (0,0) to (n-1,n-1), maximize cherries collected. Can't walk through -1.`,
+                inputFormat: `First line: N
+Next N lines: N integers (0, 1, or -1)`,
+                outputFormat: `Maximum cherries (0 if impossible).`,
+                constraints: `1 ≤ N ≤ 50`,
+                sampleInput: `3
+0 1 1
+1 0 1
+1 1 1`,
+                sampleOutput: `5`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "DP with two paths simultaneously: 3D DP(r1, c1, r2) where c2 = r1+c1-r2.",
+                tags: ["dynamic-programming", "arrays"],
+                testCases: [
+                        { input: "3\n0 1 1\n1 0 1\n1 1 1", output: "5", isSample: true },
+                        { input: "3\n1 1 -1\n1 -1 1\n-1 1 1", output: "0", isSample: false },
+                        { input: "1\n1", output: "1", isSample: false },
+                        { input: "2\n1 1\n1 1", output: "4", isSample: false },
+                        { input: "2\n0 0\n0 0", output: "0", isSample: false },
+                        { input: "3\n1 1 1\n1 1 1\n1 1 1", output: "8", isSample: false },
+                        { input: "3\n1 -1 1\n1 1 1\n1 -1 1", output: "6", isSample: false },
+                        { input: "2\n1 -1\n-1 1", output: "0", isSample: false },
+                        { input: "4\n1 1 1 1\n1 1 1 1\n1 1 1 1\n1 1 1 1", output: "12", isSample: false },
+                        { input: "3\n0 1 0\n1 1 1\n0 1 0", output: "5", isSample: false },
+                ],
+        },
+
+        // Problem 137: Frog Jump
+        {
+                title: "Frog Jump",
+                slug: "frog-jump",
+                difficulty: Difficulty.HARD,
+                statement: `Frog crosses river by jumping on stones. From stone at position p with last jump k, can jump k-1, k, k+1 units. Can reach last stone?`,
+                inputFormat: `First line: N
+Second line: N stone positions (sorted)`,
+                outputFormat: `YES or NO.`,
+                constraints: `2 ≤ N ≤ 2000
+First stone always at 0`,
+                sampleInput: `5
+0 1 3 5 6`,
+                sampleOutput: `YES`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "DP with set of reachable jump sizes at each stone.",
+                tags: ["dynamic-programming", "hash-table"],
+                testCases: [
+                        { input: "5\n0 1 3 5 6", output: "YES", isSample: true },
+                        { input: "2\n0 2", output: "NO", isSample: false },
+                        { input: "2\n0 1", output: "YES", isSample: false },
+                        { input: "6\n0 1 3 6 10 15", output: "YES", isSample: false },
+                        { input: "6\n0 1 2 3 4 8", output: "NO", isSample: false },
+                        { input: "3\n0 1 2", output: "YES", isSample: false },
+                        { input: "4\n0 1 3 4", output: "YES", isSample: false },
+                        { input: "5\n0 1 2 4 5", output: "YES", isSample: false },
+                        { input: "8\n0 1 3 5 6 8 12 17", output: "YES", isSample: false },
+                        { input: "5\n0 1 2 4 100", output: "NO", isSample: false },
+                ],
+        },
+
+        // Problem 138: Split Array Largest Sum
+        {
+                title: "Split Array Largest Sum",
+                slug: "split-array-largest-sum",
+                difficulty: Difficulty.HARD,
+                statement: `Split array into m subarrays to minimize the largest sum among them.`,
+                inputFormat: `First line: N M
+Second line: N non-negative integers`,
+                outputFormat: `Minimum possible largest sum.`,
+                constraints: `1 ≤ N ≤ 1000
+1 ≤ M ≤ min(50, N)`,
+                sampleInput: `5 2
+7 2 5 10 8`,
+                sampleOutput: `18`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "Binary search on answer + greedy check, or DP.",
+                tags: ["binary-search", "dynamic-programming"],
+                testCases: [
+                        { input: "5 2\n7 2 5 10 8", output: "18", isSample: true },
+                        { input: "4 2\n1 2 3 4", output: "6", isSample: false },
+                        { input: "1 1\n10", output: "10", isSample: false },
+                        { input: "4 4\n1 2 3 4", output: "4", isSample: false },
+                        { input: "5 1\n1 2 3 4 5", output: "15", isSample: false },
+                        { input: "3 3\n1 1 1", output: "1", isSample: false },
+                        { input: "4 2\n1 4 4 1", output: "5", isSample: false },
+                        { input: "6 3\n1 2 3 4 5 6", output: "9", isSample: false },
+                        { input: "5 3\n2 3 1 2 4", output: "4", isSample: false },
+                        { input: "4 2\n10 10 10 10", output: "20", isSample: false },
+                ],
+        },
+
+        // Problem 139: Shortest Palindrome
+        {
+                title: "Shortest Palindrome Length",
+                slug: "shortest-palindrome-length",
+                difficulty: Difficulty.HARD,
+                statement: `Find length of shortest palindrome by adding characters in front of string.`,
+                inputFormat: `A string.`,
+                outputFormat: `Length of shortest palindrome.`,
+                constraints: `0 ≤ |s| ≤ 5 × 10^4`,
+                sampleInput: `aacecaaa`,
+                sampleOutput: `9`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "Find longest palindrome prefix using KMP or Z-algorithm.",
+                tags: ["strings", "implementation"],
+                testCases: [
+                        { input: "aacecaaa", output: "9", isSample: true },
+                        { input: "abcd", output: "7", isSample: false },
+                        { input: "", output: "0", isSample: false },
+                        { input: "a", output: "1", isSample: false },
+                        { input: "aa", output: "2", isSample: false },
+                        { input: "ab", output: "3", isSample: false },
+                        { input: "aba", output: "3", isSample: false },
+                        { input: "abba", output: "4", isSample: false },
+                        { input: "abc", output: "5", isSample: false },
+                        { input: "aabba", output: "7", isSample: false },
+                ],
+        },
+
+        // Problem 140: Paint House III (Fancy)
+        {
+                title: "Paint Houses",
+                slug: "paint-houses",
+                difficulty: Difficulty.HARD,
+                statement: `N houses, m colors, target t neighborhoods. Find minimum cost to paint all houses to form exactly t neighborhoods.`,
+                inputFormat: `First line: n m t
+Second line: n house current colors (0 = unpainted)
+Next n lines: m costs for each house`,
+                outputFormat: `Minimum cost or -1.`,
+                constraints: `1 ≤ n ≤ 100
+1 ≤ m ≤ 20
+1 ≤ t ≤ 100`,
+                sampleInput: `5 2 3
+0 0 0 0 0
+1 10
+10 1
+10 1
+1 10
+5 1`,
+                sampleOutput: `9`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "3D DP: dp[house][color][neighborhoods] = min cost.",
+                tags: ["dynamic-programming", "arrays"],
+                testCases: [
+                        { input: "5 2 3\n0 0 0 0 0\n1 10\n10 1\n10 1\n1 10\n5 1", output: "9", isSample: true },
+                        { input: "3 2 3\n0 0 0\n1 1\n1 1\n1 1", output: "3", isSample: false },
+                        { input: "3 2 2\n0 1 0\n1 1\n1 1\n1 1", output: "2", isSample: false },
+                        { input: "3 2 1\n0 0 0\n1 1\n1 1\n1 1", output: "3", isSample: false },
+                        { input: "4 3 1\n0 0 0 0\n1 1 1\n1 1 1\n1 1 1\n1 1 1", output: "4", isSample: false },
+                        { input: "2 2 1\n1 1\n1 1\n1 1", output: "0", isSample: false },
+                        { input: "2 2 2\n1 2\n1 1\n1 1", output: "0", isSample: false },
+                        { input: "3 2 4\n0 0 0\n1 1\n1 1\n1 1", output: "-1", isSample: false },
+                        { input: "1 1 1\n0\n5", output: "5", isSample: false },
+                        { input: "2 2 2\n0 0\n5 3\n3 5", output: "6", isSample: false },
+                ],
+        },
+
+        // Problem 141: Kth Smallest in Sorted Matrix
+        {
+                title: "Kth Smallest in Matrix",
+                slug: "kth-smallest-matrix",
+                difficulty: Difficulty.HARD,
+                statement: `Find kth smallest element in row-wise and column-wise sorted matrix.`,
+                inputFormat: `First line: N K
+Next N lines: N sorted integers per row`,
+                outputFormat: `Kth smallest element.`,
+                constraints: `1 ≤ N ≤ 300
+1 ≤ K ≤ N²`,
+                sampleInput: `3 8
+1 5 9
+10 11 13
+12 13 15`,
+                sampleOutput: `13`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "Binary search on value range with counting, or min-heap.",
+                tags: ["binary-search", "heap"],
+                testCases: [
+                        { input: "3 8\n1 5 9\n10 11 13\n12 13 15", output: "13", isSample: true },
+                        { input: "1 1\n-5", output: "-5", isSample: false },
+                        { input: "2 1\n1 2\n3 4", output: "1", isSample: false },
+                        { input: "2 4\n1 2\n3 4", output: "4", isSample: false },
+                        { input: "3 5\n1 2 3\n4 5 6\n7 8 9", output: "5", isSample: false },
+                        { input: "3 9\n1 2 3\n4 5 6\n7 8 9", output: "9", isSample: false },
+                        { input: "2 2\n1 3\n2 4", output: "2", isSample: false },
+                        { input: "3 1\n1 1 1\n2 2 2\n3 3 3", output: "1", isSample: false },
+                        { input: "4 8\n1 2 3 4\n5 6 7 8\n9 10 11 12\n13 14 15 16", output: "8", isSample: false },
+                        { input: "2 3\n1 5\n2 6", output: "5", isSample: false },
+                ],
+        },
+
+        // Problem 142: Range Sum Query 2D - Mutable
+        {
+                title: "2D Range Sum Query",
+                slug: "2d-range-sum-query",
+                difficulty: Difficulty.HARD,
+                statement: `Given 2D matrix, answer range sum queries from (r1,c1) to (r2,c2).`,
+                inputFormat: `First line: N M Q
+Next N lines: M integers
+Next Q lines: r1 c1 r2 c2 (0-indexed)`,
+                outputFormat: `Sum for each query.`,
+                constraints: `1 ≤ N, M ≤ 200
+1 ≤ Q ≤ 5000`,
+                sampleInput: `3 3 3
+3 0 1
+5 6 3
+1 2 4
+0 0 2 2
+1 1 2 2
+0 0 0 0`,
+                sampleOutput: `25
+15
+3`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "Use 2D prefix sums: sum = prefix[r2+1][c2+1] - prefix[r1][c2+1] - prefix[r2+1][c1] + prefix[r1][c1].",
+                tags: ["arrays", "implementation"],
+                testCases: [
+                        { input: "3 3 3\n3 0 1\n5 6 3\n1 2 4\n0 0 2 2\n1 1 2 2\n0 0 0 0", output: "25\n15\n3", isSample: true },
+                        { input: "1 1 1\n5\n0 0 0 0", output: "5", isSample: false },
+                        { input: "2 2 2\n1 2\n3 4\n0 0 1 1\n0 0 0 1", output: "10\n3", isSample: false },
+                        { input: "2 3 1\n1 2 3\n4 5 6\n0 0 1 2", output: "21", isSample: false },
+                        { input: "3 3 1\n1 1 1\n1 1 1\n1 1 1\n0 0 2 2", output: "9", isSample: false },
+                        { input: "2 2 4\n1 2\n3 4\n0 0 0 0\n0 1 0 1\n1 0 1 0\n1 1 1 1", output: "1\n2\n3\n4", isSample: false },
+                        { input: "4 4 2\n1 2 3 4\n5 6 7 8\n9 10 11 12\n13 14 15 16\n0 0 3 3\n1 1 2 2", output: "136\n34", isSample: false },
+                        { input: "3 3 2\n0 0 0\n0 5 0\n0 0 0\n1 1 1 1\n0 0 2 2", output: "5\n5", isSample: false },
+                        { input: "2 4 1\n1 2 3 4\n5 6 7 8\n0 1 1 3", output: "30", isSample: false },
+                        { input: "1 5 1\n10 20 30 40 50\n0 0 0 4", output: "150", isSample: false },
+                ],
+        },
+
+        // Problem 143: Best Time to Buy/Sell Stock IV
+        {
+                title: "Stock Buy Sell K Times",
+                slug: "stock-buy-sell-k-times",
+                difficulty: Difficulty.HARD,
+                statement: `Maximum profit with at most K transactions. Must sell before buying again.`,
+                inputFormat: `First line: N K
+Second line: N prices`,
+                outputFormat: `Maximum profit.`,
+                constraints: `1 ≤ N ≤ 1000
+0 ≤ K ≤ 100`,
+                sampleInput: `5 2
+2 4 1 5 3`,
+                sampleOutput: `6`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "DP: dp[k][i] = max profit with k transactions up to day i.",
+                tags: ["dynamic-programming", "arrays"],
+                testCases: [
+                        { input: "5 2\n2 4 1 5 3", output: "6", isSample: true },
+                        { input: "6 2\n3 2 6 5 0 3", output: "7", isSample: false },
+                        { input: "1 1\n5", output: "0", isSample: false },
+                        { input: "2 1\n1 5", output: "4", isSample: false },
+                        { input: "2 1\n5 1", output: "0", isSample: false },
+                        { input: "5 1\n1 2 3 4 5", output: "4", isSample: false },
+                        { input: "5 100\n1 2 3 4 5", output: "4", isSample: false },
+                        { input: "6 3\n1 2 4 2 5 7", output: "8", isSample: false },
+                        { input: "4 0\n1 2 3 4", output: "0", isSample: false },
+                        { input: "7 2\n1 4 2 7 3 5 8", output: "11", isSample: false },
+                ],
+        },
+
+        // Problem 144: Super Egg Drop
+        {
+                title: "Super Egg Drop",
+                slug: "super-egg-drop",
+                difficulty: Difficulty.HARD,
+                statement: `Given K eggs and N floors, find minimum moves to determine the critical floor.`,
+                inputFormat: `Two integers K and N.`,
+                outputFormat: `Minimum moves needed.`,
+                constraints: `1 ≤ K ≤ 100
+1 ≤ N ≤ 10^4`,
+                sampleInput: `2 6`,
+                sampleOutput: `3`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "DP with binary search: dp[m][k] = max floors checkable with m moves and k eggs.",
+                tags: ["dynamic-programming", "binary-search"],
+                testCases: [
+                        { input: "2 6", output: "3", isSample: true },
+                        { input: "1 2", output: "2", isSample: false },
+                        { input: "3 14", output: "4", isSample: false },
+                        { input: "1 1", output: "1", isSample: false },
+                        { input: "2 1", output: "1", isSample: false },
+                        { input: "1 10", output: "10", isSample: false },
+                        { input: "2 10", output: "4", isSample: false },
+                        { input: "3 25", output: "5", isSample: false },
+                        { input: "4 100", output: "7", isSample: false },
+                        { input: "2 100", output: "14", isSample: false },
+                ],
+        },
+
+        // Problem 145: Russian Doll Envelopes
+        {
+                title: "Russian Doll Envelopes",
+                slug: "russian-doll-envelopes",
+                difficulty: Difficulty.HARD,
+                statement: `Max envelopes that can be nested (each must be strictly larger in both dimensions).`,
+                inputFormat: `First line: N
+Next N lines: width height`,
+                outputFormat: `Maximum nesting depth.`,
+                constraints: `1 ≤ N ≤ 10^5`,
+                sampleInput: `4
+5 4
+6 4
+6 7
+2 3`,
+                sampleOutput: `3`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "Sort by width asc, height desc. Then LIS on heights.",
+                tags: ["binary-search", "sorting"],
+                testCases: [
+                        { input: "4\n5 4\n6 4\n6 7\n2 3", output: "3", isSample: true },
+                        { input: "1\n1 1", output: "1", isSample: false },
+                        { input: "2\n1 2\n2 3", output: "2", isSample: false },
+                        { input: "3\n1 1\n1 1\n1 1", output: "1", isSample: false },
+                        { input: "5\n1 2\n2 3\n3 4\n4 5\n5 6", output: "5", isSample: false },
+                        { input: "4\n4 5\n4 6\n6 7\n2 3", output: "3", isSample: false },
+                        { input: "3\n1 3\n3 5\n6 7", output: "3", isSample: false },
+                        { input: "4\n2 4\n1 3\n3 5\n4 6", output: "4", isSample: false },
+                        { input: "5\n10 1\n9 2\n8 3\n7 4\n6 5", output: "1", isSample: false },
+                        { input: "3\n1 1\n2 2\n3 3", output: "3", isSample: false },
+                ],
+        },
+
+        // Problem 146: Minimum Cost to Cut a Stick
+        {
+                title: "Minimum Cost to Cut Stick",
+                slug: "min-cost-cut-stick",
+                difficulty: Difficulty.HARD,
+                statement: `Cut stick of length N at given positions. Cost to cut = length of stick being cut. Find min total cost.`,
+                inputFormat: `First line: N C
+Second line: C cut positions`,
+                outputFormat: `Minimum total cost.`,
+                constraints: `1 ≤ N ≤ 10^6
+1 ≤ C ≤ min(N-1, 100)`,
+                sampleInput: `7 4
+1 3 4 5`,
+                sampleOutput: `16`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "DP: dp[i][j] = min cost to cut segment from cuts[i] to cuts[j].",
+                tags: ["dynamic-programming", "arrays"],
+                testCases: [
+                        { input: "7 4\n1 3 4 5", output: "16", isSample: true },
+                        { input: "9 2\n5 6", output: "13", isSample: false },
+                        { input: "5 1\n3", output: "5", isSample: false },
+                        { input: "10 3\n2 5 8", output: "21", isSample: false },
+                        { input: "4 2\n1 2", output: "7", isSample: false },
+                        { input: "6 3\n1 2 3", output: "12", isSample: false },
+                        { input: "100 2\n25 75", output: "200", isSample: false },
+                        { input: "5 2\n1 4", output: "9", isSample: false },
+                        { input: "8 4\n1 2 5 7", output: "19", isSample: false },
+                        { input: "10 1\n5", output: "10", isSample: false },
+                ],
+        },
+
+        // Problem 147: Maximum Gap
+        {
+                title: "Maximum Gap",
+                slug: "maximum-gap",
+                difficulty: Difficulty.HARD,
+                statement: `Find maximum gap between successive elements in sorted form of unsorted array in O(n) time.`,
+                inputFormat: `First line: N
+Second line: N non-negative integers`,
+                outputFormat: `Maximum gap.`,
+                constraints: `2 ≤ N ≤ 10^5
+0 ≤ elements ≤ 10^9`,
+                sampleInput: `4
+3 6 9 1`,
+                sampleOutput: `3`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "Use bucket sort / radix sort or pigeonhole principle.",
+                tags: ["sorting", "arrays"],
+                testCases: [
+                        { input: "4\n3 6 9 1", output: "3", isSample: true },
+                        { input: "2\n10 0", output: "10", isSample: false },
+                        { input: "3\n1 1 1", output: "0", isSample: false },
+                        { input: "5\n1 2 3 4 5", output: "1", isSample: false },
+                        { input: "5\n1 10 100 1000 10000", output: "9000", isSample: false },
+                        { input: "2\n1 100", output: "99", isSample: false },
+                        { input: "6\n3 1 7 2 8 4", output: "3", isSample: false },
+                        { input: "4\n1 3 9 27", output: "18", isSample: false },
+                        { input: "3\n0 0 0", output: "0", isSample: false },
+                        { input: "5\n5 5 5 5 10", output: "5", isSample: false },
+                ],
+        },
+
+        // Problem 148: Longest Duplicate Substring
+        {
+                title: "Longest Duplicate Substring Length",
+                slug: "longest-duplicate-substring-length",
+                difficulty: Difficulty.HARD,
+                statement: `Find length of longest duplicate substring.`,
+                inputFormat: `A string.`,
+                outputFormat: `Length of longest duplicate substring.`,
+                constraints: `2 ≤ |s| ≤ 3 × 10^4`,
+                sampleInput: `banana`,
+                sampleOutput: `3`,
+                timeLimit: 2000,
+                memoryLimit: 256,
+                hint: "Binary search on length + rolling hash to find duplicate.",
+                tags: ["binary-search", "strings"],
+                testCases: [
+                        { input: "banana", output: "3", isSample: true },
+                        { input: "abcd", output: "0", isSample: false },
+                        { input: "aa", output: "1", isSample: false },
+                        { input: "aaa", output: "2", isSample: false },
+                        { input: "aaaa", output: "3", isSample: false },
+                        { input: "abcabc", output: "3", isSample: false },
+                        { input: "abab", output: "2", isSample: false },
+                        { input: "abcde", output: "0", isSample: false },
+                        { input: "ababab", output: "4", isSample: false },
+                        { input: "mississippi", output: "4", isSample: false },
+                ],
+        },
+
+        // Problem 149: Count of Range Sum
+        {
+                title: "Count Range Sums",
+                slug: "count-range-sums",
+                difficulty: Difficulty.HARD,
+                statement: `Count subarray sums that lie in [lower, upper] range.`,
+                inputFormat: `First line: N lower upper
+Second line: N integers`,
+                outputFormat: `Count of valid range sums.`,
+                constraints: `1 ≤ N ≤ 10^5
+-10^9 ≤ elements ≤ 10^9`,
+                sampleInput: `3 -2 2
+-2 5 -1`,
+                sampleOutput: `3`,
+                timeLimit: 2000,
+                memoryLimit: 256,
+                hint: "Use merge sort with prefix sums, or BIT/Segment Tree.",
+                tags: ["sorting", "binary-search"],
+                testCases: [
+                        { input: "3 -2 2\n-2 5 -1", output: "3", isSample: true },
+                        { input: "1 0 0\n0", output: "1", isSample: false },
+                        { input: "2 0 0\n0 0", output: "3", isSample: false },
+                        { input: "3 -1 1\n1 -1 1", output: "5", isSample: false },
+                        { input: "4 -3 3\n1 2 -1 -2", output: "8", isSample: false },
+                        { input: "5 0 5\n1 1 1 1 1", output: "15", isSample: false },
+                        { input: "3 -100 100\n1 2 3", output: "6", isSample: false },
+                        { input: "4 2 4\n1 1 1 1", output: "6", isSample: false },
+                        { input: "2 5 10\n1 2", output: "0", isSample: false },
+                        { input: "3 -5 -1\n-1 -2 -3", output: "4", isSample: false },
+                ],
+        },
+
+        // Problem 150: Minimum Number of Refueling Stops
+        {
+                title: "Minimum Refueling Stops",
+                slug: "min-refueling-stops",
+                difficulty: Difficulty.HARD,
+                statement: `Car starts with fuel. Gas stations [position, fuel]. Find min stops to reach target, or -1.`,
+                inputFormat: `First line: target startFuel N
+Next N lines: position fuel (sorted by position)`,
+                outputFormat: `Minimum stops or -1.`,
+                constraints: `1 ≤ target ≤ 10^9
+0 ≤ startFuel ≤ 10^9
+0 ≤ N ≤ 500`,
+                sampleInput: `100 10 4
+10 60
+20 30
+30 30
+60 40`,
+                sampleOutput: `2`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "Greedy with max-heap: when stuck, refuel from best station passed.",
+                tags: ["greedy", "heap"],
+                testCases: [
+                        { input: "100 10 4\n10 60\n20 30\n30 30\n60 40", output: "2", isSample: true },
+                        { input: "1 1 0", output: "0", isSample: false },
+                        { input: "100 1 0", output: "-1", isSample: false },
+                        { input: "100 50 1\n25 50", output: "1", isSample: false },
+                        { input: "100 100 0", output: "0", isSample: false },
+                        { input: "200 50 2\n50 50\n100 50", output: "2", isSample: false },
+                        { input: "100 25 3\n25 25\n50 25\n75 25", output: "3", isSample: false },
+                        { input: "100 10 2\n10 100\n50 10", output: "1", isSample: false },
+                        { input: "500 100 3\n100 100\n200 100\n300 100", output: "3", isSample: false },
+                        { input: "200 50 3\n10 100\n100 10\n150 30", output: "1", isSample: false },
+                ],
+        },
+
+        // Problem 151: Strange Printer
+        {
+                title: "Strange Printer",
+                slug: "strange-printer",
+                difficulty: Difficulty.HARD,
+                statement: `Printer can only print a sequence of same chars at a time. Find min turns to print string.`,
+                inputFormat: `A string.`,
+                outputFormat: `Minimum turns.`,
+                constraints: `1 ≤ |s| ≤ 100`,
+                sampleInput: `aaabbb`,
+                sampleOutput: `2`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "DP: dp[i][j] = min turns for s[i..j]. If s[i]==s[k], try merging.",
+                tags: ["dynamic-programming", "strings"],
+                testCases: [
+                        { input: "aaabbb", output: "2", isSample: true },
+                        { input: "aba", output: "2", isSample: false },
+                        { input: "a", output: "1", isSample: false },
+                        { input: "aa", output: "1", isSample: false },
+                        { input: "ab", output: "2", isSample: false },
+                        { input: "abab", output: "3", isSample: false },
+                        { input: "abcabc", output: "5", isSample: false },
+                        { input: "aabb", output: "2", isSample: false },
+                        { input: "abba", output: "2", isSample: false },
+                        { input: "abcba", output: "3", isSample: false },
+                ],
+        },
+
+        // Problem 152: Integer to English Words
+        {
+                title: "Integer to Words",
+                slug: "integer-to-words",
+                difficulty: Difficulty.HARD,
+                statement: `Convert non-negative integer to English words. Output word count.`,
+                inputFormat: `A non-negative integer.`,
+                outputFormat: `Word count in English representation.`,
+                constraints: `0 ≤ num ≤ 2^31 - 1`,
+                sampleInput: `123`,
+                sampleOutput: `3`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "Handle groups of 3 digits. Special cases for 11-19.",
+                tags: ["strings", "implementation"],
+                testCases: [
+                        { input: "123", output: "3", isSample: true },
+                        { input: "0", output: "1", isSample: false },
+                        { input: "1", output: "1", isSample: false },
+                        { input: "10", output: "1", isSample: false },
+                        { input: "11", output: "1", isSample: false },
+                        { input: "100", output: "2", isSample: false },
+                        { input: "1000", output: "2", isSample: false },
+                        { input: "1000000", output: "2", isSample: false },
+                        { input: "12345", output: "6", isSample: false },
+                        { input: "1234567", output: "8", isSample: false },
+                ],
+        },
+
+        // Problem 153: Number of Digit One
+        {
+                title: "Count Digit One",
+                slug: "count-digit-one",
+                difficulty: Difficulty.HARD,
+                statement: `Count total occurrences of digit 1 in all non-negative integers up to n.`,
+                inputFormat: `A non-negative integer n.`,
+                outputFormat: `Total count of 1s.`,
+                constraints: `0 ≤ n ≤ 2 × 10^9`,
+                sampleInput: `13`,
+                sampleOutput: `6`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "Digit DP: count 1s at each position separately.",
+                tags: ["math", "dynamic-programming"],
+                testCases: [
+                        { input: "13", output: "6", isSample: true },
+                        { input: "0", output: "0", isSample: false },
+                        { input: "1", output: "1", isSample: false },
+                        { input: "10", output: "2", isSample: false },
+                        { input: "100", output: "21", isSample: false },
+                        { input: "99", output: "20", isSample: false },
+                        { input: "11", output: "4", isSample: false },
+                        { input: "111", output: "36", isSample: false },
+                        { input: "20", output: "12", isSample: false },
+                        { input: "1000", output: "301", isSample: false },
+                ],
+        },
+
+        // Problem 154: Minimum Moves to Equal Array Elements II
+        {
+                title: "Min Moves Equal Array",
+                slug: "min-moves-equal-array",
+                difficulty: Difficulty.HARD,
+                statement: `Find minimum moves to make all elements equal. Each move increments or decrements one element by 1.`,
+                inputFormat: `First line: N
+Second line: N integers`,
+                outputFormat: `Minimum moves.`,
+                constraints: `1 ≤ N ≤ 10^5
+-10^9 ≤ elements ≤ 10^9`,
+                sampleInput: `3
+1 2 3`,
+                sampleOutput: `2`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "Find median. Total moves = sum of distances to median.",
+                tags: ["math", "sorting"],
+                testCases: [
+                        { input: "3\n1 2 3", output: "2", isSample: true },
+                        { input: "1\n5", output: "0", isSample: false },
+                        { input: "2\n1 10", output: "9", isSample: false },
+                        { input: "4\n1 0 0 1", output: "2", isSample: false },
+                        { input: "5\n1 2 3 4 5", output: "6", isSample: false },
+                        { input: "3\n1 1 1", output: "0", isSample: false },
+                        { input: "4\n1 2 3 4", output: "4", isSample: false },
+                        { input: "5\n10 10 10 10 10", output: "0", isSample: false },
+                        { input: "3\n-1 0 1", output: "2", isSample: false },
+                        { input: "4\n-5 0 5 10", output: "20", isSample: false },
+                ],
+        },
+
+        // Problem 155: Poor Pigs
+        {
+                title: "Poor Pigs",
+                slug: "poor-pigs",
+                difficulty: Difficulty.HARD,
+                statement: `Find minimum pigs to identify poisoned bucket in given rounds.`,
+                inputFormat: `Three integers: buckets minutesToDie minutesToTest`,
+                outputFormat: `Minimum pigs needed.`,
+                constraints: `1 ≤ buckets ≤ 1000
+1 ≤ minutesToDie ≤ minutesToTest ≤ 100`,
+                sampleInput: `4 15 15`,
+                sampleOutput: `2`,
+                timeLimit: 1000,
+                memoryLimit: 256,
+                hint: "Each pig can have (minutesToTest/minutesToDie + 1) states. Need states^pigs >= buckets.",
+                tags: ["math", "implementation"],
+                testCases: [
+                        { input: "4 15 15", output: "2", isSample: true },
+                        { input: "1 1 1", output: "0", isSample: false },
+                        { input: "2 1 1", output: "1", isSample: false },
+                        { input: "8 15 15", output: "3", isSample: false },
+                        { input: "1000 15 60", output: "5", isSample: false },
+                        { input: "125 1 4", output: "3", isSample: false },
+                        { input: "100 1 1", output: "7", isSample: false },
+                        { input: "5 15 30", output: "2", isSample: false },
+                        { input: "27 1 2", output: "3", isSample: false },
+                        { input: "9 1 2", output: "2", isSample: false },
+                ],
+        },
 ];
 
 // Export the questions
