@@ -30,12 +30,13 @@ export async function Header() {
                     <Link href="/practice" className={styles.navLink}>
                         Practice
                     </Link>
-                    <Link href="/contests" className={styles.navLink}>
+                    {/* TODO: Re-enable when ready */}
+                    {/* <Link href="/contests" className={styles.navLink}>
                         Mock Tests
                     </Link>
                     <Link href="/leaderboard" className={styles.navLink}>
                         Leaderboard
-                    </Link>
+                    </Link> */}
                 </nav>
 
                 {/* Actions */}
