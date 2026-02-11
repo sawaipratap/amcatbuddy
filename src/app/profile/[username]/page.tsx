@@ -130,11 +130,12 @@ export default async function ProfilePage({ params }: PageProps) {
                 </div>
 
                 <div className={styles.actions}>
-                    {isOwner && (
+                    {/* TODO: Re-enable when ready */}
+                    {/* {isOwner && (
                         <Link href="/settings" className="btn btn-secondary">
                             Edit Profile
                         </Link>
-                    )}
+                    )} */}
                 </div>
             </div>
 
