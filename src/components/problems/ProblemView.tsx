@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { CodeEditor } from "@/components/editor/CodeEditor";
 import { Language, Verdict } from "@prisma/client";
+import { getBoilerplateCode } from "@/lib/boilerplate";
 import styles from "./ProblemView.module.css";
 
 interface Tag {
@@ -63,12 +64,12 @@ const difficultyConfig = {
 };
 
 const languageOptions = [
-    { value: "CPP", label: "C++ 17" },
-    { value: "PYTHON", label: "Python 3" },
-    { value: "JAVA", label: "Java 17" },
-    { value: "JAVASCRIPT", label: "JavaScript" },
-    { value: "GO", label: "Go" },
-    { value: "RUST", label: "Rust" },
+    { value: "CPP", label: "C++ (GCC 14)" },
+    { value: "PYTHON", label: "Python 3.13" },
+    { value: "JAVA", label: "Java 17 LTS" },
+    { value: "JAVASCRIPT", label: "JavaScript (Node.js 22)" },
+    { value: "GO", label: "Go 1.23" },
+    { value: "RUST", label: "Rust 1.85" },
 ];
 
 export function ProblemView({
@@ -105,56 +106,7 @@ export function ProblemView({
     const config = difficultyConfig[problem.difficulty as keyof typeof difficultyConfig];
 
     function getDefaultCode(lang: Language): string {
-        const templates: Record<Language, string> = {
-            CPP: `#include <bits/stdc++.h>
-using namespace std;
-
-int main() {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    
-    // Your code here
-    
-    return 0;
-}`,
-            PYTHON: `# Your code here
-`,
-            JAVA: `import java.util.*;
-
-public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        // Your code here
-    }
-}`,
-            JAVASCRIPT: `const readline = require('readline');
-const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-});
-
-let input = [];
-rl.on('line', (line) => input.push(line));
-rl.on('close', () => {
-    // Your code here
-});`,
-            GO: `package main
-
-import (
-    "fmt"
-)
-
-func main() {
-    // Your code here
-}`,
-            RUST: `use std::io::{self, BufRead};
-
-fn main() {
-    let stdin = io::stdin();
-    // Your code here
-}`,
-        };
-        return templates[lang];
+        return getBoilerplateCode(lang);
     }
 
     function handleLanguageChange(newLang: Language) {
