@@ -141,7 +141,8 @@ export default async function ProfilePage({ params }: PageProps) {
 
             {/* Stats Grid */}
             <div className={styles.statsGrid}>
-                <div className={styles.statCard}>
+                {/* TODO: Re-enable when ready */}
+                {/* <div className={styles.statCard}>
                     <div className={styles.statValue} style={{ color: ratingColor }}>
                         {user.rating}
                     </div>
@@ -152,7 +153,7 @@ export default async function ProfilePage({ params }: PageProps) {
                         {user.maxRating}
                     </div>
                     <div className={styles.statLabel}>Max Rating</div>
-                </div>
+                </div> */}
                 <div className={styles.statCard}>
                     <div className={styles.statValue}>{user.problemsSolved}</div>
                     <div className={styles.statLabel}>Problems Solved</div>
