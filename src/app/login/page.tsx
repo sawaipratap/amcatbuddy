@@ -70,20 +70,6 @@ function LoginContent() {
                         <span>Continue with Google</span>
                     </button>
 
-                    {/* Microsoft */}
-                    <button
-                        onClick={() => handleOAuthSignIn("microsoft")}
-                        className={styles.oauthButton}
-                    >
-                        <svg width="20" height="20" viewBox="0 0 23 23" fill="none">
-                            <rect x="1" y="1" width="10" height="10" fill="#F25022" />
-                            <rect x="12" y="1" width="10" height="10" fill="#7FBA00" />
-                            <rect x="1" y="12" width="10" height="10" fill="#00A4EF" />
-                            <rect x="12" y="12" width="10" height="10" fill="#FFB900" />
-                        </svg>
-                        <span>Continue with Microsoft</span>
-                    </button>
-
                     {/* GitHub */}
                     <button
                         onClick={() => handleOAuthSignIn("github")}
