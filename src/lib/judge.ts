@@ -23,14 +23,14 @@ interface ProblemLimits {
     memoryLimit: number; // MB
 }
 
-// Judge0 language IDs
+// Judge0 language IDs (standard/universal IDs)
 const languageIds: Record<Language, number> = {
-    CPP: 105,       // C++ (GCC 14.1.0)
-    PYTHON: 109,    // Python (3.13.2)
-    JAVA: 91,       // Java (JDK 17.0.6 LTS)
-    JAVASCRIPT: 102,// JavaScript (Node.js 22.08.0)
-    GO: 107,        // Go (1.23.5)
-    RUST: 108,      // Rust (1.85.0)
+    CPP: 54,        // C++ (GCC 9.2.0)
+    PYTHON: 71,     // Python 3
+    JAVA: 62,       // Java (OpenJDK 13.0.1)
+    JAVASCRIPT: 63, // JavaScript (Node.js 12.14.0)
+    GO: 60,         // Go (1.13.5)
+    RUST: 73,       // Rust (1.40.0)
 };
 
 // Judge0 status to our Verdict mapping
